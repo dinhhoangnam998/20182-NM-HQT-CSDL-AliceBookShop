@@ -1,5 +1,8 @@
 package org.alice.bookshop.service.user.account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.alice.bookshop.model.User;
 import org.alice.bookshop.repository.UserJpa;
 import org.alice.bookshop.security.SpringSecurityUtil;
@@ -16,9 +19,33 @@ public class AccountService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	public String validateSignUp(User user) {
-		// logic here
-		return "ok";
+	@Autowired
+	private AccountChecker accChecker;
+
+	public List<String> validateSignUpAccount(User user) {
+		List<String> errMsgs = new ArrayList<>();
+		String temp;
+
+		temp = accChecker.checkUsername(user.getUsername());
+		if (!temp.equals("ok")) {
+			errMsgs.add(temp);
+		}
+
+		temp = accChecker.checkPassword(user.getPassword(), user.getConfirmPassword());
+		if (!temp.equals("ok")) {
+			errMsgs.add(temp);
+		}
+
+		temp = accChecker.checkEmail(user.getEmail());
+		if (!temp.equals("ok")) {
+			errMsgs.add(temp);
+		}
+
+		temp = accChecker.checkPhone(user.getPhone());
+		if (!temp.equals("ok")) {
+			errMsgs.add(temp);
+		}
+		return errMsgs;
 	}
 
 	public void signup(User user) {

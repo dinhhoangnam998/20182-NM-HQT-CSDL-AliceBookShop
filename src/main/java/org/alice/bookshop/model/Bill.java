@@ -17,7 +17,7 @@ public class Bill {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private Date billdate;
+	private Date billDate;
 	private String note;
 	private int state;
 	

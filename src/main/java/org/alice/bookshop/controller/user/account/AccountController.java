@@ -1,5 +1,8 @@
 package org.alice.bookshop.controller.user.account;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,32 +24,31 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
-	
+
+	List<String> errMsgs = new ArrayList<>();
+
 	@GetMapping("/login")
 	public String login(Model model) {
-		
 		return "user/account/login";
 	}
-	
 
 	@GetMapping("/signup")
-	public String signup(Model model, @RequestParam(required=false) String msg) {
-		// handler failure signup here
+	public String signup(Model model) {
+		model.addAttribute("errMsgs", errMsgs);
 		model.addAttribute("user", new User());
 		return "user/account/signup";
 	}
 
 	@PostMapping("/signup")
 	public String signup(Model model, User user) {
-		String msg = accountService.validateSignUp(user);
-
-		if (msg.equals("ok")) {
+		errMsgs = accountService.validateSignUpAccount(user);
+		if (errMsgs.size() == 0) {
 			accountService.signup(user);
-			return "redirect:signup-success";
+			return "redirect:/signup-success";
 		} else {
-			model.addAttribute("msg", msg);
 			return "redirect:/signup";
 		}
+
 	}
 
 	@GetMapping("signup-success")
@@ -64,7 +66,7 @@ public class AccountController {
 	}
 
 	@GetMapping("/profiles/{id}")
-	public String profile(Model model, @PathVariable int id, @RequestParam(required=false) String msg) {
+	public String profile(Model model, @PathVariable int id, @RequestParam(required = false) String msg) {
 		// handle invalid modify here
 		User user = accountService.getUserById(id);
 		model.addAttribute("user", user);

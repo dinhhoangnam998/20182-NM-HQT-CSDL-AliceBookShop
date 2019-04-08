@@ -17,5 +17,5 @@ public class Input {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private Date inputdate;
+	private Date inputDate;
 }
