@@ -1,12 +1,13 @@
 package org.alice.bookshop.controller.user.account;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.User;
+import org.alice.bookshop.service.common.CommonService;
 import org.alice.bookshop.service.user.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("uaAccountController")
 public class AccountController {
@@ -25,30 +27,37 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
-	List<String> errMsgs = new ArrayList<>();
+	@Autowired
+	private CommonService cmService;
 
 	@GetMapping("/login")
 	public String login(Model model) {
 		return "user/account/login";
 	}
 
+	@GetMapping("/login-success")
+	public String loginSuccess(HttpSession session) {
+		session.setAttribute("user", cmService.getUser());
+		return "redirect:/home";
+	}
+
 	@GetMapping("/signup")
 	public String signup(Model model) {
-		model.addAttribute("errMsgs", errMsgs);
 		model.addAttribute("user", new User());
 		return "user/account/signup";
 	}
 
 	@PostMapping("/signup")
-	public String signup(Model model, User user) {
-		errMsgs = accountService.validateSignUpAccount(user);
-		if (errMsgs.size() == 0) {
+	public String signup(RedirectAttributes redirAttr, User user) {
+		List<String> msgs = accountService.validateSignUpAccount(user);
+		if (msgs.size() == 0) {
 			accountService.signup(user);
+			redirAttr.addFlashAttribute("user", user);
 			return "redirect:/signup-success";
 		} else {
+			redirAttr.addFlashAttribute("msgs", msgs);
 			return "redirect:/signup";
 		}
-
 	}
 
 	@GetMapping("signup-success")
@@ -62,7 +71,7 @@ public class AccountController {
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
-		return "redirect:/home?login=false";
+		return "redirect:/home";
 	}
 
 	@GetMapping("/profiles/{id}")

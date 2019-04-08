@@ -7,7 +7,9 @@
 </head>
 
 <body>
-	<div th:text="${errMsgs}"></div>
+	<div th:if="not(${#lists.isEmpty(msgs)})">
+		<div th:each="msg : ${msgs}" th:text="${msg}"></div>
+	</div>
 
 	<form th:action="@{/signup}" method="POST" th:object="${user}">
 		<input type="text" th:field="*{username}" placeholder="username">
@@ -15,6 +17,10 @@
 		<input type="password" th:field="*{confirmPassword}" placeholder="confirm password">
 		<input type="email" th:field="*{email}" placeholder="email">
 		<input type="text" th:field="*{name}" placeholder="name">
+		<!-- <input type="date" th:field="*{birthday}" placeholder="birthday"> -->
+		Male<input type="radio" th:field="*{gender}" value="0">
+		Female<input type="radio" th:field="*{gender}" value="1">
+		<input type="text" th:field="*{address}" placeholder="address">
 		<input type="tel" th:field="*{phone}" placeholder="phone">
 
 		<input type="submit" value="Sign Up">
