@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.User;
-import org.alice.bookshop.service.common.CommonService;
 import org.alice.bookshop.service.user.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("uaAccountController")
@@ -27,9 +25,6 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
-	@Autowired
-	private CommonService cmService;
-
 	@GetMapping("/login")
 	public String login(Model model) {
 		return "user/account/login";
@@ -37,7 +32,7 @@ public class AccountController {
 
 	@GetMapping("/login-success")
 	public String loginSuccess(HttpSession session) {
-		session.setAttribute("user", cmService.getUser());
+		session.setAttribute("user", accountService.getUser());
 		return "redirect:/home";
 	}
 
@@ -75,20 +70,26 @@ public class AccountController {
 	}
 
 	@GetMapping("/profiles/{id}")
-	public String profile(Model model, @PathVariable int id, @RequestParam(required = false) String msg) {
-		// handle invalid modify here
-		User user = accountService.getUserById(id);
-		model.addAttribute("user", user);
+	public String profile(Model model, @PathVariable int id) {
+		model.addAttribute("user", accountService.getUserById(id));
 		return "user/account/profile";
 	}
 
+	@GetMapping("/profiles/{id}/edit")
+	public String editProfile(Model model, @PathVariable int id) {
+		model.addAttribute("user", accountService.getUserById(id));
+		return "/user/account/edit-profile";
+	}
+
 	@PostMapping("/profiles/{id}")
-	public String profile(User user) {
-		String msg = accountService.validateModifyProfile(user);
-		if (msg.equals("ok")) {
+	public String profile(RedirectAttributes redirAttr, User user) {
+		List<String> msgs = accountService.validateModifyProfile(user);
+		if (msgs.size() == 0) {
+			redirAttr.addFlashAttribute("msg", "Change profile success");
 			return "redirect:/profiles/" + user.getId();
 		} else {
-			return "redirect:/profiles/" + user.getId() + "?msg=" + msg;
+			redirAttr.addFlashAttribute("msgs", msgs);
+			return "redirect:/profiles/" + user.getId() + "/edit";
 		}
 
 	}

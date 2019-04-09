@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/login-success")
-                .failureUrl("/login-failure")
+                .failureUrl("/login?login-failure")
                 .and()
             .exceptionHandling()
                 .accessDeniedPage("/403");
