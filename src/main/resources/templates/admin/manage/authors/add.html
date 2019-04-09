@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" />
+</head>
+
+<body>
+
+  <body>
+    <!-- msg -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${msg} != null">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong th:text="${msg}"></strong>
+    </div>
+
+    <div class="container-fluid">
+      <!-- header -->
+      <div class="row">
+        <div class="col-12">
+          <div th:insert="/base::header"></div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <!-- navside -->
+        <div class="col-3">
+          <div th:insert="/base::navside"></div>
+        </div>
+
+        <!-- main -->
+        <div class="col-9">
+          <div class="container-fluid">
+
+            <!-- title -->
+            <div class="row">
+              <div class="col-12">
+                <h2>Add Author:</h2>
+              </div>
+            </div>
+
+            <!-- form -->
+            <form th:action="@{add}" method="POST" th:object="${author}">
+              <div class="form-group">
+                <label for="name">Author name</label>
+                <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
+                  aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Help text</small>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- footer -->
+      <div class="row">
+        <div class="col-12">
+          <div th:insert="/base::footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(".alert").alert();
+    </script>
+
+
+  </body>
+
+</html>
