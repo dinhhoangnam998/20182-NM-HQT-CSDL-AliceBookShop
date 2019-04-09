@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Profile</title>
+
+<head th:insert="~{/base :: head ('Profile')}">
 </head>
+
 <body>
-<table>
-		<tr>
-			<td>Username:</td>
-			<td th:text="${user.username}"></td>
-		</tr>
+	<div th:if="${msg} != null">
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong th:text="${msg}"></strong>
+		</div>
+
+		<script>
+			 $(".alert-dismissible").fadeOut(1000)
+			/* $(".alert-dismissible").fadeTo(1000, 500).slideUp(500, function(){
+					$(".alert-dismissible").alert('close');
+			}); */
+		</script>
+	</div>
+	<table class="table table-striped table-hover table-responsive">
+		<thead class="thead-inverse">
+			<tr>
+				<th><a th:href="@{'/profiles/' + ${user.id} + '/edit'}">Edit</a></th>
+			</tr>
+			<tr>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Phone</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td scope="row" th:text="${session.user.username}"></td>
+				<td th:text="${session.user.email}"></td>
+				<td th:text="${session.user.phone}"></td>
+			</tr>
+		</tbody>
 	</table>
 </body>
+
 </html>

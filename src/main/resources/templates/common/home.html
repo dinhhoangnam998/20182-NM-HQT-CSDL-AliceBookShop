@@ -8,7 +8,7 @@
 <!--need replace hard profile id  -->
 <a th:href="@{/login}">Login</a>
 <a th:href="@{/signup}">Sign Up</a>
-<a th:href="@{/logout}">Logout</a>
-<span th:if="${session.user.id} != -1"><a th:href="@{/profiles/{userid}(userid=${user.id})}">Profile</a></span>
+<a th:if="${session.user} != null" th:href="@{/logout}">Logout</a>
+<span th:if="${session.user} != null"><a th:href="@{/profiles/{userid}(userid=${session.user.id})}">Profile</a></span>
 </body>
 </html>

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <meta charset="UTF-8">
-  <title>sign up success</title>
+<head th:insert="/base:: head('Sign Up Success')">
+
 </head>
 
 <body>
-  <div th:text="${errMsgs}"></div>
-  <div th:text="${myAttr}"></div>
+	<div th:text="'hello ' + ${user.name}"></div>
+	<a th:href="@{/login}" th:text="Login"></a>
 </body>
 
 </html>
