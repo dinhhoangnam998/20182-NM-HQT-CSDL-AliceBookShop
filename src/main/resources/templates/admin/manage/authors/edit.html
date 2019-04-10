@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Author List')}">
+<head th:include="~{/base::head('Edit Author')}">
 </head>
 
 <body>
@@ -29,15 +29,12 @@
                 <label for="name">Author name</label>
                 <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder="change author name..."
                   aria-describedby="helpId">
-                <small id="helpId" class="text-muted">Help text</small>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>
 
-        <!-- section-footer -->
-        <!-- <div class="row" th:replace="/base::section-footer ('authors')"></div> -->
       </section>
     </div>
   </main>
