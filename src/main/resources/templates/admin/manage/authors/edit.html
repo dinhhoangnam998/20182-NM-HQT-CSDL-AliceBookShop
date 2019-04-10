@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" />
+
+<head th:include="~{/base::head('Author List')}">
 </head>
 
 <body>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${msg} != null">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <strong th:text="${msg}"></strong>
-  </div>
-  <form th:action="@{edit}" method="POST" th:object="${author}">
-    <div class="form-group">
-      <label for="name">Author name</label>
-      <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder="change author name..."
-        aria-describedby="helpId">
-      <small id="helpId" class="text-muted">Help text</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</body>
+  <!-- header -->
+  <header th:replace="/base::header"></header>
 
-</html>
+  <!-- main -->
+  <main class="container-fluid my-2" id="main">
+    <div class="row ">
+      <!-- navside -->
+      <nav class="col-3" th:insert="/base::navside">
+      </nav>
+
+      <!-- section -->
+      <section class="col-9">
+        <!-- section-header -->
+        <div class="row" th:replace="/base::section-header('alert-warning', 'Edit', null)"></div>
+
+        <!-- section-content -->
+        <div class="row">
+          <div class="col-12">
+            <!-- form -->
+            <form th:action="@{edit}" method="POST" th:object="${author}">
+              <div class="form-group">
+                <label for="name">Author name</label>
+                <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder="change author name..."
+                  aria-describedby="helpId">
+                <small id="helpId" class="text-muted">Help text</small>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- section-footer -->
+        <div class="row" th:replace="/base::section-footer"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="/base::footer"></footer>
+</body>
