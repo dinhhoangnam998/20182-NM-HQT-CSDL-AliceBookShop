@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:include="~{/base::head('item List')}">
 </head>
 
@@ -17,14 +18,14 @@
       <!-- section -->
       <section class="col-9">
         <!-- section-header -->
-        <div class="row" th:replace="/base::section-header('alert-type', 'title', 'addLink')"></div>
-        
+        <div class="row" th:replace="/base::section-header('alert-warning', 'Edit Publisher', null)"></div>
+
         <!-- section-content -->
         <div class="row">
           <div class="col-12">
             <!-- choose table or form here -->
 
-              <!-- <table class="table table-striped table-hover table-sm">
+            <!-- <table class="table table-striped table-hover table-sm">
                 <thead class="thead-inverse">
                   <tr>
                     <th>id</th>
@@ -44,7 +45,7 @@
                 </tbody>
               </table> -->
 
-              <!-- <form th:action="@{???}" method="POST" th:object="${item}">
+            <form th:action="@{edit}" method="POST" th:object="${publisher}">
                 <div class="form-group">
                   <label for="name">name</label>
                   <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
@@ -52,14 +53,14 @@
                   <small id="helpId" class="text-muted">Help text</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
-              </form> -->
+              </form>
 
 
           </div>
         </div>
-        
+
         <!-- section-footer -->
-        <div class="row" th:replace="/base::section-footer ('items')"></div>
+        <!-- <div class="row" th:replace="/base::section-footer ('items')"></div> -->
       </section>
     </div>
   </main>
