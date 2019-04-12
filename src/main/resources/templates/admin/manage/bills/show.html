@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="~{/base::head('Bill List')}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="/base::header"></header>
+
+  <!-- main -->
+  <main class="container-fluid my-2" id="main">
+    <div class="row">
+      <!-- navside -->
+      <nav class="col-3" th:insert="/base::navside">
+      </nav>
+
+      <!-- section -->
+      <section class="col-9">
+        <!-- section header -->
+        <div class="row" th:replace="/base::section-header('alert-success', 'Bills:', null)"></div>
+        <!-- section-content -->
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-hover table-sm">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>id</th>
+                  <th>user id</th>
+                  <th>note</th>
+                  <th>billDate</th>
+                  <th>detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <th:block th:each="bill : ${bills}">
+                  <tr>
+                    <td scope="row" th:text="${bill.id}"></td>
+                    <td th:text="${bill.user.id}"></td>
+                    <td th:text="${bill.note}"></td>
+                    <td th:text="${bill.billDate}"></td>
+                    <td><a data-toggle="collapse" href="#content" th:href="'#' + ${#ids.next('bill')}" aria-expanded="false" aria-controls="content" th:aria-controls="${#ids.next('bill')}">
+                        show
+                      </a></td>
+                  </tr>
+                  <tr>
+                    <td colspan='4' style='padding: 0;'>
+                      <div class='collapse' id="content" th:id="${#ids.seq('bill')}">
+                        <div style='height: 200px; width: 100%; background-color: darkgray'>
+                          Im the content
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </th:block>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- section-footer -->
+        <div class="row" th:replace="/base::section-footer ('bills')"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="/base::footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="~{/base::head('Manage User')}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="/base::header"></header>
+
+  <!-- main -->
+  <main class="container-fluid my-2" id="main">
+    <div class="row">
+      <!-- navside -->
+      <nav class="col-3" th:insert="/base::navside">
+      </nav>
+
+      <!-- section -->
+      <section class="col-9">
+        <!-- section header -->
+        <div class="row" th:replace="/base::section-header('alert-success', 'User:', null)"></div>
+        <!-- section-content -->
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-striped table-hover table-sm">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>id</th>
+                  <th>username</th>
+                  <th>email</th>
+                  <th>name</th>
+                  <th>address</th>
+                  <th>phone</th>
+                  <th>block/unblock</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="user : ${users}">
+                  <td scope="row" th:text="${user.id}"></td>
+                  <td th:text="${user.username}"></td>
+                  <td th:text="${user.email}"></td>
+                  <td th:text="${user.name}"></td>
+                  <td th:text="${user.address}"></td>
+                  <td th:text="${user.phone}"></td>
+                  <td>
+                    <a th:if="${user.privilege} == 0" th:href="@{/admin/manage/users/{id}/block(id=${user.id})}" style="color: red;">block</a>
+
+                    <a th:if="${user.privilege} == -1" th:href="@{/admin/manage/users/{id}/unblock(id=${user.id})}"
+                      style="color: green;">unblock</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- section-footer -->
+        <div class="row" th:replace="/base::section-footer ('users')"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="/base::footer"></footer>
+</body>
+
+</html>
