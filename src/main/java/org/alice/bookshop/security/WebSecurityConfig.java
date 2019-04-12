@@ -32,12 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            	.antMatchers("/home").permitAll()
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/profiles").hasRole("USER")
-                .antMatchers("/carts").hasRole("USER")
-                .antMatchers("/orders").hasRole("USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+            	.antMatchers("/home/**").permitAll()
+                .antMatchers("/signup/**").permitAll()
+                .antMatchers("/profiles/**").hasRole("USER")
+                .antMatchers("/carts/**").hasRole("USER")
+                .antMatchers("/orders/**").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -48,5 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .exceptionHandling()
                 .accessDeniedPage("/403");
+        	
     }
 }

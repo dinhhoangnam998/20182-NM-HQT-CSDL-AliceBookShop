@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthorJpa extends JpaRepository<Author, Integer> {
 
+	Author findByName(String name);
+
 }

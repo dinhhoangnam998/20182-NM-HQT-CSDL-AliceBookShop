@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PublisherJpa extends JpaRepository<Publisher, Integer> {
 
+	Publisher findByName(String name);
+
 }

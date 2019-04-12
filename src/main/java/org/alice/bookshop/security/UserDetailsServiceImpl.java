@@ -30,11 +30,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         
-        if(user.getPrivilege() == 1) {
+        if(user.getPrivilege() == 0) {
         	grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         
-        if(user.getPrivilege() == 2) {
+        if(user.getPrivilege() == 1) {
         	grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         	grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }

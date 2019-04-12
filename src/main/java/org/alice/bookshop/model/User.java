@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Proxy;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Proxy(lazy = false)
 public class User {
 
 	@Id
@@ -31,7 +34,7 @@ public class User {
 	private int gender;
 	private String phone;
 	private String address;
-	private String imageurl;
+	private String imgurl;
 	private int privilege;
 
 }
