@@ -70,6 +70,9 @@ public class SeedDataController {
 		for (int i = 1; i <= 200; i++) {
 			Author author = new Author();
 			author.setName("author " + i);
+			author.setBirthday(new Date(2019 - 40 - 1900 + (int) Math.floor(Math.random() * 20),
+					(int) Math.floor(Math.random() * 12), (int) Math.floor(Math.random() * 28)));
+			author.setImgURL("/img/author/...");
 			aJpa.save(author);
 
 			Category category = new Category();
@@ -79,6 +82,7 @@ public class SeedDataController {
 			Publisher publisher = new Publisher();
 			publisher.setName("publisher " + i);
 			publisher.setAddress("city " + i);
+			publisher.setPhone("0123456789");
 			pJpa.save(publisher);
 
 			Book book = new Book();

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller("amCategoryController")
 @RequestMapping("/admin/manage/categories")
 public class CategoryController {
+
 	@Autowired
 	private CategoryService categoryService;
 
@@ -51,11 +52,13 @@ public class CategoryController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Category category) {
+	public String add(RedirectAttributes redirAttr, Category category,
+			@RequestParam(required = false, defaultValue = "15") int psize) {
+		long totalPage = categoryService.getTotalPage(psize);
 		String msg = categoryService.add(category);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Add category successed")) {
-			return "redirect:/admin/manage/categories";
+		if (msg.contains("successed")) {
+			return "redirect:/admin/manage/categories?p=" + totalPage;
 		} else {
 			return "redirect:add";
 		}
@@ -69,11 +72,12 @@ public class CategoryController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Category category) {
+	public String edit(RedirectAttributes redirAttr, Category category,
+			@RequestParam(required = false, defaultValue = "1") int p) {
 		String msg = categoryService.edit(category);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Edit category successed")) {
-			return "redirect:/admin/manage/categories";
+		if (msg.contains("successed")) {
+			return "redirect:/admin/manage/categories?p=" + p;
 		} else {
 			return "redirect:edit";
 		}

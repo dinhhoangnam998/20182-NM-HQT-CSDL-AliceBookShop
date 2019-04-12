@@ -12,36 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service("amCategoryService")
 public class CategoryService {
+
 	@Autowired
 	public CategoryJpa categoryJpa;
 
-	private boolean isCategoryExit(Category category) {
-		Category isExit = categoryJpa.findByName(category.getName());
-		return (isExit != null);
-	}
-
 	public List<Category> getCategories(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
-		Page<Category> categorys = categoryJpa.findAll(pageable);
-		return categorys.getContent();
-	}
-
-	public String add(Category category) {
-		if (isCategoryExit(category)) {
-			return "Category already exit";
-		} else {
-			categoryJpa.save(category);
-			return "Add category successed";
-		}
-	}
-
-	public String edit(Category category) {
-		if (isCategoryExit(category)) {
-			return "Category already exit";
-		} else {
-			categoryJpa.save(category);
-			return "Edit category successed";
-		}
+		Page<Category> categories = categoryJpa.findAll(pageable);
+		return categories.getContent();
 	}
 
 	public long getTotalPage(int psize) {
@@ -52,4 +30,29 @@ public class CategoryService {
 		}
 		return totalPage;
 	}
+
+	private boolean isCategoryExit(Category category) {
+		Category isExit = categoryJpa.findByName(category.getName());
+		return (isExit != null);
+	}
+
+	public String add(Category category) {
+		if (isCategoryExit(category)) {
+			return "Category " + category.getName() + " already exit!";
+		} else {
+			categoryJpa.save(category);
+			return "Add category " + category.getName() + " successed";
+		}
+	}
+
+	public String edit(Category category) {
+		Category originCategory = categoryJpa.getOne(category.getId());
+		if (isCategoryExit(category) && !originCategory.getName().equals(category.getName())) {
+			return "Category's name should not be same with another!";
+		} else {
+			categoryJpa.save(category);
+			return "Edit category id = " + category.getId() + " successed";
+		}
+	}
+
 }

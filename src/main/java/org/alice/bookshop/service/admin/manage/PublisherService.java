@@ -12,36 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service("amPublisherService")
 public class PublisherService {
+
 	@Autowired
 	public PublisherJpa publisherJpa;
 
-	private boolean isPublisherExit(Publisher Publisher) {
-		Publisher isExit = publisherJpa.findByName(Publisher.getName());
-		return (isExit != null);
-	}
-
 	public List<Publisher> getPublishers(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
-		Page<Publisher> Publishers = publisherJpa.findAll(pageable);
-		return Publishers.getContent();
-	}
-
-	public String add(Publisher Publisher) {
-		if (isPublisherExit(Publisher)) {
-			return "publisher already exit";
-		} else {
-			publisherJpa.save(Publisher);
-			return "Add publisher successed";
-		}
-	}
-
-	public String edit(Publisher Publisher) {
-		if (isPublisherExit(Publisher)) {
-			return "publisher already exit";
-		} else {
-			publisherJpa.save(Publisher);
-			return "Edit publisher successed";
-		}
+		Page<Publisher> publishers = publisherJpa.findAll(pageable);
+		return publishers.getContent();
 	}
 
 	public long getTotalPage(int psize) {
@@ -52,4 +30,29 @@ public class PublisherService {
 		}
 		return totalPage;
 	}
+
+	private boolean isPublisherExit(Publisher publisher) {
+		Publisher isExit = publisherJpa.findByName(publisher.getName());
+		return (isExit != null);
+	}
+
+	public String add(Publisher publisher) {
+		if (isPublisherExit(publisher)) {
+			return "Publisher " + publisher.getName() + " already exit!";
+		} else {
+			publisherJpa.save(publisher);
+			return "Add publisher " + publisher.getName() + " successed";
+		}
+	}
+
+	public String edit(Publisher publisher) {
+		Publisher originPublisher = publisherJpa.getOne(publisher.getId());
+		if (isPublisherExit(publisher) && !originPublisher.getName().equals(publisher.getName())) {
+			return "Publisher's name should not be same with another!";
+		} else {
+			publisherJpa.save(publisher);
+			return "Edit publisher id = " + publisher.getId() + " successed";
+		}
+	}
+
 }

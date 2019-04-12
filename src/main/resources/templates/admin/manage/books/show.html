@@ -35,7 +35,7 @@
                     <th>coverPrice</th>
                     <th>inputPrice</th>
                     <th>description</th>
-                    <th>imgurl</th>
+                    <!-- <th>imgurl</th> -->
                     <th>author</th>
                     <th>category</th>
                     <th>publisher</th>
@@ -48,12 +48,12 @@
                     <td th:text="${book.name}"></td>
                     <td th:text="${book.width}"></td>
                     <td th:text="${book.height}"></td>
-                    <td th:text="${book.totalPages}"></td>
-                    <td th:text="${book.year}"></td>
+                    <td th:text="${book.totalPage}"></td>
+                    <td th:text="${book.releaseDate}"></td>
                     <td th:text="${book.coverPrice}"></td>
                     <td th:text="${book.inputPrice}"></td>
                     <td th:text="${book.description}"></td>
-                    <td th:text="${book.imgurl}"></td>
+                    <!-- <td th:text="${book.imgurl}"></td> -->
                     <td th:text="${book.author.name}"></td>
                     <td th:text="${book.category.name}"></td>
                     <td th:text="${book.publisher.name}"></td>
@@ -74,3 +74,4 @@
   <!-- footer -->
   <footer th:replace="/base::footer"></footer>
 </body>
+</html>

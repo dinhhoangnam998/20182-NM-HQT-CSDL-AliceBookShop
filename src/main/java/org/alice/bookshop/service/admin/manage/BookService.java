@@ -16,7 +16,6 @@ public class BookService {
 	@Autowired
 	public BookJpa bookJpa;
 
-	// khong can cai nay lam gi
 	private boolean isBookExit(Book book) {
 		Book isExit = bookJpa.findByName(book.getName());
 		return (isExit != null);
@@ -30,7 +29,7 @@ public class BookService {
 
 	public String add(Book book) {
 		if (isBookExit(book)) {
-			return "Book already exit";
+			return "Book " + book.getName() + " already exit";
 		} else {
 			bookJpa.save(book);
 			return "Add book successed";
@@ -38,8 +37,9 @@ public class BookService {
 	}
 
 	public String edit(Book book) {
-			bookJpa.save(book);
-			return "Edit book successed";
+
+		bookJpa.save(book);
+		return "Edit book successed";
 	}
 
 	public long getTotalPage(int psize) {

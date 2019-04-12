@@ -37,7 +37,7 @@ public class AuthorController {
 		long totalPage = authorService.getTotalPage(psize);
 		List<Integer> pageList = paginator.getPageList(totalPage, p, psize);
 		model.addAttribute("pages", pageList);
-		
+
 		// current active page
 		model.addAttribute("curPage", p);
 		model.addAttribute("lastPage", totalPage);
@@ -52,11 +52,13 @@ public class AuthorController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Author author) {
+	public String add(RedirectAttributes redirAttr, Author author,
+			@RequestParam(required = false, defaultValue = "15") int psize) {
+		long totalPage = authorService.getTotalPage(psize);
 		String msg = authorService.add(author);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Add author successed")) {
-			return "redirect:/admin/manage/authors";
+		if (msg.contains("successed")) {
+			return "redirect:/admin/manage/authors?p=" + totalPage;
 		} else {
 			return "redirect:add";
 		}
@@ -70,11 +72,12 @@ public class AuthorController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Author author) {
+	public String edit(RedirectAttributes redirAttr, Author author,
+			@RequestParam(required = false, defaultValue = "1") int p) {
 		String msg = authorService.edit(author);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Edit author successed")) {
-			return "redirect:/admin/manage/authors";
+		if (msg.contains("successed")) {
+			return "redirect:/admin/manage/authors?p=" + p;
 		} else {
 			return "redirect:edit";
 		}

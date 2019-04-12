@@ -56,10 +56,10 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr th:each="orderDetail: ${order.orderDetails}">
-                                <td scope="row" th:text="${orderDetail.book.name}"></td>
+                              <tr th:each="orderLine: ${order.orderLines}">
+                                <td scope="row" th:text="${orderLine.book.name}"></td>
                                 <!-- <td></td> -->
-                                <td th:text="${orderDetail.quantity}"></td>
+                                <td th:text="${orderLine.quantity}"></td>
                               </tr>
                             </tbody>
                           </table>

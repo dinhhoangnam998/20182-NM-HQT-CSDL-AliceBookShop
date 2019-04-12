@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller("amPublisherController")
 @RequestMapping("/admin/manage/publishers")
 public class PublisherController {
+
 	@Autowired
 	private PublisherService publisherService;
 
@@ -36,7 +37,7 @@ public class PublisherController {
 		long totalPage = publisherService.getTotalPage(psize);
 		List<Integer> pageList = paginator.getPageList(totalPage, p, psize);
 		model.addAttribute("pages", pageList);
-		
+
 		// current active page
 		model.addAttribute("curPage", p);
 		model.addAttribute("lastPage", totalPage);
@@ -51,11 +52,13 @@ public class PublisherController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Publisher publisher) {
+	public String add(RedirectAttributes redirAttr, Publisher publisher,
+			@RequestParam(required = false, defaultValue = "15") int psize) {
+		long totalPage = publisherService.getTotalPage(psize);
 		String msg = publisherService.add(publisher);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Add publisher successed")) {
-			return "redirect:/admin/manage/publishers";
+		if (msg.contains("successed")) {
+			return "redirect:/admin/manage/publishers?p=" + totalPage;
 		} else {
 			return "redirect:add";
 		}
@@ -69,11 +72,12 @@ public class PublisherController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Publisher publisher) {
+	public String edit(RedirectAttributes redirAttr, Publisher publisher,
+			@RequestParam(required = false, defaultValue = "1") int p) {
 		String msg = publisherService.edit(publisher);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Edit publisher successed")) {
-			return "redirect:/admin/manage/publishers";
+		if (msg.contains("successed")) {
+			return "redirect:/admin/manage/publishers?p=" + p;
 		} else {
 			return "redirect:edit";
 		}

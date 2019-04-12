@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:include="~{/base::head('Author List')}">
 </head>
 
@@ -34,8 +35,9 @@
                 <tr th:each="author : ${authors}">
                   <td scope="row" th:text="${author.id}"></td>
                   <td th:text="${author.name}"></td>
-                  <td th:text="${author.imgurl}"></td>
-                  <td><a th:href="@{/admin/manage/authors/{id}/edit(id=${author.id})}"><i class="fa fa-edit"></i></a>
+                  <td th:text="${author.imgURL}"></td>
+                  <td><a th:href="@{/admin/manage/authors/{id}/edit(id=${author.id})}"><i
+                        class="fa fa-edit"></i></a>
                   </td>
                 </tr>
               </tbody>
