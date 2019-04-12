@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Edit Author')}">
+<head th:include="~{/base::head('Edit input')}">
 </head>
 
 <body>
@@ -18,27 +18,22 @@
       <!-- section -->
       <section class="col-9">
         <!-- section-header -->
-        <div th:replace="/base::section-header('alert-warning', 'Edit', null)"></div>
+        <div th:replace="/base::section-header('alert-warning', 'Edit input', null)"></div>
 
         <!-- section-content -->
-        <form th:action="@{edit}" method="POST" th:object="${author}">
+        <form th:action="@{edit}" method="POST" th:object="${input}">
           <div class="form-group">
-            <label for="name">Author name</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="">
+            <label for="date">input date</label>
+            <input type="date" id="date" th:field="*{inputDate}" class="form-control" placeholder=""
+              autofocus="autofocus">
           </div>
 
           <div class="form-group">
-            <label for="birthday">Author birthday</label>
-            <input type="date" id="birthday" th:field="*{birthday}" class="form-control" placeholder="">
-          </div>
-
-          <div class="form-group">
-            <label for="imgURL">Author imgURL</label>
-            <input type="text" id="imgURL" th:field="*{imgURL}" class="form-control" placeholder="/img/author/...">
+            <label for="note">input note</label>
+            <input type="text" id="note" th:field="*{note}" class="form-control" placeholder="who, where, how">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-
       </section>
     </div>
   </main>

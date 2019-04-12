@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -38,8 +39,6 @@ public class Book {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
-	private int coverPrice;
-	private int inputPrice;
 	private String description;
 	@ElementCollection
 	private List<String> imgURLs;
@@ -54,4 +53,7 @@ public class Book {
 
 	@ManyToOne
 	private Publisher publisher;
+	
+	@OneToOne(mappedBy = "book")
+	private Book_Sale book_sale;
 }

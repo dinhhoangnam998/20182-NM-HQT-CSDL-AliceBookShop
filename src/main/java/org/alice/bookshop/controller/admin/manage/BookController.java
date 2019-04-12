@@ -70,7 +70,7 @@ public class BookController {
 	public String add(RedirectAttributes redirAttr, Book book) {
 		String msg = bookService.add(book);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Add book successed")) {
+		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/books";
 		} else {
 			return "redirect:add";
@@ -91,7 +91,7 @@ public class BookController {
 	public String edit(RedirectAttributes redirAttr, Book book) {
 		String msg = bookService.edit(book);
 		redirAttr.addFlashAttribute("msg", msg);
-		if (msg.equals("Edit book successed")) {
+		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/books";
 		} else {
 			return "redirect:edit";

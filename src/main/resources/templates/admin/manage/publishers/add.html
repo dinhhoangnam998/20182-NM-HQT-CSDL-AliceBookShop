@@ -18,21 +18,25 @@
       <!-- section -->
       <section class="col-9">
         <!-- section-header -->
-        <div class="row" th:replace="/base::section-header('alert-warning', 'Add Publisher', null)"></div>
+        <div th:replace="/base::section-header('alert-warning', 'Add Publisher', null)"></div>
 
         <!-- section-content -->
-        <div class="row">
-          <div class="col-12">
-            <form th:action="@{add}" method="POST" th:object="${publisher}">
-                <div class="form-group">
-                  <label for="name">name</label>
-                  <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
-                    aria-describedby="helpId" autofocus="autofocus">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+        <form th:action="@{add}" method="POST" th:object="${publisher}">
+          <div class="form-group">
+            <label for="phone">name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="" autofocus="autofocus">
           </div>
-        </div>
+          <div class="form-group">
+            <label for="address">address</label>
+            <input type="text" id="address" th:field="*{address}" class="form-control" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="phone">phone</label>
+            <input type="text" id="phone" th:field="*{phone}" class="form-control" placeholder="">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
       </section>
     </div>
   </main>
@@ -40,4 +44,5 @@
   <!-- footer -->
   <footer th:replace="/base::footer"></footer>
 </body>
+
 </html>

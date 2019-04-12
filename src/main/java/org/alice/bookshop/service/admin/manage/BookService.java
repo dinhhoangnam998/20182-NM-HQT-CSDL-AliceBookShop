@@ -16,15 +16,24 @@ public class BookService {
 	@Autowired
 	public BookJpa bookJpa;
 
-	private boolean isBookExit(Book book) {
-		Book isExit = bookJpa.findByName(book.getName());
-		return (isExit != null);
-	}
-
 	public List<Book> getBooks(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
 		Page<Book> books = bookJpa.findAll(pageable);
 		return books.getContent();
+	}
+
+	public long getTotalPage(int psize) {
+		long total = bookJpa.count();
+		long totalPage = total / psize;
+		if (total % psize != 0) {
+			totalPage += 1;
+		}
+		return totalPage;
+	}
+
+	private boolean isBookExit(Book book) {
+		Book isExit = bookJpa.findByName(book.getName());
+		return (isExit != null);
 	}
 
 	public String add(Book book) {
@@ -37,17 +46,14 @@ public class BookService {
 	}
 
 	public String edit(Book book) {
+		Book origin = bookJpa.getOne(book.getId());
+		if (!origin.getName().equals(book.getName()) && isBookExit(book)) {
+			return "Book's name should not be same with another!";
+		} else {
 
-		bookJpa.save(book);
-		return "Edit book successed";
-	}
-
-	public long getTotalPage(int psize) {
-		long total = bookJpa.count();
-		long totalPage = total / psize;
-		if (total % psize != 0) {
-			totalPage += 1;
+			bookJpa.save(book);
+			return "Edit book id = " + book.getId() + " successed";
 		}
-		return totalPage;
 	}
+
 }

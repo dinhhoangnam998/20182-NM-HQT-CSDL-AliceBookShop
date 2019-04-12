@@ -21,19 +21,14 @@
         <div class="row" th:replace="/base::section-header('alert-warning', 'Edit Category', null)"></div>
 
         <!-- section-content -->
-        <div class="row">
-          <div class="col-12">
-            <form th:action="@{edit}" method="POST" th:object="${category}">
-                <div class="form-group">
-                  <label for="name">category name</label>
-                  <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
-                    aria-describedby="helpId" autofocus="autofocus">
-                  <small id="helpId" class="text-muted">Help text</small>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+        <form th:action="@{edit}" method="POST" th:object="${category}">
+          <div class="form-group">
+            <label for="name">category name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="" autofocus="autofocus">
           </div>
-        </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
       </section>
     </div>
   </main>
@@ -41,4 +36,5 @@
   <!-- footer -->
   <footer th:replace="/base::footer"></footer>
 </body>
+
 </html>

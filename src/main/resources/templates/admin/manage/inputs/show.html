@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="~{/base::head('Input List')}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="/base::header"></header>
+
+  <!-- main -->
+  <main class="container-fluid my-2" id="main">
+    <div class="row">
+      <!-- navside -->
+      <nav class="col-3" th:insert="/base::navside">
+      </nav>
+
+      <!-- section -->
+      <section class="col-9">
+        <!-- section header -->
+        <div th:replace="/base::section-header('alert-success', 'Inputs:', 'inputs/add')"></div>
+        <!-- section-content -->
+        <table class="table table-bordered table-sm">
+          <thead class="thead-inverse">
+            <tr>
+              <th>id</th>
+              <th>date</th>
+              <th>note</th>
+              <th>detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block th:each="input : ${inputs}">
+              <tr>
+                <td scope="row" th:text="${input.id}"></td>
+                <td th:text="${input.inputDate}"></td>
+                <td th:text="${input.note}"></td>
+                <td><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i class="fa fa-edit"></i></a>
+                </td>
+                <td>
+                  <a data-toggle="collapse" th:href="'#' + ${#ids.next('input')}">
+                        show detail
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="5" style="padding: 0;">
+                  <div class="collapse" id="content" th:id="${#ids.seq('order')}">
+                    <!-- table -->
+                      <table class="table table-borderless table-info my-auto px-3">
+                        <!-- <caption>List of order line</caption> -->
+                        <thead>
+                          <tr>
+                            <th>book</th>
+                            <th>quantity</th>
+                            <th>input price</th>
+                            <th>totalLinePrice</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each="iter-book_input: ${input.book_inputs}">
+                            <td scope="row" th:text="${iter-book_input.book.name}"></td>
+                            <td th:text="${iter-book_input.quantity}"></td>
+                            <td th:text="${iter-book_input.inputPrice}"></td>
+                            <td th:text="${iter-book_input.inputPrice} * ${iter-book_input.quantity} "></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!-- form -->
+                      <form class="form-inline" th:action="@{/admin/manage/book_inputs/add}" method="POST" th:object="${book_input}">
+                          <label class="mx-1" for="quantity">quantity</label>
+                          <input type="quantity" id="quantity" th:field="*{quantity}" class="form-control mx-1" placeholder="" autofocus="autofocus">
+                      
+                          <label class="mx-1" for="book">book</label>
+                          <select th:field="*{book.id}" class="form-control mx-1" id="book">
+                            <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}">
+                            </option>
+                          </select>
+
+                          <label class="mx-1" for="coverPrice">coverPrice</label>
+                          <input type="coverPrice" id="coverPrice" th:field="*{coverPrice}" class="form-control mx-1" placeholder="">
+                          
+                          <label class="mx-1" for="inputPrice">inputPrice</label>
+                          <input type="inputPrice" id="inputPrice" th:field="*{inputPrice}" class="form-control mx-1" placeholder="">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                    </div>
+                </td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
+        <!-- section-footer -->
+        <div th:replace="/base::section-footer ('Inputs')"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="/base::footer"></footer>
+</body>
+
+</html>

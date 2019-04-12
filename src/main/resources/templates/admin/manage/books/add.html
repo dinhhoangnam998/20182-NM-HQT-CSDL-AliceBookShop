@@ -18,84 +18,63 @@
       <!-- section -->
       <section class="col-9">
         <!-- section-header -->
-        <div class="row" th:replace="/base::section-header('alert-warning', 'Add book', null)"></div>
+        <div th:replace="/base::section-header('alert-warning', 'Add book', null)"></div>
 
         <!-- section-content -->
-        <div class="row">
-          <div class="col-12">
-
-            <form th:action="@{add}" method="POST" th:object="${book}">
-              <div class="form-group">
-                <label for="name">name</label>
-                <input type="text" id="name" th:field="*{name}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="width">width</label>
-                <input type="text" id="width" th:field="*{width}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="height">height</label>
-                <input type="text" id="height" th:field="*{height}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="totalPages">totalPages</label>
-                <input type="text" id="totalPages" th:field="*{totalPages}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="year">year</label>
-                <input type="text" id="year" th:field="*{year}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="inputPrice">inputPrice</label>
-                <input type="text" id="inputPrice" th:field="*{inputPrice}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="coverPrice">coverPrice</label>
-                <input type="text" id="coverPrice" th:field="*{coverPrice}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="description">description</label>
-                <input type="text" id="description" th:field="*{description}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="imgurl">imgurl</label>
-                <input type="text" id="imgurl" th:field="*{imgurl}" class="form-control" placeholder=""
-                  aria-describedby="helpId" autofocus="autofocus">
-              </div>
-              <div class="form-group">
-                <label for="author">Author</label>
-                <select th:field="*{author.id}" class="form-control" id="author">
-                  <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}">Wireframe
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="category">category</label>
-                <select th:field="*{category.id}" class="form-control" id="category">
-                  <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
-                    Wireframe</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="publisher">publisher</label>
-                <select th:field="*{publisher.id}" class="form-control" id="publisher">
-                  <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}">
-                    Wireframe</option>
-                </select>
-              </div>
-
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+        <form th:action="@{add}" method="POST" th:object="${book}">
+          <div class="form-group">
+            <label for="name">name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="" autofocus="autofocus">
           </div>
-        </div>
+          <div class="form-group">
+            <label for="width">width</label>
+            <input type="number" id="width" th:field="*{width}" class="form-control" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="height">height</label>
+            <input type="number" id="height" th:field="*{height}" class="form-control" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="totalPage">totalPage</label>
+            <input type="number" id="totalPage" th:field="*{totalPage}" class="form-control" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="releaseDate">releaseDate</label>
+            <input type="date" id="releaseDate" th:field="*{releaseDate}" class="form-control" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="description">description</label>
+            <input type="text" id="description" th:field="*{description}" class="form-control" placeholder="">
+          </div>
+          <!-- <div class="form-group">
+            <label for="imgURL">imgURL</label>
+            <input type="text" id="imgURL" th:field="*{imgURL}" class="form-control" placeholder="/img/book/...">
+          </div> -->
+          <div class="form-group">
+            <label for="author">Author</label>
+            <select th:field="*{author.id}" class="form-control" id="author">
+              <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}">
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="category">category</label>
+            <select th:field="*{category.id}" class="form-control" id="category">
+              <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="publisher">publisher</label>
+            <select th:field="*{publisher.id}" class="form-control" id="publisher">
+              <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}">
+              </option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
       </section>
     </div>
   </main>
@@ -103,4 +82,5 @@
   <!-- footer -->
   <footer th:replace="/base::footer"></footer>
 </body>
+
 </html>

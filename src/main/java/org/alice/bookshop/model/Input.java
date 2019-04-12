@@ -1,11 +1,13 @@
 package org.alice.bookshop.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -32,4 +34,7 @@ public class Input {
 	@Temporal(TemporalType.DATE)
 	private Date inputDate;
 	private String note;
+	
+	@OneToMany(mappedBy = "input")
+	private Set<Book_Input> book_inputs;
 }

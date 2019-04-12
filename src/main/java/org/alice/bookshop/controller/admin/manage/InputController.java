@@ -5,4 +5,5 @@ import org.springframework.stereotype.Controller;
 @Controller("amInputController")
 public class InputController {
 
+	
 }

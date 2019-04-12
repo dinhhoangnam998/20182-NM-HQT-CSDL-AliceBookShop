@@ -18,62 +18,64 @@
       <!-- section -->
       <section class="col-9">
         <!-- section header -->
-        <div class="row" th:replace="/base::section-header('alert-success', 'Orders:', null)"></div>
+        <div th:replace="/base::section-header('alert-success', 'Orders:', null)"></div>
         <!-- section-content -->
-        <div class="row">
-          <div class="col-12">
-            <table class="table table-hover table-bordered table-sm">
-              <thead class="thead-inverse">
-                <tr>
-                  <th>id</th>
-                  <th>user id</th>
-                  <th>note</th>
-                  <th>orderDate</th>
-                  <th>detail</th>
-                </tr>
-              </thead>
-              <tbody>
-                <th:block th:each="order : ${orders}">
-                  <tr>
-                    <td scope="row" th:text="${order.id}"></td>
-                    <td th:text="${order.user.id}"></td>
-                    <td th:text="${order.note}"></td>
-                    <td th:text="${order.orderDate}"></td>
-                    <td><a data-toggle="collapse" href="#content" th:href="'#' + ${#ids.next('order')}" aria-expanded="false" aria-controls="content" th:aria-controls="${#ids.next('order')}">
-                        show
-                      </a></td>
-                  </tr>
-                  <tr>
-                    <td colspan="4" style="padding: 0;">
-                      <div class="collapse" id="content" th:id="${#ids.seq('order')}">
-                        <div class="container-fluid">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <!-- <th>user's name</th> -->
-                                <th>book name</th>
-                                <th>quantity</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr th:each="orderLine: ${order.orderLines}">
-                                <td scope="row" th:text="${orderLine.book.name}"></td>
-                                <!-- <td></td> -->
-                                <td th:text="${orderLine.quantity}"></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </th:block>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <table class="table table-bordered table-sm">
+          <thead class="thead-inverse">
+            <tr>
+              <th>id</th>
+              <th>orderDate</th>
+              <th>user</th>
+              <th>note</th>
+              <th>Total</th>
+              <th>detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block th:each="order : ${orders}">
+              <tr>
+                <td scope="row" th:text="${order.id}"></td>
+                <td th:text="${order.orderDate}"></td>
+                <td th:text="${order.user.name}"></td>
+                <td th:text="${order.note}"></td>
+                <td th:text="${order.totalSalePrice}"></td>
+                <td>
+                  <a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}">
+                        show detail
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="6" style="padding: 0;">
+                  <div class="collapse" id="content" th:id="${#ids.seq('order')}">
+                      <table class="table table-borderless table-info my-auto px-3">
+                        <!-- <caption>List of order line</caption> -->
+                        <thead>
+                          <tr>
+                            <th>book name</th>
+                            <th>quantity</th>
+                            <th>sale percent</th>
+                            <th>totalLinePrice</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each="orderLine: ${order.orderLines}">
+                            <td scope="row" th:text="${orderLine.book.name}"></td>
+                            <td th:text="${orderLine.quantity}"></td>
+                            <td th:text="${orderLine.book.book_sale.percent}"></td>
+                            <td th:text="${orderLine.totalSalePrice}"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </td>
+              </tr>
+            </th:block>
+          </tbody>
+        </table>
         <!-- section-footer -->
-        <div class="row" th:replace="/base::section-footer ('orders')"></div>
+        <div th:replace="/base::section-footer ('orders')"></div>
       </section>
 
     </div>

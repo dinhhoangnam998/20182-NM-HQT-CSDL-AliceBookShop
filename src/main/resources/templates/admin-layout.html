@@ -17,50 +17,52 @@
 
       <!-- section -->
       <section class="col-9">
-        <!-- section-header -->
-        <div class="row" th:replace="/base::section-header('alert-type', 'title', 'addLink')"></div>
+        <div class="container-fluid">
+          <!-- section-header -->
+          <div th:replace="/base::section-header('alert-type', 'title', 'addLink')"></div>
 
-        <!-- section-content -->
-        <div class="row">
-          <div class="col-12">
-            <!-- choose table or form here -->
+          <!-- section-content -->
+          <div 
+            <div class="col-12">
+              <!-- choose table or form here -->
 
-            <!-- <table class="table table-striped table-hover table-sm">
-                <thead class="thead-inverse">
-                  <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>imgurl</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="item : ${items}">
-                    <td scope="row" th:text="${item.id}"></td>
-                    <td th:text="${item.name}"></td>
-                    <td th:text="${item.imgurl}"></td>
-                    <td><a th:href="@{/admin/manage/items/{id}/edit(id=${item.id})}"><i class="fa fa-edit"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
+              <!-- <table class="table table-striped table-hover table-sm">
+                          <thead class="thead-inverse">
+                            <tr>
+                              <th>id</th>
+                              <th>name</th>
+                              <th>imgurl</th>
+                              <th>Edit</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="item : ${items}">
+                              <td scope="row" th:text="${item.id}"></td>
+                              <td th:text="${item.name}"></td>
+                              <td th:text="${item.imgurl}"></td>
+                              <td><a th:href="@{/admin/manage/items/{id}/edit(id=${item.id})}"><i class="fa fa-edit"></i></a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table> -->
 
-            <!-- <form th:action="@{???}" method="POST" th:object="${item}">
-                <div class="form-group">
-                  <label for="name">name</label>
-                  <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
-                    aria-describedby="helpId" autofocus="autofocus">
-                  <small id="helpId" class="text-muted">Help text</small>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form> -->
+              <!-- <form th:action="@{???}" method="POST" th:object="${item}">
+                          <div class="form-group">
+                            <label for="name">name</label>
+                            <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
+                              aria-describedby="helpId" autofocus="autofocus">
+                            <small id="helpId" class="text-muted">Help text</small>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form> -->
 
 
+            </div>
           </div>
-        </div>
 
-        <!-- section-footer -->
-        <div class="row" th:replace="/base::section-footer ('items')"></div>
+          <!-- section-footer -->
+          <div th:replace="/base::section-footer ('items')"></div>
+        </div>
       </section>
     </div>
   </main>

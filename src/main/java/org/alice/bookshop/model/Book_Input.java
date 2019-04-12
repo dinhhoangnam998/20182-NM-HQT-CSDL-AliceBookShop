@@ -25,7 +25,8 @@ public class Book_Input {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int quantity;
-
+	private int coverPrice;
+	private int inputPrice;
 	@OneToOne
 	private Book book;
 

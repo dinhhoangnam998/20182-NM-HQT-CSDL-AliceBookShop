@@ -18,33 +18,29 @@
       <!-- section -->
       <section class="col-9">
         <!-- section-header -->
-        <div class="row" th:replace="/base::section-header('alert-success', 'Publishers', 'publishers/add')"></div>
+        <div th:replace="/base::section-header('alert-success', 'Publishers', 'publishers/add')"></div>
 
         <!-- section-content -->
-        <div class="row">
-          <div class="col-12">
-            <table class="table table-striped table-hover table-sm">
-                <thead class="thead-inverse">
-                  <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="publisher : ${publishers}">
-                    <td scope="row" th:text="${publisher.id}"></td>
-                    <td th:text="${publisher.name}"></td>
-                    <td><a th:href="@{/admin/manage/publishers/{id}/edit(id=${publisher.id})}"><i class="fa fa-edit"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
-        </div>
-        
+        <table class="table table-bordered table-hover table-sm">
+          <thead class="thead-inverse">
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="publisher : ${publishers}">
+              <td scope="row" th:text="${publisher.id}"></td>
+              <td th:text="${publisher.name}"></td>
+              <td><a th:href="@{/admin/manage/publishers/{id}/edit(id=${publisher.id})}"><i class="fa fa-edit"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
         <!-- section-footer -->
-        <div class="row" th:replace="/base::section-footer ('publishers')"></div>
+        <div th:replace="/base::section-footer ('publishers')"></div>
       </section>
     </div>
   </main>
@@ -52,4 +48,5 @@
   <!-- footer -->
   <footer th:replace="/base::footer"></footer>
 </body>
+
 </html>
