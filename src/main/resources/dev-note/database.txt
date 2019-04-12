@@ -1,0 +1,21 @@
+Author(id, name, birthday, imgURL)
+
+Order(id, orderDate, note, state, totalSalePrice, totalInputPrice, orderDetails)
+
+OrderDetail(id, quantity, totalSalePrice, totalInputPrice, order, book)
+
+Book_Input(id, quantity, book, input)
+
+Book_Sale(id, percent, book, sale)
+
+Book(id, name, width, height, totalPage, releaseDate, coverPrice, inputPrice, description, imgURLs, thumbURLs)
+
+Category(id, name)
+
+Input(id, inputDate, note)
+
+Publisher(id, name, address, phone)
+
+Sale(id, name, beginDate, endDate)
+
+User(id, username, password, email, birthday, gender, address, phone, imgURL, privilege)

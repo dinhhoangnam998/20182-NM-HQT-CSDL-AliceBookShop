@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Bill List')}">
+<head th:include="~{/base::head('Order List')}">
 </head>
 
 <body>
@@ -18,36 +18,51 @@
       <!-- section -->
       <section class="col-9">
         <!-- section header -->
-        <div class="row" th:replace="/base::section-header('alert-success', 'Bills:', null)"></div>
+        <div class="row" th:replace="/base::section-header('alert-success', 'Orders:', null)"></div>
         <!-- section-content -->
         <div class="row">
           <div class="col-12">
-            <table class="table table-hover table-sm">
+            <table class="table table-hover table-bordered table-sm">
               <thead class="thead-inverse">
                 <tr>
                   <th>id</th>
                   <th>user id</th>
                   <th>note</th>
-                  <th>billDate</th>
+                  <th>orderDate</th>
                   <th>detail</th>
                 </tr>
               </thead>
               <tbody>
-                <th:block th:each="bill : ${bills}">
+                <th:block th:each="order : ${orders}">
                   <tr>
-                    <td scope="row" th:text="${bill.id}"></td>
-                    <td th:text="${bill.user.id}"></td>
-                    <td th:text="${bill.note}"></td>
-                    <td th:text="${bill.billDate}"></td>
-                    <td><a data-toggle="collapse" href="#content" th:href="'#' + ${#ids.next('bill')}" aria-expanded="false" aria-controls="content" th:aria-controls="${#ids.next('bill')}">
+                    <td scope="row" th:text="${order.id}"></td>
+                    <td th:text="${order.user.id}"></td>
+                    <td th:text="${order.note}"></td>
+                    <td th:text="${order.orderDate}"></td>
+                    <td><a data-toggle="collapse" href="#content" th:href="'#' + ${#ids.next('order')}" aria-expanded="false" aria-controls="content" th:aria-controls="${#ids.next('order')}">
                         show
                       </a></td>
                   </tr>
                   <tr>
-                    <td colspan='4' style='padding: 0;'>
-                      <div class='collapse' id="content" th:id="${#ids.seq('bill')}">
-                        <div style='height: 200px; width: 100%; background-color: darkgray'>
-                          Im the content
+                    <td colspan="4" style="padding: 0;">
+                      <div class="collapse" id="content" th:id="${#ids.seq('order')}">
+                        <div class="container-fluid">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <!-- <th>user's name</th> -->
+                                <th>book name</th>
+                                <th>quantity</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr th:each="orderDetail: ${order.orderDetails}">
+                                <td scope="row" th:text="${orderDetail.book.name}"></td>
+                                <!-- <td></td> -->
+                                <td th:text="${orderDetail.quantity}"></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </td>
@@ -58,7 +73,7 @@
           </div>
         </div>
         <!-- section-footer -->
-        <div class="row" th:replace="/base::section-footer ('bills')"></div>
+        <div class="row" th:replace="/base::section-footer ('orders')"></div>
       </section>
 
     </div>

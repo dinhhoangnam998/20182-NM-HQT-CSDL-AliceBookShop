@@ -9,30 +9,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Proxy;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Proxy(lazy = false)
-public class Bill {
+@Table(name = "Orders")
+public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private Date billDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date orderDate;
 	private String note;
 	private int state;
+	private int totalSalePrice;
+	private int totalInputPrice;
 
 	@ManyToOne
 	private User user;
-	
-	@OneToMany(mappedBy = "bill")
-	private Set<BillDetail> billDetails;
+
+	@OneToMany(mappedBy = "order")
+	private Set<OrderLine> orderLines;
 }

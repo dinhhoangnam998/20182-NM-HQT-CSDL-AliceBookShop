@@ -10,25 +10,29 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Proxy(lazy = false)
-public class BillDetail {
+public class OrderLine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int quantity;
+	private int totalSalePrice;
+	private int totalInputPrice;
 
 	@ManyToOne
-	private Bill bill;
+	private Order order;
 
 	@OneToOne
-	private Book book = new Book();
+	private Book book;
 
 }

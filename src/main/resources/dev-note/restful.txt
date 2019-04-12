@@ -4,11 +4,11 @@ Admin:
 /bookshop/admin/manage/users/{id}/block
 /bookshop/admin/manage/users/{id}/unblock
 
-/bookshop/admin/manage/bills
-/bookshop/admin/manage/bills/{id}/detail
-/bookshop/admin/manage/bills/{id}/boxing
-/bookshop/admin/manage/bills/{id}/successed
-/bookshop/admin/manage/bills/{id}/canceled
+/bookshop/admin/manage/orders
+/bookshop/admin/manage/orders/{id}/detail
+/bookshop/admin/manage/orders/{id}/boxing
+/bookshop/admin/manage/orders/{id}/successed
+/bookshop/admin/manage/orders/{id}/canceled
 
 /bookshop/admin/manage/books
 /bookshop/admin/manage/books/add
