@@ -1,7 +1,8 @@
 package org.alice.bookshop.model;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,5 +37,5 @@ public class Input {
 	private String note;
 	
 	@OneToMany(mappedBy = "input")
-	private Set<Book_Input> book_inputs;
+	private List<Book_Input> book_inputs = new ArrayList<Book_Input>();
 }

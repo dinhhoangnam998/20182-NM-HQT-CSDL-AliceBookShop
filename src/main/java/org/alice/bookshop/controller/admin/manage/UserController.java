@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller("amUserController") @RequestMapping("/admin/manage/users")
+@Controller("amUserController")
+@RequestMapping("/admin/manage/users")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private PaginationService paginator;
 
@@ -33,16 +34,16 @@ public class UserController {
 
 		// pagination
 		long totalPage = userService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList(totalPage, p, psize);
+		List<Integer> pageList = paginator.getPageList();
 		model.addAttribute("pages", pageList);
-		
+
 		// current active page
 		model.addAttribute("curPage", p);
 		model.addAttribute("lastPage", totalPage);
 
 		return "/admin/manage/users/show";
 	}
-	
+
 	@GetMapping("/{id}/block")
 	public String block(RedirectAttributes redirAttr, @PathVariable int id) {
 		User user = userService.block(id);
@@ -50,7 +51,7 @@ public class UserController {
 		redirAttr.addFlashAttribute("msg", msg);
 		return "redirect:/admin/manage/users";
 	}
-	
+
 	@GetMapping("/{id}/unblock")
 	public String unblock(RedirectAttributes redirAttr, @PathVariable int id) {
 		User user = userService.unblock(id);

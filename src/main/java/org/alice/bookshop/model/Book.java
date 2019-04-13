@@ -3,6 +3,7 @@ package org.alice.bookshop.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,14 +47,14 @@ public class Book {
 	private List<String> thumbURLs;
 
 	@ManyToOne
-	private Author author;
+	private Author author = new Author();
 
 	@ManyToOne
-	private Category category;
+	private Category category = new Category();
 
 	@ManyToOne
-	private Publisher publisher;
-	
+	private Publisher publisher = new Publisher();
+
 	@OneToOne(mappedBy = "book")
-	private Book_Sale book_sale;
+	private Book_Sale book_sale = new Book_Sale();
 }

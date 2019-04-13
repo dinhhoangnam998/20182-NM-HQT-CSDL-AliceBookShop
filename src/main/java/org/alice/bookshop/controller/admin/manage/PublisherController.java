@@ -35,7 +35,7 @@ public class PublisherController {
 
 		// pagination
 		long totalPage = publisherService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList(totalPage, p, psize);
+		List<Integer> pageList = paginator.getPageList();
 		model.addAttribute("pages", pageList);
 
 		// current active page

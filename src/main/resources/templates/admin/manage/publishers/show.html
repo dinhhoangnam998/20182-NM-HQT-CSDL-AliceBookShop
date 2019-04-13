@@ -26,6 +26,8 @@
             <tr>
               <th>id</th>
               <th>name</th>
+              <th>address</th>
+              <th>phone</th>
               <th>Edit</th>
             </tr>
           </thead>
@@ -33,6 +35,8 @@
             <tr th:each="publisher : ${publishers}">
               <td scope="row" th:text="${publisher.id}"></td>
               <td th:text="${publisher.name}"></td>
+              <td th:text="${publisher.address}"></td>
+              <td th:text="${publisher.phone}"></td>
               <td><a th:href="@{/admin/manage/publishers/{id}/edit(id=${publisher.id})}"><i class="fa fa-edit"></i></a>
               </td>
             </tr>

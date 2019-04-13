@@ -27,6 +27,7 @@
               <th>date</th>
               <th>note</th>
               <th>detail</th>
+              <th>edit</th>
             </tr>
           </thead>
           <tbody>
@@ -35,41 +36,42 @@
                 <td scope="row" th:text="${input.id}"></td>
                 <td th:text="${input.inputDate}"></td>
                 <td th:text="${input.note}"></td>
-                <td><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i class="fa fa-edit"></i></a>
-                </td>
                 <td>
                   <a data-toggle="collapse" th:href="'#' + ${#ids.next('input')}">
-                        show detail
+                    show detail
                   </a>
                 </td>
-              </tr>
+                <td><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
 
               <tr>
                 <td colspan="5" style="padding: 0;">
-                  <div class="collapse" id="content" th:id="${#ids.seq('order')}">
+                  <div class="collapse" id="content" th:id="${#ids.seq('input')}">
                     <!-- table -->
                       <table class="table table-borderless table-info my-auto px-3">
-                        <!-- <caption>List of order line</caption> -->
                         <thead>
                           <tr>
                             <th>book</th>
                             <th>quantity</th>
+                            <th>cover price</th>
                             <th>input price</th>
-                            <th>totalLinePrice</th>
+                            <th>totalInputPrice</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr th:each="iter-book_input: ${input.book_inputs}">
-                            <td scope="row" th:text="${iter-book_input.book.name}"></td>
-                            <td th:text="${iter-book_input.quantity}"></td>
-                            <td th:text="${iter-book_input.inputPrice}"></td>
-                            <td th:text="${iter-book_input.inputPrice} * ${iter-book_input.quantity} "></td>
+                          <tr th:each="book_input: ${input.book_inputs}">
+                            <td scope="row" th:text="${book_input.book.name}"></td>
+                            <td th:text="${book_input.quantity}"></td>
+                            <td th:text="${book_input.inputPrice}"></td>
+                            <td th:text="${book_input.coverPrice}"></td>
+                            <td th:text="${book_input.inputPrice} * ${book_input.quantity} "></td>
                           </tr>
                         </tbody>
                       </table>
 
                       <!-- form -->
-                      <form class="form-inline" th:action="@{/admin/manage/book_inputs/add}" method="POST" th:object="${book_input}">
+                      <!-- <form class="form-inline" th:action="@{/admin/manage/book_inputs/add}" method="POST" th:object="${book_input}">
                           <label class="mx-1" for="quantity">quantity</label>
                           <input type="quantity" id="quantity" th:field="*{quantity}" class="form-control mx-1" placeholder="" autofocus="autofocus">
                       
@@ -85,7 +87,7 @@
                           <label class="mx-1" for="inputPrice">inputPrice</label>
                           <input type="inputPrice" id="inputPrice" th:field="*{inputPrice}" class="form-control mx-1" placeholder="">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
+                      </form> -->
                     </div>
                 </td>
               </tr>

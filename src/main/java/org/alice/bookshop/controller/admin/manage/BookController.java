@@ -47,7 +47,7 @@ public class BookController {
 
 		// pagination
 		long totalPage = bookService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList(totalPage, p, psize);
+		List<Integer> pageList = paginator.getPageList();
 		model.addAttribute("pages", pageList);
 
 		// current active page
@@ -67,11 +67,12 @@ public class BookController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Book book) {
+	public String add(RedirectAttributes redirAttr, Book book, @RequestParam(required = false, defaultValue = "15") int psize) {
+		long totalPage = bookService.getTotalPage(psize);
 		String msg = bookService.add(book);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/books";
+			return "redirect:/admin/manage/books?p=" + totalPage;
 		} else {
 			return "redirect:add";
 		}
@@ -88,11 +89,12 @@ public class BookController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Book book) {
+	public String edit(RedirectAttributes redirAttr, Book book,
+			@RequestParam(required = false, defaultValue = "1") int p) {
 		String msg = bookService.edit(book);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/books";
+			return "redirect:/admin/manage/books?p=" + p;
 		} else {
 			return "redirect:edit";
 		}

@@ -2,87 +2,96 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="~{/base::head('Order List')}">
+	<style>
+
+	</style>
 </head>
 
 <body>
-  <!-- header -->
-  <header th:replace="/base::header"></header>
+	<!-- header -->
+	<header th:replace="/base::header"></header>
 
-  <!-- main -->
-  <main class="container-fluid my-2" id="main">
-    <div class="row">
-      <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
-      </nav>
+	<!-- main -->
+	<main class="container-fluid my-2" id="main">
+		<div class="row">
+			<!-- navside -->
+			<nav class="col-3" th:insert="/base::navside"></nav>
 
-      <!-- section -->
-      <section class="col-9">
-        <!-- section header -->
-        <div th:replace="/base::section-header('alert-success', 'Orders:', null)"></div>
-        <!-- section-content -->
-        <table class="table table-bordered table-sm">
-          <thead class="thead-inverse">
-            <tr>
-              <th>id</th>
-              <th>orderDate</th>
-              <th>user</th>
-              <th>note</th>
-              <th>Total</th>
-              <th>detail</th>
-            </tr>
-          </thead>
-          <tbody>
-            <th:block th:each="order : ${orders}">
-              <tr>
-                <td scope="row" th:text="${order.id}"></td>
-                <td th:text="${order.orderDate}"></td>
-                <td th:text="${order.user.name}"></td>
-                <td th:text="${order.note}"></td>
-                <td th:text="${order.totalSalePrice}"></td>
-                <td>
-                  <a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}">
-                        show detail
-                  </a>
-                </td>
-              </tr>
+			<!-- section -->
+			<section class="col-9">
+				<!-- section header -->
+				<div th:replace="/base::section-header('alert-success', 'Orders:', null)"></div>
+				<!-- section-content -->
+				<table class="table table-bordered table-sm">
+					<thead class="thead-inverse">
+						<tr>
+							<th>id</th>
+							<th>orderDate</th>
+							<th>user</th>
+							<th>note</th>
+							<th>Total</th>
+							<th>DELIVERING</th>
+							<th>CANCELED</th>
+							<th>SUCCESSED</th>
+							<th>detail</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="order : ${orders}">
+							<tr>
+								<td scope="row" th:text="${order.id}"></td>
+								<td th:text="${order.orderDate}"></td>
+								<td th:text="${order.user.name}"></td>
+								<td th:text="${order.note}"></td>
+								<td th:text="${order.totalSalePrice}"></td>
+								<td><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' myactive') : (' myunactive')" th:href="@{/admin/manage/orders/{id}/change-state(id=${order.id}, s=2)}">delivering</a></td>
+								<td><a class="" th:attrappend="class= (${order.state} == -1) ? (' myactive') : (' myunactive')" th:href="@{/admin/manage/orders/{id}/change-state(id=${order.id}, s=-1)}">cancled</a></td>
+								<td><a class="" th:attrappend="class= (${order.state} == 3 ) ? (' myactive') : (' myunactive')" th:href="@{/admin/manage/orders/{id}/change-state(id=${order.id}, s=3)}">successed</a></td>
+								<td><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"> show detail </a></td>
+						</tr>
 
-              <tr>
-                <td colspan="6" style="padding: 0;">
-                  <div class="collapse" id="content" th:id="${#ids.seq('order')}">
-                      <table class="table table-borderless table-info my-auto px-3">
-                        <!-- <caption>List of order line</caption> -->
-                        <thead>
-                          <tr>
-                            <th>book name</th>
-                            <th>quantity</th>
-                            <th>sale percent</th>
-                            <th>totalLinePrice</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr th:each="orderLine: ${order.orderLines}">
-                            <td scope="row" th:text="${orderLine.book.name}"></td>
-                            <td th:text="${orderLine.quantity}"></td>
-                            <td th:text="${orderLine.book.book_sale.percent}"></td>
-                            <td th:text="${orderLine.totalSalePrice}"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                </td>
-              </tr>
-            </th:block>
-          </tbody>
-        </table>
-        <!-- section-footer -->
-        <div th:replace="/base::section-footer ('orders')"></div>
-      </section>
+						<tr>
+							<td colspan="6" style="padding: 0;">
+								<div class="collapse" id="content" th:id="${#ids.seq('order')}">
+									<table class="table table-borderless table-info my-auto px-3">
+										<thead>
+											<tr>
+												<th>book name</th>
+												<th>quantity</th>
+												<th>sale percent</th>
+												<th>totalLinePrice</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="orderLine: ${order.orderLines}">
+												<td scope="row" th:text="${orderLine.book.name}"></td>
+												<td th:text="${orderLine.quantity}"></td>
+												<td th:text="${orderLine.book.book_sale.percent}"></td>
+												<td th:text="${orderLine.totalSalePrice}"></td>
+											</tr>
+											<tr>
+												<td scope="row" th:text="${order.orderLines[0].book.name}"></td>
+												<td th:text="${order.orderLines[0].quantity}"></td>
+												<td th:text="${order.orderLines[0].book.book_sale.percent}"></td>
+												<td th:text="${order.orderLines[0].totalSalePrice}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+			<!-- section-footer -->
+			<div th:replace="/base::section-footer ('orders')"></div>
+		</section>
 
-    </div>
-  </main>
+	</div>
+	</main>
 
-  <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
+	<!-- footer -->
+	<footer th:replace="/base::footer"></footer>
 </body>
 
 </html>

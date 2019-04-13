@@ -10,7 +10,7 @@
 
   <!-- main -->
   <main class="container-fluid my-2" id="main">
-    <div class="row">
+    <div class="row pt-3">
       <!-- navside -->
       <nav class="col-3" th:insert="/base::navside">
       </nav>
@@ -22,7 +22,7 @@
         </div>
 
         <!-- section-content -->
-        <table class="table table-bordered table-hover table-sm">
+        <table class="table table-bordered table-hover table-sm mt-2" style="height: 77vh">
           <thead class="thead-inverse">
             <tr>
               <th>id</th>
@@ -38,7 +38,7 @@
               <td th:text="${author.name}"></td>
               <td th:text="${author.birthday}"></td>
               <td th:text="${author.imgURL}"></td>
-              <td><a th:href="@{/admin/manage/authors/{id}/edit(id=${author.id})}"><i class="fa fa-edit"></i></a>
+              <td><a th:href="@{/admin/manage/authors/{id}/edit#main(id=${author.id})}"><i class="fa fa-edit"></i></a>
               </td>
             </tr>
           </tbody>

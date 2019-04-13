@@ -10,7 +10,7 @@
 
   <!-- main -->
   <main class="container-fluid my-2" id="main">
-    <div class="row ">
+    <div class="row pt-3">
       <!-- navside -->
       <nav class="col-3" th:insert="/base::navside">
       </nav>
@@ -21,7 +21,7 @@
         <div th:replace="/base::section-header('alert-warning', 'Add author', null)"></div>
 
         <!-- section-content -->
-        <form th:action="@{add}" method="POST" th:object="${author}">
+        <form th:action="@{add#main}" method="POST" th:object="${author}">
           <div class="form-group">
             <label for="name">Author name</label>
             <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="" autofocus="autofocus">

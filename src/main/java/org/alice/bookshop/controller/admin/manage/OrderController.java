@@ -2,6 +2,8 @@ package org.alice.bookshop.controller.admin.manage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.alice.bookshop.model.Order;
 import org.alice.bookshop.service.admin.manage.OrderService;
 import org.alice.bookshop.service.common.ulti.PaginationService;
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("amOrderController")
 @RequestMapping("/admin/manage/orders")
@@ -28,57 +30,54 @@ public class OrderController {
 	private OrderService orderService;
 
 	@Autowired
-	private PaginationService paginator;
+	private PaginationService pagi;
 
 	@GetMapping
-	public String show(Model model, @RequestParam(required = false, defaultValue = "1") int p,
+	public String show(HttpSession ss, Model model, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
+		pagi.process(ss, p, psize, orderService.orderJpa.count());
+
 		// get order page
-		List<Order> orders = orderService.getOrders(p, psize);
+		List<Order> orders = orderService.getOrders(p, pagi.getPageSize());
 		model.addAttribute("orders", orders);
 
 		// pagination
-		long totalPage = orderService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList(totalPage, p, psize);
+		List<Integer> pageList = pagi.getPageList();
 		model.addAttribute("pages", pageList);
-
-		// current active page
-		model.addAttribute("curPage", p);
-		model.addAttribute("lastPage", totalPage);
 
 		return "/admin/manage/orders/show";
 	}
 
-	@PostMapping
-	public String changeOrderState(@PathVariable int id, @RequestParam int state,
-			@RequestParam(required = false, defaultValue = "1") int p) {
+	@GetMapping("/{id}/change-state")
+	public String changeOrderState(RedirectAttributes redirAtrr, @RequestParam int s, @PathVariable int id) {
 		Order order = orderService.orderJpa.getOne(id);
-		String msg;
-
-		switch (state) {
-		case CANCELED:
-			order.setState(CANCELED);
-			msg = "CANCELED the Order";
-			break;
-
-		case DELIVERING:
-			order.setState(DELIVERING);
-			msg = "CANCELED the Order";
-			break;
-
-		case SUCCESSED:
-			order.setState(SUCCESSED);
-			break;
-
-		default:
-			msg = "Nothing happend";
-			break;
-		}
+		order.setState(s);
+//
+//		switch (state) {
+//		case CANCELED:
+//			order4change.setState(CANCELED);
+//			msg = "CANCELED the Order";
+//			break;
+//
+//		case DELIVERING:
+//			order4change.setState(DELIVERING);
+//			msg = "CANCELED the Order";
+//			break;
+//
+//		case SUCCESSED:
+//			order4change.setState(SUCCESSED);
+//			break;
+//
+//		default:
+//			msg = "Nothing happend";
+//			break;
+//		}
+//		
 		orderService.orderJpa.save(order);
 
-		
-		return "redirect:/admin/manage/orders?p=" + p;
+//		redirAtrr.addFlashAttribute("msg", msg);
+		return "redirect:/admin/manage/orders?p=" + pagi.getCurPage();
 	}
 
 }

@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller("uaAccountController")
 public class AccountController {
 
+	final static int PRIVILEGE_ADMIN = 1;
+
 	@Autowired
 	private AccountService accountService;
 
@@ -32,8 +34,13 @@ public class AccountController {
 
 	@GetMapping("/login-success")
 	public String loginSuccess(HttpSession session) {
-		session.setAttribute("user", accountService.getUser());
-		return "redirect:/home";
+		User user = accountService.getUser();
+		session.setAttribute("user", user);
+		if (user.getPrivilege() == PRIVILEGE_ADMIN) {
+			return "redirect:/admin/manage/authors";
+		} else {
+			return "redirect:/home";
+		}
 	}
 
 	@GetMapping("/signup")

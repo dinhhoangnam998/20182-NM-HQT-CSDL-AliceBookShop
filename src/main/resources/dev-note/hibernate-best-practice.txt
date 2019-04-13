@@ -1,0 +1,6 @@
+1. sau khi mô hình hóa, cơ sở dữ liệu sẽ có các kiểu quan hệ 1-1, 1-n, hoặc n-n bị tách thành 1-1. Cho nên việc của mình lúc này là đặt các entity vào các class thích hợp
+2. khi này, khi khởi tạo các đối tượng single, thì tẹt, khỏi lo. Nhưng khi khởi tạo các đối tượng wrap, thì best-practice là buộc phải truyền vào các dependency tương ứng. Không nên dùng casacade.
+3. nên dùng EARGE để đảm bảo đối tượng lấy ra luôn sẵn dùng, không bị null pointer exception. (nếu làm tốt các bước trên thì EARGE cũng chỉ cần lấy ra đối tượng đơn --> quite ease)
+4. Khi mapping các đối tượng loại wrap từ form, thì cần khởi tạo mặc định các đối tượng con trước, thì sẽ không bị null pointer exception
+5. Chưa biết khi nào nên thêm chiều ngược lại vào nữa, và không biết khi thêm rồi thì dùng sao cho hợp lý đây?? Cơ mà, đừng để khởi tạo thằng A thì cần khởi tạo thằng B, khi khởi tạo thằng B, lại có yêu cầu khởi tạo thằng A --> loop đó
+ 

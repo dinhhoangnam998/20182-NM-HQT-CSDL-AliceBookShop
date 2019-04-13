@@ -12,7 +12,7 @@
   <main class="container-fluid my-2" id="main">
     <div class="row ">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-3 pt-3" th:insert="/base::navside">
       </nav>
 
       <!-- section -->
@@ -21,7 +21,7 @@
         <div th:replace="/base::section-header('alert-warning', 'Edit', null)"></div>
 
         <!-- section-content -->
-        <form th:action="@{edit}" method="POST" th:object="${author}">
+        <form th:action="@{edit#main}" method="POST" th:object="${author}">
           <div class="form-group">
             <label for="name">Author name</label>
             <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="">

@@ -28,8 +28,8 @@ public class Book_Input {
 	private int coverPrice;
 	private int inputPrice;
 	@OneToOne
-	private Book book;
+	private Book book = new Book();
 
 	@OneToOne
-	private Input input;
+	private Input input = new Input();
 }

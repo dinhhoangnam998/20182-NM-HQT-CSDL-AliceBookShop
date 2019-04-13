@@ -22,15 +22,6 @@ public class AuthorService {
 		return authors.getContent();
 	}
 
-	public long getTotalPage(int psize) {
-		long total = authorJpa.count();
-		long totalPage = total / psize;
-		if (total % psize != 0) {
-			totalPage += 1;
-		}
-		return totalPage;
-	}
-
 	private boolean isAuthorExit(Author author) {
 		Author isExit = authorJpa.findByName(author.getName());
 		return (isExit != null);

@@ -1,7 +1,7 @@
 package org.alice.bookshop.model;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,5 +45,5 @@ public class Order {
 	private User user;
 
 	@OneToMany(mappedBy = "order")
-	private Set<OrderLine> orderLines;
+	private List<OrderLine> orderLines;
 }
