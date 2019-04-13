@@ -12,7 +12,7 @@ Input(id, inputDate, note, book_inputs)
 
 Order(id, orderDate, note, state, totalSalePrice, totalInputPrice, user, orderLines)
 
-OrderLine(id, quantity, totalSalePrice, totalInputPrice, order, book)
+OrderLine(id, quantity, salePercent, order, book)
 
 Publisher(id, name, address, phone)
 

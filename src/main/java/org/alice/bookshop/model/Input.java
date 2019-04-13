@@ -35,7 +35,14 @@ public class Input {
 	@Temporal(TemporalType.DATE)
 	private Date inputDate;
 	private String note;
-	
+
 	@OneToMany(mappedBy = "input")
 	private List<Book_Input> book_inputs = new ArrayList<Book_Input>();
+
+	@Override
+	public String toString() {
+		return "Input [id=" + id + ", inputDate=" + inputDate + ", note=" + note + ", book_inputs=" + book_inputs + "]";
+	}
+	
+	
 }

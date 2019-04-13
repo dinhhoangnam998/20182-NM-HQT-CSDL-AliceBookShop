@@ -20,13 +20,4 @@ public class OrderService {
 		Page<Order> authors = orderJpa.findAll(pageable);
 		return authors.getContent();
 	}
-
-	public long getTotalPage(int psize) {
-		long total = orderJpa.count();
-		long totalPage = total / psize;
-		if (total % psize != 0) {
-			totalPage += 1;
-		}
-		return totalPage;
-	}
 }

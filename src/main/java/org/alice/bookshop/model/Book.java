@@ -3,14 +3,12 @@ package org.alice.bookshop.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -55,6 +53,10 @@ public class Book {
 	@ManyToOne
 	private Publisher publisher = new Publisher();
 
-	@OneToOne(mappedBy = "book")
-	private Book_Sale book_sale = new Book_Sale();
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 }

@@ -2,6 +2,8 @@ package org.alice.bookshop.controller.admin.manage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.alice.bookshop.model.User;
 import org.alice.bookshop.service.admin.manage.UserService;
 import org.alice.bookshop.service.common.ulti.PaginationService;
@@ -22,24 +24,21 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	private PaginationService paginator;
+	private PaginationService pagi;
 
 	@GetMapping
-	public String show(Model model, @RequestParam(required = false, defaultValue = "1") int p,
+	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
+		pagi.process(ss, p, psize, userService.userJpa.count());
+
 		// get user page
-		List<User> users = userService.getUsers(p, psize);
+		List<User> users = userService.getUsers(p, pagi.getPageSize());
 		model.addAttribute("users", users);
 
 		// pagination
-		long totalPage = userService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList();
+		List<Integer> pageList = pagi.getPageList();
 		model.addAttribute("pages", pageList);
-
-		// current active page
-		model.addAttribute("curPage", p);
-		model.addAttribute("lastPage", totalPage);
 
 		return "/admin/manage/users/show";
 	}

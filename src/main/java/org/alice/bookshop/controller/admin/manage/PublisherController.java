@@ -2,6 +2,8 @@ package org.alice.bookshop.controller.admin.manage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.alice.bookshop.model.Publisher;
 import org.alice.bookshop.service.admin.manage.PublisherService;
 import org.alice.bookshop.service.common.ulti.PaginationService;
@@ -23,24 +25,21 @@ public class PublisherController {
 	private PublisherService publisherService;
 
 	@Autowired
-	private PaginationService paginator;
+	private PaginationService pagi;
 
 	@GetMapping
-	public String show(Model model, @RequestParam(required = false, defaultValue = "1") int p,
+	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
+		pagi.process(ss, p, psize, publisherService.publisherJpa.count());
+
 		// get publisher page
-		List<Publisher> publishers = publisherService.getPublishers(p, psize);
+		List<Publisher> publishers = publisherService.getPublishers(p, pagi.getPageSize());
 		model.addAttribute("publishers", publishers);
 
 		// pagination
-		long totalPage = publisherService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList();
+		List<Integer> pageList = pagi.getPageList();
 		model.addAttribute("pages", pageList);
-
-		// current active page
-		model.addAttribute("curPage", p);
-		model.addAttribute("lastPage", totalPage);
 
 		return "/admin/manage/publishers/show";
 	}
@@ -52,13 +51,11 @@ public class PublisherController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Publisher publisher,
-			@RequestParam(required = false, defaultValue = "15") int psize) {
-		long totalPage = publisherService.getTotalPage(psize);
+	public String add(RedirectAttributes redirAttr, Publisher publisher) {
 		String msg = publisherService.add(publisher);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/publishers?p=" + totalPage;
+			return "redirect:/admin/manage/publishers?p=" + pagi.getLastPage();
 		} else {
 			return "redirect:add";
 		}
@@ -72,12 +69,11 @@ public class PublisherController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Publisher publisher,
-			@RequestParam(required = false, defaultValue = "1") int p) {
+	public String edit(RedirectAttributes redirAttr, Publisher publisher) {
 		String msg = publisherService.edit(publisher);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/publishers?p=" + p;
+			return "redirect:/admin/manage/publishers?p=" + pagi.getCurPage();
 		} else {
 			return "redirect:edit";
 		}

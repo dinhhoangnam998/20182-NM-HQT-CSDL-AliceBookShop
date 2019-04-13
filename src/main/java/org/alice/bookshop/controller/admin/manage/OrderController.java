@@ -20,12 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/admin/manage/orders")
 public class OrderController {
 
-	final int CANCELED = -1;
-	final int ORDERING = 0;
-	final int ORDERED = 1;
-	final int DELIVERING = 2;
-	final int SUCCESSED = 3;
-
 	@Autowired
 	private OrderService orderService;
 
@@ -53,30 +47,7 @@ public class OrderController {
 	public String changeOrderState(RedirectAttributes redirAtrr, @RequestParam int s, @PathVariable int id) {
 		Order order = orderService.orderJpa.getOne(id);
 		order.setState(s);
-//
-//		switch (state) {
-//		case CANCELED:
-//			order4change.setState(CANCELED);
-//			msg = "CANCELED the Order";
-//			break;
-//
-//		case DELIVERING:
-//			order4change.setState(DELIVERING);
-//			msg = "CANCELED the Order";
-//			break;
-//
-//		case SUCCESSED:
-//			order4change.setState(SUCCESSED);
-//			break;
-//
-//		default:
-//			msg = "Nothing happend";
-//			break;
-//		}
-//		
 		orderService.orderJpa.save(order);
-
-//		redirAtrr.addFlashAttribute("msg", msg);
 		return "redirect:/admin/manage/orders?p=" + pagi.getCurPage();
 	}
 

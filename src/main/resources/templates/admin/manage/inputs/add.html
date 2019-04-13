@@ -21,11 +21,11 @@
         <div th:replace="/base::section-header('alert-warning', 'Add input', null)"></div>
 
         <!-- section-content -->
-        <form th:action="@{add}" method="POST" th:object="${input}">
+        <form th:action="@{add#main}" method="POST" th:object="${input}">
+
           <div class="form-group">
             <label for="date">input date</label>
-            <input type="date" id="date" th:field="*{inputDate}" class="form-control" placeholder=""
-              autofocus="autofocus">
+            <input type="date" id="date" th:field="*{inputDate}" class="form-control" placeholder="">
           </div>
 
           <div class="form-group">
@@ -76,14 +76,7 @@
             </tbody>
           </table>
 
-
-
-
-
-
           <button type="submit" class="btn btn-primary">Submit</button>
-
-
         </form>
       </section>
     </div>

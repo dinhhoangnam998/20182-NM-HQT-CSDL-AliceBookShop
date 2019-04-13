@@ -2,6 +2,8 @@ package org.alice.bookshop.controller.admin.manage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.alice.bookshop.model.Category;
 import org.alice.bookshop.service.admin.manage.CategoryService;
 import org.alice.bookshop.service.common.ulti.PaginationService;
@@ -23,24 +25,21 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@Autowired
-	private PaginationService paginator;
+	private PaginationService pagi;
 
 	@GetMapping
-	public String show(Model model, @RequestParam(required = false, defaultValue = "1") int p,
+	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
+		pagi.process(ss, p, psize, categoryService.categoryJpa.count());
+
 		// get category page
-		List<Category> categories = categoryService.getCategories(p, psize);
+		List<Category> categories = categoryService.getCategories(p, pagi.getPageSize());
 		model.addAttribute("categories", categories);
 
 		// pagination
-		long totalPage = categoryService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList();
+		List<Integer> pageList = pagi.getPageList();
 		model.addAttribute("pages", pageList);
-
-		// current active page
-		model.addAttribute("curPage", p);
-		model.addAttribute("lastPage", totalPage);
 
 		return "/admin/manage/categories/show";
 	}
@@ -52,13 +51,11 @@ public class CategoryController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Category category,
-			@RequestParam(required = false, defaultValue = "15") int psize) {
-		long totalPage = categoryService.getTotalPage(psize);
+	public String add(RedirectAttributes redirAttr, Category category) {
 		String msg = categoryService.add(category);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/categories?p=" + totalPage;
+			return "redirect:/admin/manage/categories?p=" + pagi.getLastPage();
 		} else {
 			return "redirect:add";
 		}
@@ -72,12 +69,11 @@ public class CategoryController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Category category,
-			@RequestParam(required = false, defaultValue = "1") int p) {
+	public String edit(RedirectAttributes redirAttr, Category category) {
 		String msg = categoryService.edit(category);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/categories?p=" + p;
+			return "redirect:/admin/manage/categories?p=" + pagi.getCurPage();
 		} else {
 			return "redirect:edit";
 		}

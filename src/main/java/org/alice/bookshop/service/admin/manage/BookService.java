@@ -22,15 +22,6 @@ public class BookService {
 		return books.getContent();
 	}
 
-	public long getTotalPage(int psize) {
-		long total = bookJpa.count();
-		long totalPage = total / psize;
-		if (total % psize != 0) {
-			totalPage += 1;
-		}
-		return totalPage;
-	}
-
 	private boolean isBookExit(Book book) {
 		Book isExit = bookJpa.findByName(book.getName());
 		return (isExit != null);

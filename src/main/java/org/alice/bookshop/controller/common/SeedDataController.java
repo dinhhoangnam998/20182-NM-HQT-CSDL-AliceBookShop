@@ -1,6 +1,8 @@
 package org.alice.bookshop.controller.common;
 
+import org.alice.bookshop.model.Order;
 import org.alice.bookshop.model.OrderLine;
+import org.alice.bookshop.model.User;
 import org.alice.bookshop.repository.AuthorJpa;
 import org.alice.bookshop.repository.BookJpa;
 import org.alice.bookshop.repository.Book_InputJpa;
@@ -51,6 +53,17 @@ public class SeedDataController {
 
 	@Autowired
 	private OrderLineJpa orderDetailJpa;
+
+	@GetMapping("/test-hibernate")
+	public String test() {
+		User user = uJpa.getOne(1);
+		user.setName("just for test hibernate");
+		Order order = new Order();
+		order.getUser().setId(1);
+		order.setNote("test hibernate");
+		orderJpa.save(order);
+		return "redirect:/admin/manage/authors";
+	}
 
 	@SuppressWarnings("deprecation")
 	@GetMapping("/seed-data")
@@ -125,10 +138,10 @@ public class SeedDataController {
 //			order.setState(1);
 //			orderJpa.save(order);
 
-			for(int j = 1; j <= 6; j++) {
+			for (int j = 1; j <= 6; j++) {
 				OrderLine orderDetail = new OrderLine();
 				orderDetail.setOrder(orderJpa.getOne(i));
-				orderDetail.setBook(bJpa.getOne( 1 + (int) Math.floor(Math.random() * 190)));
+				orderDetail.setBook(bJpa.getOne(1 + (int) Math.floor(Math.random() * 190)));
 				orderDetail.setQuantity((int) Math.floor(Math.random() * 10));
 				orderDetailJpa.save(orderDetail);
 			}

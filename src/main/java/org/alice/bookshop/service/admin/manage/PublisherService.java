@@ -22,15 +22,6 @@ public class PublisherService {
 		return publishers.getContent();
 	}
 
-	public long getTotalPage(int psize) {
-		long total = publisherJpa.count();
-		long totalPage = total / psize;
-		if (total % psize != 0) {
-			totalPage += 1;
-		}
-		return totalPage;
-	}
-
 	private boolean isPublisherExit(Publisher publisher) {
 		Publisher isExit = publisherJpa.findByName(publisher.getName());
 		return (isExit != null);

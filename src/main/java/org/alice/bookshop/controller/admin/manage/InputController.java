@@ -59,21 +59,30 @@ public class InputController {
 	}
 
 	@RequestMapping(value = "/add", params = { "addRow" })
-	public String addRow(final Input input, final BindingResult bindingResult) {
+	public String addRow(final Input input, final BindingResult bindingResult, Model model) {
+		System.out.println(input);
 		input.getBook_inputs().add(new Book_Input());
+		System.out.println(input);
+		model.addAttribute("books", bookService.bookJpa.findAll());
 		return "/admin/manage/inputs/add";
 	}
 
 	@RequestMapping(value = "/add", params = { "removeRow" })
-	public String removeRow(final Input input, final BindingResult bindingResult, final HttpServletRequest req) {
+	public String removeRow(final Input input, final BindingResult bindingResult, final HttpServletRequest req,
+			Model model) {
+		System.out.println(input);
 		final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
 		input.getBook_inputs().remove(rowId.intValue());
+		System.out.println(input);
+		model.addAttribute("books", bookService.bookJpa.findAll());
 		return "/admin/manage/inputs/add";
 	}
 
 	@PostMapping("/add")
 	public String add(RedirectAttributes redirAttr, Input input) {
+		System.out.println(input);
 		String msg = inputService.add(input);
+		System.out.println(input);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/inputs?p=" + pagi.getLastPage();
@@ -85,14 +94,35 @@ public class InputController {
 	@GetMapping("/{id}/edit")
 	public String edit(Model model, @PathVariable int id) {
 		Input input = inputService.inputJpa.getOne(id);
+		System.out.println(input);
 		model.addAttribute("input", input);
+		model.addAttribute("books", bookService.bookJpa.findAll());
+		return "/admin/manage/inputs/edit";
+	}
+
+	@RequestMapping(value = "/{id}/edit", params = { "addRow" })
+	public String addRowEdit(final Input input, final BindingResult bindingResult, Model model) {
+		input.getBook_inputs().add(new Book_Input());
+		System.out.println(input);
+		model.addAttribute("books", bookService.bookJpa.findAll());
+		return "/admin/manage/inputs/edit";
+	}
+
+	@RequestMapping(value = "/{id}/edit", params = { "removeRow" })
+	public String removeRowEdit(final Input input, final BindingResult bindingResult, final HttpServletRequest req,
+			Model model) {
+		final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+		input.getBook_inputs().remove(rowId.intValue());
+		System.out.println(input);
 		model.addAttribute("books", bookService.bookJpa.findAll());
 		return "/admin/manage/inputs/edit";
 	}
 
 	@PostMapping("/{id}/edit")
 	public String edit(RedirectAttributes redirAttr, Input input) {
+		System.out.println(input);
 		String msg = inputService.edit(input);
+		System.out.println(input);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/inputs?p=" + pagi.getCurPage();

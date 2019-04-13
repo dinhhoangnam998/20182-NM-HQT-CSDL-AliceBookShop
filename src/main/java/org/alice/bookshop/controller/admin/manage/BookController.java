@@ -2,6 +2,8 @@ package org.alice.bookshop.controller.admin.manage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.alice.bookshop.model.Book;
 import org.alice.bookshop.service.admin.manage.AuthorService;
 import org.alice.bookshop.service.admin.manage.BookService;
@@ -29,30 +31,27 @@ public class BookController {
 	private AuthorService authorService;
 
 	@Autowired
-	private PublisherService publisherService;
-
-	@Autowired
 	private CategoryService categoryService;
 
 	@Autowired
-	private PaginationService paginator;
+	private PublisherService publisherService;
+
+	@Autowired
+	private PaginationService pagi;
 
 	@GetMapping
-	public String show(Model model, @RequestParam(required = false, defaultValue = "1") int p,
+	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
-		// get Book page
-		List<Book> books = bookService.getBooks(p, psize);
+		pagi.process(ss, p, psize, bookService.bookJpa.count());
+
+		// get book page
+		List<Book> books = bookService.getBooks(p, pagi.getPageSize());
 		model.addAttribute("books", books);
 
 		// pagination
-		long totalPage = bookService.getTotalPage(psize);
-		List<Integer> pageList = paginator.getPageList();
+		List<Integer> pageList = pagi.getPageList();
 		model.addAttribute("pages", pageList);
-
-		// current active page
-		model.addAttribute("curPage", p);
-		model.addAttribute("lastPage", totalPage);
 
 		return "/admin/manage/books/show";
 	}
@@ -67,12 +66,11 @@ public class BookController {
 	}
 
 	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Book book, @RequestParam(required = false, defaultValue = "15") int psize) {
-		long totalPage = bookService.getTotalPage(psize);
+	public String add(RedirectAttributes redirAttr, Book book) {
 		String msg = bookService.add(book);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/books?p=" + totalPage;
+			return "redirect:/admin/manage/books?p=" + pagi.getLastPage();
 		} else {
 			return "redirect:add";
 		}
@@ -89,15 +87,13 @@ public class BookController {
 	}
 
 	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Book book,
-			@RequestParam(required = false, defaultValue = "1") int p) {
+	public String edit(RedirectAttributes redirAttr, Book book) {
 		String msg = bookService.edit(book);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/books?p=" + p;
+			return "redirect:/admin/manage/books?p=" + pagi.getCurPage();
 		} else {
 			return "redirect:edit";
 		}
 	}
-
 }

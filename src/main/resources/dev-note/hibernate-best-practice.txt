@@ -1,6 +1,6 @@
-1. sau khi mô hình hóa, cơ sở dữ liệu sẽ có các kiểu quan hệ 1-1, 1-n, hoặc n-n bị tách thành 1-1. Cho nên việc của mình lúc này là đặt các entity vào các class thích hợp
+1. sau khi mô hình hóa, cơ sở dữ liệu sẽ có các kiểu quan hệ 1-1, 1-n, hoặc n-n bị tách thành 1-1. Cho nên việc của mình lúc này là đặt các entity vào các class thích hợp là oke.
 2. khi này, khi khởi tạo các đối tượng single, thì tẹt, khỏi lo. Nhưng khi khởi tạo các đối tượng wrap, thì best-practice là buộc phải truyền vào các dependency tương ứng. Không nên dùng casacade.
 3. nên dùng EARGE để đảm bảo đối tượng lấy ra luôn sẵn dùng, không bị null pointer exception. (nếu làm tốt các bước trên thì EARGE cũng chỉ cần lấy ra đối tượng đơn --> quite ease)
-4. Khi mapping các đối tượng loại wrap từ form, thì cần khởi tạo mặc định các đối tượng con trước, thì sẽ không bị null pointer exception
+4. Khi mapping các đối tượng loại wrap từ form, thì cần khởi tạo mặc định các đối tượng con trước, thì sẽ không bị null pointer exception. Điều này cũng đúng với cả Collection
 5. Chưa biết khi nào nên thêm chiều ngược lại vào nữa, và không biết khi thêm rồi thì dùng sao cho hợp lý đây?? Cơ mà, đừng để khởi tạo thằng A thì cần khởi tạo thằng B, khi khởi tạo thằng B, lại có yêu cầu khởi tạo thằng A --> loop đó
- 
+6. Bổ sung cho 5: nhiều khi muốn khởi tạo 1 đơn nhập, thì nhập luôn một số cuốn sách luôn, lúc ấy sẽ cần có Collection để chứa, và cũng cần khởi tạo mặc định cho nó luôn nhé. Hoặc nhiều khi muốn lấy 1 đơn hàng ra, thì lấy luôn cả orderLines để hiển thị trong 1 trang luôn, thì cũng cần thêm chiều ngược lại nữa. Nhưng lúc này chỉ là lấy ra để hiện thị, thì khỏi cần khởi tạo mặc định cho Collection cũng được.

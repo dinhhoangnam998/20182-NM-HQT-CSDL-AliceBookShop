@@ -22,14 +22,7 @@ public class CategoryService {
 		return categories.getContent();
 	}
 
-	public long getTotalPage(int psize) {
-		long total = categoryJpa.count();
-		long totalPage = total / psize;
-		if (total % psize != 0) {
-			totalPage += 1;
-		}
-		return totalPage;
-	}
+
 
 	private boolean isCategoryExit(Category category) {
 		Category isExit = categoryJpa.findByName(category.getName());
