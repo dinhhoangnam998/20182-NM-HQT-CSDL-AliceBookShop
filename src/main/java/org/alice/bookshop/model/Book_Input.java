@@ -27,16 +27,11 @@ public class Book_Input {
 	private int quantity;
 	private int coverPrice;
 	private int inputPrice;
+
 	@OneToOne
 	private Book book;
 
 	@OneToOne
 	private Input input;
 
-	@Override
-	public String toString() {
-		return "Book_Input [id=" + id + ", book=" + book + "]";
-	}
-	
-	
 }

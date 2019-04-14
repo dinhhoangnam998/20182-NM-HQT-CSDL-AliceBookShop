@@ -17,7 +17,7 @@ public class SaleService {
 	public SaleJpa saleJpa;
 
 	@Autowired
-	private Book_SaleService bsService;
+	public Book_SaleService bsService;
 
 	public List<Sale> getSales(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
@@ -37,7 +37,9 @@ public class SaleService {
 
 	public String edit(Sale sale) {
 		saleJpa.save(sale);
+		
 		for (Book_Sale bs : sale.getBook_sales()) {
+			bs.setSale(sale);
 			bsService.book_saleJpa.save(bs);
 		}
 		return "Edit sale id = " + sale.getId() + " successed";

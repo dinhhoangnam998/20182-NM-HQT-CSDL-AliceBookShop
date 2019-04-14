@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 public class InputService {
 	@Autowired
 	public InputJpa inputJpa;
-
+	
 	@Autowired
-	private Book_InputService biService;
+	public Book_InputService biService;
 
 	public List<Input> getInputs(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);

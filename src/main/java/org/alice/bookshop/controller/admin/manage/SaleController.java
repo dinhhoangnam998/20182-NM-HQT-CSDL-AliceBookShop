@@ -105,6 +105,8 @@ public class SaleController {
 	public String removeRowEdit(final Sale sale, final BindingResult bindingResult, final HttpServletRequest req,
 			Model model) {
 		final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+		Book_Sale bi = sale.getBook_sales().get(rowId.intValue());
+		saleService.bsService.book_saleJpa.delete(bi);
 		sale.getBook_sales().remove(rowId.intValue());
 		model.addAttribute("books", bookService.bookJpa.findAll());
 		return "/admin/manage/sales/edit";

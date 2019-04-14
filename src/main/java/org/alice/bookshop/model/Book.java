@@ -53,10 +53,4 @@ public class Book {
 	@ManyToOne
 	private Publisher publisher = new Publisher();
 
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", name=" + name + "]";
-	}
-	
-	
 }
