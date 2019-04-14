@@ -39,8 +39,8 @@
                 <th>row</th>
                 <th>book</th>
                 <th>quantity</th>
-                <th>coverPrice</th>
-                <th>inputPrice</th>
+                <!-- <th>coverPrice</th>
+                <th>inputPrice</th> -->
                 <th>
                   <button type="submit" name="addRow">Add Row
                     <i class="fa fa-plus">
@@ -60,12 +60,12 @@
                 <td>
                   <input type="number" th:field="*{book_inputs[__${iterStat.index}__].quantity}">
                 </td>
-                <td>
-                  <input type="number" th:field="*{book_inputs[__${iterStat.index}__].coverPrice}">
+                <!-- <td>
+                  <input type="number" th:field="*{book_inputs[__${iterStat.index}__].book.coverPrice}">
                 </td>
                 <td>
-                  <input type="number" th:field="*{book_inputs[__${iterStat.index}__].inputPrice}">
-                </td>
+                  <input type="number" th:field="*{book_inputs[__${iterStat.index}__].book.inputPrice}">
+                </td> -->
                 <td>
                   <button type="submit" name="removeRow" th:value="${iterStat.index}">Remove Row
                     <i class="fa fa-minus">

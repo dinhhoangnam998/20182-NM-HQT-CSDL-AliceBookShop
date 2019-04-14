@@ -45,10 +45,10 @@
               <td th:text="${user.address}"></td>
               <td th:text="${user.phone}"></td>
               <td>
-                <a th:if="${user.privilege} == 0" th:href="@{/admin/manage/users/{id}/block(id=${user.id})}"
+                <a th:if="${user.privilege} == 0" th:href="@{/admin/manage/users/{id}/block#main(id=${user.id})}"
                   style="color: red;">block</a>
 
-                <a th:if="${user.privilege} == -1" th:href="@{/admin/manage/users/{id}/unblock(id=${user.id})}"
+                <a th:if="${user.privilege} == -1" th:href="@{/admin/manage/users/{id}/unblock#main(id=${user.id})}"
                   style="color: green;">unblock</a>
               </td>
             </tr>

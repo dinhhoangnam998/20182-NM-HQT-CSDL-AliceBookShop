@@ -2,14 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="~{/base::head('Order List')}">
-	<style>
-
-	</style>
 </head>
 
 <body>
 	<!-- header -->
-	<header th:replace="/base::header"></header>
+	<header th:replace="/base::header">
+	</header>
 
 	<!-- main -->
 	<main class="container-fluid my-2" id="main">
@@ -44,17 +42,17 @@
 								<td th:text="${order.user.name}"></td>
 								<td th:text="${order.note}"></td>
 								<td th:text="${order.totalSalePrice}"></td>
-								<td><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' myactive') : (' myunactive')"
-										th:href="@{/admin/manage/orders/{id}/change-state(id=${order.id}, s=2)}">delivering</a></td>
-								<td><a class="" th:attrappend="class= (${order.state} == -1) ? (' myactive') : (' myunactive')"
-										th:href="@{/admin/manage/orders/{id}/change-state(id=${order.id}, s=-1)}">cancled</a></td>
-								<td><a class="" th:attrappend="class= (${order.state} == 3 ) ? (' myactive') : (' myunactive')"
-										th:href="@{/admin/manage/orders/{id}/change-state(id=${order.id}, s=3)}">successed</a></td>
+								<td><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"
+										th:href="@{/admin/manage/orders/{id}/change-state#main(id=${order.id}, s=2)}">delivering</a></td>
+								<td><a class="" th:attrappend="class= (${order.state} == -1) ? (' text-danger') : (' text-muted')"
+										th:href="@{/admin/manage/orders/{id}/change-state#main(id=${order.id}, s=-1)}">cancled</a></td>
+								<td><a class="" th:attrappend="class= (${order.state} == 3 ) ? (' text-success') : (' text-muted')"
+										th:href="@{/admin/manage/orders/{id}/change-state#main(id=${order.id}, s=3)}">successed</a></td>
 								<td><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"> show detail </a></td>
 						</tr>
 
 						<tr>
-							<td colspan="6" style="padding: 0;">
+							<td colspan="9" style="padding: 0;">
 								<div class="collapse" id="content" th:id="${#ids.seq('order')}">
 									<table class="table table-borderless table-info my-auto px-3">
 										<thead>
@@ -70,7 +68,7 @@
 												<td scope="row" th:text="${orderLine.book.name}"></td>
 												<td th:text="${orderLine.quantity}"></td>
 												<td th:text="${orderLine.salePercent}"></td>
-												<td th:text="${orderLine.totalSalePrice}"></td>
+												<td th:text="${orderLine.book.coverPrice} * ${orderLine.quantity} * ${orderLine.salePercent} /100"></td>
 											</tr>
 										</tbody>
 									</table>

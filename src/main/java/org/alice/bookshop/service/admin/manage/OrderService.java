@@ -17,7 +17,7 @@ public class OrderService {
 
 	public List<Order> getOrders(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
-		Page<Order> authors = orderJpa.findAll(pageable);
-		return authors.getContent();
+		Page<Order> orders = orderJpa.findAll(pageable);
+		return orders.getContent();
 	}
 }

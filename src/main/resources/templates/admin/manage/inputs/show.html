@@ -63,9 +63,9 @@
                           <tr th:each="book_input: ${input.book_inputs}">
                             <td scope="row" th:text="${book_input.book.name}"></td>
                             <td th:text="${book_input.quantity}"></td>
-                            <td th:text="${book_input.inputPrice}"></td>
-                            <td th:text="${book_input.coverPrice}"></td>
-                            <td th:text="${book_input.inputPrice} * ${book_input.quantity} "></td>
+                            <td th:text="${book_input.book.coverPrice}"></td>
+                            <td th:text="${book_input.book.inputPrice}"></td>
+                            <td th:text="${book_input.book.inputPrice} * ${book_input.quantity} "></td>
                           </tr>
                         </tbody>
                       </table>

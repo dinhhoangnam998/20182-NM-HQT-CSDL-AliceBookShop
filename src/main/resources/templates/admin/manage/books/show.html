@@ -24,40 +24,38 @@
         <div class="row">
           <div class="col-12">
             <table class="table table-bordered table-hover table-sm">
-                <thead class="thead-inverse">
-                  <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>totalPage</th>
-                    <!-- <th>releaseDate</th> -->
-                    <th>width</th>
-                    <th>height</th>
-                    <!-- <th>description</th> -->
-                    <!-- <th>imgurl</th> -->
-                    <th>author</th>
-                    <th>category</th>
-                    <th>publisher</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="book : ${books}">
-                    <td scope="row" th:text="${book.id}"></td>
-                    <td th:text="${book.name}"></td>
-                    <td th:text="${book.width}"></td>
-                    <td th:text="${book.height}"></td>
-                    <td th:text="${book.totalPage}"></td>
-                    <!-- <td th:text="${book.releaseDate}"></td> -->
-                    <!-- <td th:text="${book.description}"></td> -->
-                    <!-- <td th:text="${book.imgurl}"></td> -->
-                    <td th:text="${book.author.name}"></td>
-                    <td th:text="${book.category.name}"></td>
-                    <td th:text="${book.publisher.name}"></td>
-                    <td><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i class="fa fa-edit"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <thead class="thead-inverse">
+                <tr>
+                  <th>id</th>
+                  <th>bookname</th>
+                  <th>width</th>
+                  <th>height</th>
+                  <th>totalPage</th>
+                  <th>coverPrice</th>
+                  <th>inputPrice</th>
+                  <th>author</th>
+                  <th>category</th>
+                  <th>publisher</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="book : ${books}">
+                  <td scope="row" th:text="${book.id}"></td>
+                  <td th:text="${book.name}"></td>
+                  <td th:text="${book.width}"></td>
+                  <td th:text="${book.height}"></td>
+                  <td th:text="${book.totalPage}"></td>
+                  <td th:text="${book.coverPrice}"></td>
+                  <td th:text="${book.inputPrice}"></td>
+                  <td th:text="${book.author.name}"></td>
+                  <td th:text="${book.category.name}"></td>
+                  <td th:text="${book.publisher.name}"></td>
+                  <td><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i class="fa fa-edit"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -70,4 +68,5 @@
   <!-- footer -->
   <footer th:replace="/base::footer"></footer>
 </body>
+
 </html>

@@ -35,6 +35,8 @@ public class Book {
 	private int width;
 	private int height;
 	private int totalPage;
+	private int coverPrice;
+	private int inputPrice;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
