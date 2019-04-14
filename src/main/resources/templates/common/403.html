@@ -13,5 +13,20 @@
 </head>
 <body>
   403
+  <form th:action="@{/profiles/{userId}(userId = ${user.id})}" method="POST" th:object="${user}">
+    <!-- <input type="hidden" th:field="*{id}" value="${user.id}"> -->
+    <input th:placeholder="${user.username}" disabled>
+    <input type="password" th:field="*{password}" placeholder="new password">
+    <input type="password" th:field="*{confirmPassword}" placeholder="confirm new password">
+    <input type="email" th:field="*{email}" placeholder="new email">
+    <input type="text" th:field="*{name}" placeholder="name">
+    <!-- <input type="date" th:field="*{birthday}" placeholder="birthday"> -->
+    Male <input type="radio" th:field="*{gender}" value="0">
+    Female<input type="radio" th:field="*{gender}" value="1">
+    <input type="text" th:field="*{address}" placeholder="address">
+    <input type="tel" th:field="*{phone}" placeholder="phone">
+    <input type="submit" value="Submit">
+   
+  </form>
 </body>
 </html>

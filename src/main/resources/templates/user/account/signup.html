@@ -1,31 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!-- head -->
 
-<head>
-	<meta charset="UTF-8">
-	<title>Sign up</title>
+<head th:include="~{/base::head('Sign Up')}">
 </head>
 
 <body>
-	<div th:if="not(${#lists.isEmpty(msgs)})">
-		<div th:each="msg : ${msgs}" th:text="${msg}"></div>
-	</div>
+	<!-- header -->
+	<header th:replace="/base::header"></header>
 
-	<form th:action="@{/signup}" method="POST" th:object="${user}">
-		<input type="text" th:field="*{username}" placeholder="username">
-		<input type="password" th:field="*{password}" placeholder="password">
-		<input type="password" th:field="*{confirmPassword}" placeholder="confirm password">
-		<input type="email" th:field="*{email}" placeholder="email">
-		<input type="text" th:field="*{name}" placeholder="name">
-		<!-- <input type="date" th:field="*{birthday}" placeholder="birthday"> -->
-		Male<input type="radio" th:field="*{gender}" value="0">
-		Female<input type="radio" th:field="*{gender}" value="1">
-		<input type="text" th:field="*{address}" placeholder="address">
-		<input type="tel" th:field="*{phone}" placeholder="phone">
+	<!-- navbar -->
+	<nav th:replace="/base::navbar"></nav>
 
-		<input type="submit" value="Sign Up">
+	<!-- section -->
+	<section th:replace="~{/base::category}">
+	</section>
 
-	</form>
+	<!-- main -->
+	<main id="main">
+		<div th:if="not(${#lists.isEmpty(msgs)})">
+		  <div th:each="msg : ${msgs}" th:text="${msg}">
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<h2>Make your account</h2>
+			<form th:action="@{/signup#main}" method="POST" th:object="${user}">
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" id="username" class="form-control" th:field="*{username}">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" id="password" class="form-control" th:field="*{password}">
+				</div>
+				<div class="form-group">
+					<label for="confirmPassword">Confirm Password</label>
+					<input type="password" id="confirmPassword" class="form-control" th:field="*{confirmPassword}">
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" class="form-control" th:field="*{email}">
+				</div>
+				<div class="form-group">
+					<label for="name">Full Name</label>
+					<input type="text" id="name" class="form-control" th:field="*{name}">
+				</div>
+				<div class="form-group">
+					<label for="birthday">Birthday</label>
+					<input type="date" id="birthday" class="form-control" th:field="*{birthday}">
+				</div>
+				<div>Gender</div>
+				<div class="form-check-inline">
+					<label class="form-check-label" for="male">
+						<input type="radio" class="form-check-input" id="male" th:field="*{gender}" th:value="0">Male
+					</label>
+				</div>
+				<div class="form-check-inline">
+					<label class="form-check-label" for="female">
+						<input type="radio" class="form-check-input" id="female" th:field="*{gender}" th:value="1">Female
+					</label>
+				</div>
+				<div class="form-group">
+					<label for="address">Address</label>
+					<input type="text" id="address" class="form-control" th:field="*{address}">
+				</div>
+				<div class="form-group">
+					<label for="phone">Phone</label>
+					<input type="text" id="phone" class="form-control" th:field="*{phone}">
+				</div>
+				<input type="submit" value="Submit" class="btn btn-primary btn-block">
+			</form>
+		</div>
+	</main>
+
+	<!-- footer -->
+	<footer th:replace="/base::footer"></footer>
 </body>
-
 </html>

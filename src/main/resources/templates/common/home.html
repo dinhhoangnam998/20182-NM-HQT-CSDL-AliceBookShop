@@ -22,17 +22,19 @@
       box-sizing: border-box;
     }
 
-    section .row [class*="col"] {
-      padding: 5px;
-      padding-bottom: 10px;
-    }
-
-    div.card img {
+    .myslider img {
+      height: 350px;
       width: 100%;
-      height: 250px;
       object-fit: cover;
     }
 
+    #ss-top .row [class*="col-"] {
+      padding: 0.5rem;
+    }
+
+    #ss-top-col-2 {
+      padding-left: 0;
+    }
   </style>
 </head>
 
@@ -44,73 +46,7 @@
   <nav th:replace="/base::navbar"></nav>
 
   <!-- section -->
-  <section class="container-fluid">
-    <div class="row bg-danger" style="height: 60vh;">
-      <div class="col-md-3 h-100">
-        <div>
-          <nav>
-            <div class="list-groups" style="font-size: 22px">
-              <h3 class="list-group-item">Danh mục</h3>
-              <a href="#" class="list-group-item list-group-item-action">Tác giả</a>
-              <a href="#" class="list-group-item list-group-item-action">Nhà xuất bản</a>
-              <a href="#" class="list-group-item list-group-item-action">Thể loại</a>
-              <a href="#" class="list-group-item list-group-item-action">Sách hot</a>
-              <a href="#" class="list-group-item list-group-item-action">Sách khuyên đọc</a>
-              <a href="#" class="list-group-item list-group-item-action disabled">Disabled item</a>
-            </div>
-          </nav>
-
-          
-        </div>
-      </div>
-
-      <div class="col-md-9 h-100 ">
-        <div class="mb-1" style="height: 10%;">
-          <input type="search" name="" id="" class="form-control mb-1" placeholder="...Search">
-        </div>
-
-        <div id="carousel-sale" class="carousel slide rounded-lg" data-ride="carousel" style="height: 90%;">
-          <ol class="carousel-indicators">
-            <li data-target="#carousel-sale" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-sale" data-slide-to="1"></li>
-            <li data-target="#carousel-sale" data-slide-to="2"></li>
-            <li data-target="#carousel-sale" data-slide-to="3"></li>
-            <li data-target="#carousel-sale" data-slide-to="4"></li>
-          </ol>
-          <div class="carousel-inner h-100 rounded-lg" role="listbox">
-            <div class="carousel-item h-100 active">
-              <img th:src="@{/img/carou/carou1.jpg}" class="h-100 w-100" style="object-fit: cover"
-                alt="First slide">
-            </div>
-            <div class="carousel-item h-100">
-              <img th:src="@{/img/carou/carou2.jpg}" class="h-100 w-100" style="object-fit: cover"
-                alt="Second slide">
-            </div>
-            <div class="carousel-item h-100">
-              <img th:src="@{/img/carou/carou3.jpg}" class="h-100 w-100" style="object-fit: cover"
-                alt="Third slide">
-            </div>
-            <div class="carousel-item h-100">
-              <img th:src="@{/img/carou/carou4.png}" class="h-100 w-100" style="object-fit: cover"
-                alt="Third slide">
-            </div>
-            <div class="carousel-item h-100">
-              <img th:src="@{/img/carou/carou5.jpg}" class="h-100 w-100" style="object-fit: cover"
-                alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carousel-sale" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carousel-sale" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-
-      </div>
-    </div>
+  <section th:replace="~{/base::category}">
   </section>
 
   <!-- main -->
@@ -118,438 +54,103 @@
     <div class="container-fluid bg-success">
       <!-- content-title -->
       <div>
-        <h3>Van hoc</h3>
+        <h3 th:text="${category1}"></h3>
       </div>
       <!-- content-body -->
       <div>
         <ul id="slider1" class="myslider">
-
-          <li>
+          <li th:each="book : ${books1}">
             <div>
               <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book1 .jpg}" alt="" class="card-img-top">
+                <img th:src="${book.imgURL}" alt="" class="card-img-top">
                 <div class="card-header">
-                  Card Header
+                  [[${book.name}]]
                 </div>
                 <div class="card-body">
                   <div class="card-title">
-                    Card Title
+                    [[${book.coverPrice}]]
                   </div>
                   <div class="card-text">
                     Card Text
                   </div>
-                  <a href="" class="card-link stretched-link">
+                  <a th:href="@{/books/{id}#main(id=${book.id})}" class="card-link stretched-link">
                   </a>
                 </div>
               </div>
             </div>
+
           </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book4.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book5.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book6.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book7.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book8.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-
         </ul>
       </div>
     </div>
-    <div class="container-fluid bg-danger">
+
+    <div class="container-fluid bg-primary">
       <!-- content-title -->
       <div>
-        <h3>Van hoc</h3>
+        <h3 th:text="${category2}"></h3>
       </div>
       <!-- content-body -->
       <div>
         <ul id="slider2" class="myslider">
-
-          <li>
+          <li th:each="book : ${books2}">
             <div>
               <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book9.jpg}" alt="" class="card-img-top">
+                <img th:src="${book.imgURL}" alt="" class="card-img-top">
                 <div class="card-header">
-                  Card Header
+                  [[${book.name}]]
                 </div>
                 <div class="card-body">
                   <div class="card-title">
-                    Card Title
+                    [[${book.coverPrice}]]
                   </div>
                   <div class="card-text">
                     Card Text
                   </div>
-                  <a href="" class="card-link stretched-link">
+                  <a th:href="@{/books/{id}(id=${book.id})}" class="card-link stretched-link">
                   </a>
                 </div>
               </div>
             </div>
+
           </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-
         </ul>
       </div>
     </div>
-    <div class="container-fluid bg-primary">
+
+    <div class="container-fluid bg-dark">
       <!-- content-title -->
       <div>
-        <h3>Van hoc</h3>
+        <h3 th:text="${category3}"></h3>
       </div>
       <!-- content-body -->
       <div>
         <ul id="slider3" class="myslider">
-
-          <li>
+          <li th:each="book : ${books3}">
             <div>
               <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
+                <img th:src="${book.imgURL}" alt="" class="card-img-top">
                 <div class="card-header">
-                  Card Header
+                  [[${book.name}]]
                 </div>
                 <div class="card-body">
                   <div class="card-title">
-                    Card Title
+                    [[${book.coverPrice}]]
                   </div>
                   <div class="card-text">
-                    Card Text
+                    [[${book.author.name}]]
                   </div>
-                  <a href="" class="card-link stretched-link">
+                  <a th:href="@{/books/{id}(id=${book.id})}" class="card-link stretched-link">
                   </a>
                 </div>
               </div>
             </div>
+
           </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-          <li>
-            <div>
-              <div class="card">
-                <img src="../../static/img/book/book3.jpg" th:src="@{/img/book/book3.jpg}" alt="" class="card-img-top">
-                <div class="card-header">
-                  Card Header
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    Card Title
-                  </div>
-                  <div class="card-text">
-                    Card Text
-                  </div>
-                  <a href="" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-
-
-
         </ul>
       </div>
     </div>
+
+
 
   </main>
   <!-- footer -->
@@ -557,10 +158,134 @@
 
   <script>
     $(document).ready(function () {
-      $('.myslider').lightSlider({
+      $('#slider1').lightSlider({
         item: 4,
-        prevHtml: '<i class="fas fa-arrow-circle-left" style="font-size: 16px;"></i>',
-        nextHtml: '<i class="fas fa-arrow-circle-right" style="font-size: 16px;"></i>',
+        autoWidth: false,
+        slideMove: 1, // slidemove will be 1 if loop is true
+        slideMargin: 10,
+
+        addClass: '',
+        mode: "slide",
+        useCSS: true,
+        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
+        easing: 'ease', //'for jquery animation',////
+
+        speed: 1000, //ms'
+        auto: true,
+        loop: true,
+        slideEndAnimation: false,
+        pause: 4000,
+
+        keyPress: false,
+        controls: true,
+        prevHtml: '<i class="fas fa-arrow-circle-left" style="font-size: 30px;"></i>',
+        nextHtml: '<i class="fas fa-arrow-circle-right" style="font-size: 30px;"></i>',
+
+        rtl: false,
+        responsive: [
+          {
+            breakpoint: 770,
+            settings: {
+              item: 2,
+              slideMargin: 6
+            }
+          },
+          {
+            breakpoint: 570,
+            settings: {
+              item: 1,
+              slideMargin: 3
+            }
+          }
+        ]
+      });
+
+      $('#slider2').lightSlider({
+        item: 4,
+        autoWidth: false,
+        slideMove: 1, // slidemove will be 1 if loop is true
+        slideMargin: 10,
+
+        addClass: '',
+        mode: "slide",
+        useCSS: true,
+        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
+        easing: 'ease', //'for jquery animation',////
+
+        speed: 1000, //ms'
+        auto: false,
+        loop: false,
+        slideEndAnimation: true,
+        pause: 4000,
+
+        keyPress: false,
+        controls: true,
+        prevHtml: '<i class="fas fa-arrow-circle-left" style="font-size: 30px;"></i>',
+        nextHtml: '<i class="fas fa-arrow-circle-right" style="font-size: 30px;"></i>',
+
+        rtl: false,
+        adaptiveHeight: false,
+        responsive: [
+          {
+            breakpoint: 770,
+            settings: {
+              item: 2,
+              slideMargin: 6
+            }
+          },
+          {
+            breakpoint: 570,
+            settings: {
+              item: 1,
+              slideMargin: 3
+            }
+          }
+        ]
+      });
+
+      $('#slider3').lightSlider({
+        item: 4,
+        autoWidth: false,
+        slideMove: 1, // slidemove will be 1 if loop is true
+        slideMargin: 10,
+
+        addClass: '',
+        mode: "slide",
+        useCSS: true,
+        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
+        easing: 'ease', //'for jquery animation',////
+
+        speed: 1000, //ms'
+        auto: true,
+        loop: true,
+        slideEndAnimation: false,
+        pause: 4000,
+
+        keyPress: false,
+        controls: true,
+        prevHtml: '<i class="fas fa-arrow-circle-left" style="font-size: 30px;"></i>',
+        nextHtml: '<i class="fas fa-arrow-circle-right" style="font-size: 30px;"></i>',
+
+        rtl: false,
+        adaptiveHeight: false,
+
+        responsive: [
+          {
+            breakpoint: 770,
+            settings: {
+              item: 2,
+              slideMargin: 6
+            }
+          },
+          {
+            breakpoint: 570,
+            settings: {
+              item: 1,
+              slideMargin: 3
+            }
+          }
+        ]
+
       });
     });
   </script>

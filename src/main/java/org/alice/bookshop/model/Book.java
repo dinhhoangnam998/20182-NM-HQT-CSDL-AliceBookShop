@@ -42,6 +42,7 @@ public class Book {
 	private Date releaseDate;
 	private String description;
 	private int remainQuantity;
+	private String imgURL;
 	@ElementCollection
 	private List<String> imgURLs;
 	@ElementCollection

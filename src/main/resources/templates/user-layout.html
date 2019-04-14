@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- head -->
 
-<head th:include="~{/base::head('Book Info')}">
+<head th:include="~{/base::head('Title')}">
 </head>
 
 <body>
@@ -11,6 +11,10 @@
 
   <!-- navbar -->
   <nav th:replace="/base::navbar"></nav>
+
+  <!-- section -->
+  <section th:replace="~{/base::category}">
+  </section>
 
   <!-- main -->
   <main>

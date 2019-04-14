@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="~{/base::head('General Info')}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="/base::header"></header>
+
+  <!-- main -->
+  <main class="container-fluid my-2" id="main">
+    <div class="row">
+      <!-- navside -->
+      <nav class="col-3" th:insert="/base::navside">
+      </nav>
+
+      <!-- section -->
+      <section class="col-9">
+        <!-- section header -->
+        <div th:replace="/base::section-header('alert-success', 'Authors:', 'authors/add')">
+        </div>
+        <div class="container-fluid">
+          <h3>User</h3>
+          <div>
+            <div>Number of account: [[${account}]]</div>
+            <div>Number of blocked account: [[${blockedAccount}]]</div>
+            <div>Number of new account for this mounth: [[${newAccount}]]</div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <h3>Book</h3>
+          <div>
+            <div>Number of book: [[${book}]]</div>
+            <div>Total quantity of books: [[${totalBook}]]</div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <h3>Order</h3>
+          <div>
+            <div>Number of order: [[${order}]]</div>
+            <div>Number of successed: [[${successed}]]</div>
+            <div>Number of canceled: [[${canceled}]]</div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <h3>Other</h3>
+          <div>
+            <div>Number of Author: [[${author}]]</div>
+            <div>Number of Category: [[${category}]]</div>
+            <div>Number of Publisher: [[${publisher}]]</div>
+            <div>Number of Input Event: [[${input}]]</div>
+            <div>Number of Sale Event: [[${sale}]]</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="/base::footer"></footer>
+</body>
+
+</html>

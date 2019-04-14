@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!-- head -->
 
-<head th:insert="/base:: head('Sign Up Success')">
-
+<head th:include="~{/base::head('Title')}">
 </head>
 
 <body>
-	<div th:text="'hello ' + ${user.name}"></div>
-	<a th:href="@{/login}" th:text="Login"></a>
+	<!-- header -->
+	<header th:replace="/base::header"></header>
+
+	<!-- navbar -->
+	<nav th:replace="/base::navbar"></nav>
+
+	<!-- section -->
+	<section th:replace="~{/base::category}">
+	</section>
+
+	<!-- main -->
+	<main>
+		<div th:if="${session.user} != null" class="container-fluid">
+			<h2>Hello [[${session.user.name}]]</h2>
+			<a class="btn btn-primary" th:href="@{/login}">Login</a>
+		</div>
+	</main>
+
+	<!-- footer -->
+	<footer th:replace="/base::footer"></footer>
 </body>
 
 </html>
