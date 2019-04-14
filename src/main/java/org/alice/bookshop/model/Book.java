@@ -41,6 +41,7 @@ public class Book {
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
 	private String description;
+	private int remainQuantity;
 	@ElementCollection
 	private List<String> imgURLs;
 	@ElementCollection

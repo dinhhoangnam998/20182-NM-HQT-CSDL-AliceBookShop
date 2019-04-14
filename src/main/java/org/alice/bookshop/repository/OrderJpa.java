@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderJpa  extends JpaRepository<Order, Integer> {
 
+	long countByState(int i);
+
 }
