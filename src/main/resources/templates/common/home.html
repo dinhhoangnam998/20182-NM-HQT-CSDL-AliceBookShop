@@ -2,40 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Home</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" />
-
-  <!-- slider -->
-  <link rel="stylesheet" th:href="@{/vender/slider/css/lightslider.css}"
-    href="../../static/vender/slider/css/lightslider.css" />
-  <script th:src="@{/vender/slider/js/lightslider.js}" src="../../static/vender/slider/js/lightslider.js"></script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    .myslider img {
-      height: 350px;
-      width: 100%;
-      object-fit: cover;
-    }
-
-    #ss-top .row [class*="col-"] {
-      padding: 0.5rem;
-    }
-
-    #ss-top-col-2 {
-      padding-left: 0;
-    }
-  </style>
+  <th:block th:include="~{/base::head ('Home')}"></th:block>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/common/home.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/base/ss-top.css}">
 </head>
 
 <body>
@@ -53,9 +22,7 @@
   <main>
     <div class="container-fluid bg-success">
       <!-- content-title -->
-      <div>
-        <h3 th:text="${category1}"></h3>
-      </div>
+      <h3 th:text="${category1}"></h3>
       <!-- content-body -->
       <div>
         <ul id="slider1" class="myslider">
@@ -78,7 +45,6 @@
                 </div>
               </div>
             </div>
-
           </li>
         </ul>
       </div>
@@ -86,9 +52,7 @@
 
     <div class="container-fluid bg-primary">
       <!-- content-title -->
-      <div>
-        <h3 th:text="${category2}"></h3>
-      </div>
+      <h3 th:text="${category2}"></h3>
       <!-- content-body -->
       <div>
         <ul id="slider2" class="myslider">
@@ -111,7 +75,6 @@
                 </div>
               </div>
             </div>
-
           </li>
         </ul>
       </div>
@@ -119,9 +82,7 @@
 
     <div class="container-fluid bg-dark">
       <!-- content-title -->
-      <div>
-        <h3 th:text="${category3}"></h3>
-      </div>
+      <h3 th:text="${category3}"></h3>
       <!-- content-body -->
       <div>
         <ul id="slider3" class="myslider">
@@ -144,7 +105,6 @@
                 </div>
               </div>
             </div>
-
           </li>
         </ul>
       </div>
@@ -285,7 +245,6 @@
             }
           }
         ]
-
       });
     });
   </script>

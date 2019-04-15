@@ -1,0 +1,13 @@
+   #ss-top .row [class*="col-"] {
+     padding: 0.5rem;
+   }
+
+   #ss-top-col-2 {
+     padding-left: 0;
+   }
+
+   #ss-top-carousel img {
+     height: 360px;
+     width: 100%;
+     object-fit: cover
+   }
