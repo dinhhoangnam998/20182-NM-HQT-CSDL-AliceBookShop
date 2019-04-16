@@ -16,6 +16,10 @@
   <!-- slider -->
   <link rel="stylesheet" th:href="@{/vender/slider/css/lightslider.css}" />
   <script th:src="@{/vender/slider/js/lightslider.js}"></script>
+
+  <style>
+
+  </style>
 </head>
 
 <body>
@@ -142,51 +146,53 @@
   </section>
 
   <!-- admin navside -->
-  <ul th:fragment="navside" class="nav justify-content-center">
-    <li class="nav-item">
-      <h4>Quản trị nội dung</h4>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/authors#main}">Author</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/books#main}">Book</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/categories#main}">Category</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/inputs#main}">Input</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/orders#main}">Order</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/publishers#main}">Publisher</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/sales#main}">Sale</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/manage/users#main}">User</a>
-    </li>
+  <nav th:fragment="navside" class="col-md-3 py-3" id="navside" style="background-color: #ecf0f1">
+    <ul class="nav justify-content-center d-flex flex-column">
+      <li class="nav-item">
+        <h4>Quản trị nội dung</h4>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/authors#main}">Author</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/books#main}">Book</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/categories#main}">Category</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/inputs#main}">Input</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/orders#main}">Order</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/publishers#main}">Publisher</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/sales#main}">Sale</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/manage/users#main}">User</a>
+      </li>
 
-    <li class="nav-item">
-      <h4>Thống kê</h4>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/statistic/general#main}">General info</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/statistic/storage#main}">Book Storage</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" th:href="@{/admin/statistic/receipt#main}">Receipt</a>
-    </li>
-  </ul>
+      <li class="nav-item">
+        <h4>Thống kê</h4>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/statistic/general#main}">General info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/statistic/storage#main}">Book Storage</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin/statistic/receipt#main}">Receipt</a>
+      </li>
+    </ul>
+  </nav>
 
   <!-- admin section -->
-  <div th:fragment="section-header (alertType ,title, addLink)">
+  <div th:fragment="section-header (alertType ,title, addLink)" class="">
     <!-- msg -->
     <div class="alert alert-dismissible fade show" th:attrappend="class=' ' + ${alertType}" role="alert"
       th:if="${msg} != null">
@@ -196,13 +202,13 @@
       <strong th:text="${msg}"></strong>
     </div>
     <!-- title -->
-    <h3>[[${title}]] <a th:if="${addLink} != null" th:href="@{${addLink} + '#main'}"
+    <h3 class="clearfix mb-0">[[${title}]] <a th:if="${addLink} != null" th:href="@{${addLink} + '#main'}"
         class="btn btn-primary float-right">Add <i class="fa fa-plus"></i></a></h3>
   </div>
 
   <div th:fragment="section-footer (entity)">
     <nav aria-label="Page navigation">
-      <ul class="pagination pagination-sm justify-content-center" style="margin: 5px 0">
+      <ul class="pagination pagination-sm justify-content-center mb-0 pb-0">
         <li class="page-item" th:each="page, i : ${pages}"
           th:attrappend="class= ( ${page} == ${session.curPage} ) ? (' active') : (' ')">
 

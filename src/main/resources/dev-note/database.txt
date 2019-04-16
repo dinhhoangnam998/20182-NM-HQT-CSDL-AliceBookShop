@@ -10,9 +10,9 @@ Category(id, name)
 
 Input(id, inputDate, note, book_inputs)
 
-Order(id, orderDate, note, state, totalSalePrice, totalInputPrice, user, orderLines)
+Order(id, orderDate, note, state, /totalSalePrice, /totalInputPrice, user, orderLines)
 
-OrderLine(id, quantity, salePercent, order, book)
+OrderLine(id, quantity, /salePercent, order, book)
 
 Publisher(id, name, address, phone)
 

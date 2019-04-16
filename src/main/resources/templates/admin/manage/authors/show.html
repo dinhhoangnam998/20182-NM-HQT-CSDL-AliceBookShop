@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Author List')}">
+<head>
+  <th:block th:include="~{/base::head('Author List')}"></th:block>
 </head>
 
 <body>
   <!-- header -->
-  <header th:replace="/base::header"></header>
+  <header th:replace="~{/base::header}"></header>
+
+  <!-- navbar -->
+  <nav th:replace="/base::navbar"></nav>
 
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
-    <div class="row pt-3">
+  <main class="container-fluid my-3" id="main">
+    <div class="row">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
+      <section class="col-md-9 pt-3" >
         <!-- section header -->
-        <div th:replace="/base::section-header('alert-success', 'Authors:', 'authors/add')">
+        <div th:replace="~{/base::section-header('alert-success', 'Authors:', 'authors/add')}">
         </div>
 
         <!-- section-content -->
@@ -45,14 +49,14 @@
         </table>
 
         <!-- section-footer -->
-        <div th:replace="/base::section-footer ('authors')">
+        <div th:replace="~{/base::section-footer ('authors')}">
         </div>
       </section>
     </div>
   </main>
 
   <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
+  <footer th:replace="~{/base::footer}"></footer>
 </body>
 
 </html>

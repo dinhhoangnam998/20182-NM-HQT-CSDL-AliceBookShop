@@ -98,7 +98,24 @@ public class AccountController {
 			redirAttr.addFlashAttribute("msgs", msgs);
 			return "redirect:/profiles/" + user.getId() + "/edit";
 		}
-
 	}
+
+//	@RequestMapping(value = "/profiles/{id}/avatar", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+//	public String changeAvatar(@PathVariable int id, @RequestParam MultipartFile file) {
+//
+//		File dest = new File("E:/upload/" + id + "-" + file.getOriginalFilename());
+//
+//		try {
+//			file.transferTo(dest);
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		User user = accountService.userJpa.getOne(id);
+//		user.setImgURL("/upload/" + id + file.getOriginalFilename());
+//		accountService.userJpa.save(user);
+//		return "redirect:/profiles/" + id;
+//	}
 
 }

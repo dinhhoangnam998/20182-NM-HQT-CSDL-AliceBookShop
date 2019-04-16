@@ -24,6 +24,11 @@
 		</div>
 
 		<div class="container-fluid">
+			<h2>Upload Image</h2>
+			<form th:action="@{/profiles/{userId}/avatar(userId = ${session.user.id})}" method="POST" enctype="multipart/form-data"> 
+				<input type="file" name="file" /><br /><br />
+				<input type="submit" value="Submit" />
+			</form>
 			<h2>Edit Your Profile</h2>
 			<form th:action="@{/profiles/{userId}(userId = ${user.id})}" method="POST" th:object="${user}">
 				<div class="form-group">
