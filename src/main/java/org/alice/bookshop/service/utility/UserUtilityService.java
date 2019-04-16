@@ -1,13 +1,13 @@
-package org.alice.bookshop.service.common;
+package org.alice.bookshop.service.utility;
 
 import org.alice.bookshop.model.User;
 import org.alice.bookshop.repository.UserJpa;
-import org.alice.bookshop.security.SpringSecurityUtil;
+import org.alice.bookshop.webconfig.security.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserCommonService {
+public class UserUtilityService {
 
 	@Autowired
 	public UserJpa userJpa;

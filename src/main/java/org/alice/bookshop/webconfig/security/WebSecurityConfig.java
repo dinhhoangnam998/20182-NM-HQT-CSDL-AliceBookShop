@@ -1,4 +1,4 @@
-package org.alice.bookshop.security;
+package org.alice.bookshop.webconfig.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

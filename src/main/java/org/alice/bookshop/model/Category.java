@@ -24,4 +24,5 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	private boolean deleted;
 }

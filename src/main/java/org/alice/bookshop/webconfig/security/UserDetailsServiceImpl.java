@@ -1,4 +1,4 @@
-package org.alice.bookshop.security;
+package org.alice.bookshop.webconfig.security;
 
 import java.util.HashSet;
 import java.util.Set;

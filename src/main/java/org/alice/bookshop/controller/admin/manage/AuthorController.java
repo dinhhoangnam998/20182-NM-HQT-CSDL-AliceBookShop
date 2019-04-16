@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.Author;
 import org.alice.bookshop.service.admin.manage.AuthorService;
-import org.alice.bookshop.service.common.ulti.PaginationService;
+import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,14 +32,11 @@ public class AuthorController {
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
 		pagi.process(ss, p, psize, authorService.authorJpa.count());
-
-		// get author page
-		List<Author> authors = authorService.getAuthors(p, pagi.getPageSize());
-		model.addAttribute("authors", authors);
-
-		// pagination
 		List<Integer> pageList = pagi.getPageList();
 		model.addAttribute("pages", pageList);
+
+		List<Author> authors = authorService.getAuthors(p, pagi.getPageSize());
+		model.addAttribute("authors", authors);
 
 		return "/admin/manage/authors/show";
 	}
@@ -77,5 +74,11 @@ public class AuthorController {
 		} else {
 			return "redirect:edit";
 		}
+	}
+
+	@GetMapping("/{id}/delete")
+	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
+		authorService.authorJpa.getOne(id).setDeleted(true);
+		return "redirect:/admin/manage/authors?p=" + pagi.getLastPage();
 	}
 }

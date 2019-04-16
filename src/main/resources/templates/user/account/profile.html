@@ -21,6 +21,9 @@
 		<div class="container-fluid">
 			<h2>Profile</h2>
 
+			<div>
+				<img th:src="@{${session.user.imgURL}}"></img>
+			</div>
 			<div class="container">
 				<h3>Account info</h3>
 				<div class="row">

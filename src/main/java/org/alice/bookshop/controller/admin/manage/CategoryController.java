@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.Category;
 import org.alice.bookshop.service.admin.manage.CategoryService;
-import org.alice.bookshop.service.common.ulti.PaginationService;
+import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

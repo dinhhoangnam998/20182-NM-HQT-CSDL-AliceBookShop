@@ -35,6 +35,7 @@ public class Input {
 	@Temporal(TemporalType.DATE)
 	private Date inputDate;
 	private String note;
+	private boolean deleted;
 
 	@OneToMany(mappedBy = "input")
 	private List<Book_Input> book_inputs = new ArrayList<Book_Input>();

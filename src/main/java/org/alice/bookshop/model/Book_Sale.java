@@ -25,7 +25,7 @@ public class Book_Sale {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int percent;
-
+	private boolean deleted;
 	@OneToOne
 	private Book book;
 

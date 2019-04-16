@@ -27,7 +27,7 @@ public class OrderLine {
 	private int id;
 	private int quantity;
 	private int salePercent;
-
+	private boolean deleted;
 	@ManyToOne
 	private Order order;
 

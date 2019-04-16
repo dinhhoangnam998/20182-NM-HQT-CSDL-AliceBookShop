@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Edit Author')}">
+<head>
+  <th:block th:include="~{/base::head('Edit Author')}"></th:block>
 </head>
 
 <body>
   <!-- header -->
   <header th:replace="/base::header"></header>
 
+  <!-- navbar -->
+  <nav th:replace="/base::navbar"></nav>
+
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
+  <main class="container-fluid" id="main">
     <div class="row ">
       <!-- navside -->
-      <nav class="col-3 pt-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
+      <section class="col-md-9 pt-0">
         <!-- section-header -->
-        <div th:replace="/base::section-header('alert-warning', 'Edit', null)"></div>
-
-        <!-- section-content -->
-        <form th:action="@{edit#main}" method="POST" th:object="${author}">
+        <div th:replace="/base::section-header('alert-warning', 'Edit author', null)"></div>
+        <form th:action="@{edit#navbar}" method="POST" th:object="${author}">
           <div class="form-group">
             <label for="name">Author name</label>
             <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="">

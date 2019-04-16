@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alice.bookshop.model.User;
-import org.alice.bookshop.service.common.UserCommonService;
+import org.alice.bookshop.service.utility.UserUtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service("uaAccountService")
-public class AccountService extends UserCommonService {
+public class AccountService extends UserUtilityService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;

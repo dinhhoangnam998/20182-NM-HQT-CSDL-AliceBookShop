@@ -40,6 +40,8 @@ public class Sale {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
+	
+	private boolean deleted;
 
 	@OneToMany(mappedBy = "sale")
 	private List<Book_Sale> book_sales = new ArrayList<>();

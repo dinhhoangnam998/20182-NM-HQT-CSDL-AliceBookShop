@@ -1,4 +1,4 @@
-package org.alice.bookshop.security;
+package org.alice.bookshop.webconfig.security;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

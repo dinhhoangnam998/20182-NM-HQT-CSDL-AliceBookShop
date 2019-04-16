@@ -1,9 +1,9 @@
-package org.alice.bookshop.controller.common;
+package org.alice.bookshop.controller;
 
 import java.util.List;
 
 import org.alice.bookshop.model.Book;
-import org.alice.bookshop.service.common.HomeService;
+import org.alice.bookshop.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

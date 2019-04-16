@@ -1,4 +1,4 @@
-package org.alice.bookshop.service.common.ulti;
+package org.alice.bookshop.service.utility;
 
 import java.util.ArrayList;
 import java.util.List;

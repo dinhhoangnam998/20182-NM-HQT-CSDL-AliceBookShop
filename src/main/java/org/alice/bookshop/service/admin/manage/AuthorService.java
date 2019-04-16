@@ -18,7 +18,7 @@ public class AuthorService {
 
 	public List<Author> getAuthors(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
-		Page<Author> authors = authorJpa.findAll(pageable);
+		Page<Author> authors = authorJpa.findByDeleted(false, pageable);
 		return authors.getContent();
 	}
 

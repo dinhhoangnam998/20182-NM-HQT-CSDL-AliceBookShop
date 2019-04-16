@@ -33,4 +33,5 @@ public class Author {
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	private String imgURL;
+	private boolean deleted;
 }

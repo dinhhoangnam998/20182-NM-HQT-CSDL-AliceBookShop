@@ -1,68 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('item List')}">
+<head>
+  <th:block th:include="~{/base::head('Author List')}"></th:block>
 </head>
 
 <body>
   <!-- header -->
   <header th:replace="/base::header"></header>
 
+  <!-- navbar -->
+  <nav th:replace="/base::navbar"></nav>
+
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
+  <main class="container-fluid" id="main">
     <div class="row ">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
-        <div class="container-fluid">
-          <!-- section-header -->
-          <div th:replace="/base::section-header('alert-type', 'title', 'addLink')"></div>
+      <section class="col-md-9 pt-0">
+        <!-- section-header -->
+        <div th:replace="/base::section-header('alert-type', 'title', 'addLink')"></div>
 
-          <!-- section-content -->
-          <div 
-            <div class="col-12">
-              <!-- choose table or form here -->
+        <!-- section-content -->
+        <table id="ss-ct-tb" class="table table-hover table-bordered table-sm mt-2 mb-2">
+          
+        </table>
 
-              <!-- <table class="table table-striped table-hover table-sm">
-                          <thead class="thead-inverse">
-                            <tr>
-                              <th>id</th>
-                              <th>name</th>
-                              <th>imgurl</th>
-                              <th>Edit</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr th:each="item : ${items}">
-                              <td scope="row" th:text="${item.id}"></td>
-                              <td th:text="${item.name}"></td>
-                              <td th:text="${item.imgurl}"></td>
-                              <td><a th:href="@{/admin/manage/items/{id}/edit(id=${item.id})}"><i class="fa fa-edit"></i></a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table> -->
-
-              <!-- <form th:action="@{???}" method="POST" th:object="${item}">
-                          <div class="form-group">
-                            <label for="name">name</label>
-                            <input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder=""
-                              aria-describedby="helpId" autofocus="autofocus">
-                            <small id="helpId" class="text-muted">Help text</small>
-                          </div>
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </form> -->
-
-
-            </div>
-          </div>
-
-          <!-- section-footer -->
-          <div th:replace="/base::section-footer ('items')"></div>
-        </div>
+        <!-- section-footer -->
+        <div th:replace="/base::section-footer ('items')"></div>
       </section>
     </div>
   </main>

@@ -36,7 +36,6 @@ public class Book {
 	private int height;
 	private int totalPage;
 	private int coverPrice;
-	private int inputPrice;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
@@ -47,7 +46,7 @@ public class Book {
 	private List<String> imgURLs;
 	@ElementCollection
 	private List<String> thumbURLs;
-
+	private boolean deleted;
 	@ManyToOne
 	private Author author = new Author();
 

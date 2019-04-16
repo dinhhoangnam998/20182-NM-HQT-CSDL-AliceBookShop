@@ -1,18 +1,18 @@
 Author(id, name, birthday, imgURL)
 
-Book_Input(id, quantity, coverPrice, inputPrice, book, input)
+Book_Input(id, quantity, inputPrice, book, input)
 
 Book_Sale(id, percent, book, sale)
 
-Book(id, name, width, height, totalPage, releaseDate, description, imgURLs, thumbURLs, author, category, publisher)
+Book(id, name, width, height, totalPage, coverPrice, releaseDate, description, /remainQuantity, imgURL, imgURLs, thumbURLs, author, category, publisher)
 
 Category(id, name)
 
 Input(id, inputDate, note, book_inputs)
 
-Order(id, orderDate, note, state, /totalSalePrice, /totalInputPrice, user, orderLines)
+Order(id, orderDate, note, state, total, user, orderLines)
 
-OrderLine(id, quantity, /salePercent, order, book)
+OrderLine(id, quantity, totalLine, order, book)
 
 Publisher(id, name, address, phone)
 

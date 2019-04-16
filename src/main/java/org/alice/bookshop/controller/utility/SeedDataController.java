@@ -1,4 +1,4 @@
-package org.alice.bookshop.controller.common;
+package org.alice.bookshop.controller.utility;
 
 import java.util.Date;
 
@@ -107,7 +107,7 @@ public class SeedDataController {
 			book.setDescription("description " + i);
 			book.setTotalPage(rd(30, 200));
 			book.setCoverPrice(rd(50, 250));
-			book.setInputPrice(book.getCoverPrice() * rd(10, 35) / 100);
+//			book.setInputPrice(book.getCoverPrice() * rd(10, 35) / 100);
 			bJpa.save(book);
 
 			Input input = new Input();

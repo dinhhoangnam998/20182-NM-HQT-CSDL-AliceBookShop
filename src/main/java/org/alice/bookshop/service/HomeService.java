@@ -1,4 +1,4 @@
-package org.alice.bookshop.service.common;
+package org.alice.bookshop.service;
 
 import java.util.List;
 

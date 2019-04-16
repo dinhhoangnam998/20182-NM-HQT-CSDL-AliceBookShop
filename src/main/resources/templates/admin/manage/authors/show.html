@@ -10,30 +10,31 @@
   <header th:replace="~{/base::header}"></header>
 
   <!-- navbar -->
-  <nav th:replace="/base::navbar"></nav>
+  <nav th:replace="~{/base::navbar}"></nav>
 
   <!-- main -->
-  <main class="container-fluid my-3" id="main">
+  <main class="container-fluid" id="main">
     <div class="row">
       <!-- navside -->
       <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-md-9 pt-3" >
+      <section class="col-md-9 pt-0">
         <!-- section header -->
         <div th:replace="~{/base::section-header('alert-success', 'Authors:', 'authors/add')}">
         </div>
 
         <!-- section-content -->
-        <table class="table table-bordered table-hover table-sm mt-2" style="height: 77vh">
-          <thead class="thead-inverse">
+        <table id="ss-ct-tb" class="table table-hover table-bordered table-sm mt-2 mb-2">
+          <thead class="thead-inverse contaier-fluid">
             <tr>
-              <th>id</th>
-              <th>Name</th>
-              <th>Birthday</th>
-              <th>Image Url</th>
-              <th>Edit</th>
+              <th width="5%">id</th>
+              <th width="30%">Name</th>
+              <th width="20%">Birthday</th>
+              <th width="35%">Image Url</th>
+              <th width="5%">Edit</th>
+              <th width="5%">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -42,7 +43,11 @@
               <td th:text="${author.name}"></td>
               <td th:text="${author.birthday}"></td>
               <td th:text="${author.imgURL}"></td>
-              <td><a th:href="@{/admin/manage/authors/{id}/edit#main(id=${author.id})}"><i class="fa fa-edit"></i></a>
+              <td class="text-center"><a th:href="@{/admin/manage/authors/{id}/edit#navbar(id=${author.id})}"><i
+                    class="fas fa-pencil-alt text-dark"></i></a>
+              </td>
+              <td class="text-center"><a th:href="@{/admin/manage/authors/{id}/delete#navbar(id=${author.id})}"><i
+                    class="far fa-trash-alt text-dark"></i></a>
               </td>
             </tr>
           </tbody>
@@ -57,6 +62,7 @@
 
   <!-- footer -->
   <footer th:replace="~{/base::footer}"></footer>
+
 </body>
 
 </html>

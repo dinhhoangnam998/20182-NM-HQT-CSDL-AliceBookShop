@@ -39,7 +39,7 @@ public class Order {
 	private String note;
 	private int state;
 	private int totalSalePrice;
-	private int totalInputPrice;
+	private boolean deleted;
 
 	@ManyToOne
 	private User user;

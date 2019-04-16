@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.User;
 import org.alice.bookshop.service.user.account.AccountService;
+import org.alice.bookshop.service.utility.StorageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("uaAccountController")
@@ -26,6 +31,9 @@ public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private StorageFileService sfSvc;
 
 	@GetMapping("/login")
 	public String login(Model model) {
@@ -100,22 +108,12 @@ public class AccountController {
 		}
 	}
 
-//	@RequestMapping(value = "/profiles/{id}/avatar", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-//	public String changeAvatar(@PathVariable int id, @RequestParam MultipartFile file) {
-//
-//		File dest = new File("E:/upload/" + id + "-" + file.getOriginalFilename());
-//
-//		try {
-//			file.transferTo(dest);
-//		} catch (IllegalStateException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		User user = accountService.userJpa.getOne(id);
-//		user.setImgURL("/upload/" + id + file.getOriginalFilename());
-//		accountService.userJpa.save(user);
-//		return "redirect:/profiles/" + id;
-//	}
+	@RequestMapping(value = "/profiles/{id}/avatar", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String changeAvatar(@PathVariable int id, @RequestParam MultipartFile file) {
+		User user = accountService.userJpa.getOne(id);
+		user.setImgURL("/images/user/" + sfSvc.storageFile(file, "user", id));
+		accountService.userJpa.save(user);
+		return "redirect:/profiles/" + id;
+	}
 
 }

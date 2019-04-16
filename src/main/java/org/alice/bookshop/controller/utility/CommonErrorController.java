@@ -1,4 +1,4 @@
-package org.alice.bookshop.controller.common;
+package org.alice.bookshop.controller.utility;
 
 import org.springframework.stereotype.Controller;
 

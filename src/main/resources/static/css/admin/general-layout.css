@@ -1,0 +1,11 @@
+main {
+  margin: 0.5rem 0;
+}
+
+#ss-ct-tb {
+  height: 75vh;
+}
+
+#pagination .page-item {
+  margin-left: 10px;
+}

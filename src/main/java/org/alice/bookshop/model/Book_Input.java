@@ -25,11 +25,14 @@ public class Book_Input {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int quantity;
+	private int inputPrice;
+	private boolean deleted;
 
 	@OneToOne
 	private Book book;
 
 	@OneToOne
 	private Input input;
+	
 
 }

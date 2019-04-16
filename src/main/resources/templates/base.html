@@ -17,15 +17,14 @@
   <link rel="stylesheet" th:href="@{/vender/slider/css/lightslider.css}" />
   <script th:src="@{/vender/slider/js/lightslider.js}"></script>
 
-  <style>
-
-  </style>
+  <link rel="stylesheet" th:href="@{/css/admin/general-layout.css}">
+  <script th:src="@{/js/admin/tbl-icon-hover.js}"></script>
 </head>
 
 <body>
   <!-- header -->
   <header th:fragment="header">
-    <div class="jumbotron jumbotron-fluid mb-0">
+    <div class="jumbotron jumbotron-fluid mb-0 ">
       <div class="container-fluid">
         <h1 class="display-3">Header</h1>
         <p class="lead">Alice Book Shop</p>
@@ -34,7 +33,7 @@
   </header>
 
   <!-- navbar -->
-  <div th:fragment="navbar" class="container-fluid bg-warning">
+  <div th:fragment="navbar" class="container-fluid bg-warning" id="navbar">
     <div class="row">
       <div class="col-md-3 my-auto" style="text-align: center">
         <a th:href="@{/home}">Brand</a>
@@ -56,7 +55,7 @@
               <i class="fa fa-user-circle" style="font-size: 25px; color: white"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-usericon">
-              <a class="dropdown-item" th:href="@{/profiles/{id}#main(id=${session.user.id})}">My profile</a>
+              <a class="dropdown-item" th:href="@{/profiles/{id}#navbar(id=${session.user.id})}">My profile</a>
               <a class="dropdown-item" href="#">Shopping history</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" th:href="@{/logout}">Log out <i class="fas fa-sign-out-alt"></i></a>
@@ -80,9 +79,9 @@
         </div>
 
         <div th:if="${session.user} == null">
-          <a th:href="@{/login#main}">Login <i class="fas fa-sign-in-alt"></i></a>
+          <a th:href="@{/login#navbar}">Login <i class="fas fa-sign-in-alt"></i></a>
           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <a th:href="@{/signup#main}">Sign Up <i class="fas fa-user-plus"></i></a>
+          <a th:href="@{/signup#navbar}">Sign Up <i class="fas fa-user-plus"></i></a>
         </div>
       </div>
     </div>
@@ -146,47 +145,47 @@
   </section>
 
   <!-- admin navside -->
-  <nav th:fragment="navside" class="col-md-3 py-3" id="navside" style="background-color: #ecf0f1">
-    <ul class="nav justify-content-center d-flex flex-column">
+  <nav th:fragment="navside" class="col-md-3 pt-5" id="navside" style="background-color: #ecf0f1">
+    <ul class="nav justify-content-center pt-0 flex-column">
       <li class="nav-item">
         <h4>Quản trị nội dung</h4>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/authors#main}">Author</a>
+        <a class="nav-link" th:href="@{/admin/manage/authors#navbar}">Author</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/books#main}">Book</a>
+        <a class="nav-link" th:href="@{/admin/manage/books#navbar}">Book</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/categories#main}">Category</a>
+        <a class="nav-link" th:href="@{/admin/manage/categories#navbar}">Category</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/inputs#main}">Input</a>
+        <a class="nav-link" th:href="@{/admin/manage/inputs#navbar}">Input</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/orders#main}">Order</a>
+        <a class="nav-link" th:href="@{/admin/manage/orders#navbar}">Order</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/publishers#main}">Publisher</a>
+        <a class="nav-link" th:href="@{/admin/manage/publishers#navbar}">Publisher</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/sales#main}">Sale</a>
+        <a class="nav-link" th:href="@{/admin/manage/sales#navbar}">Sale</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/manage/users#main}">User</a>
+        <a class="nav-link" th:href="@{/admin/manage/users#navbar}">User</a>
       </li>
 
       <li class="nav-item">
-        <h4>Thống kê</h4>
+        <h4 class="mt-3">Thống kê</h4>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/statistic/general#main}">General info</a>
+        <a class="nav-link" th:href="@{/admin/statistic/general#navbar}">General info</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/statistic/storage#main}">Book Storage</a>
+        <a class="nav-link" th:href="@{/admin/statistic/storage#navbar}">Book Storage</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin/statistic/receipt#main}">Receipt</a>
+        <a class="nav-link" th:href="@{/admin/statistic/receipt#navbar}">Receipt</a>
       </li>
     </ul>
   </nav>
@@ -202,11 +201,11 @@
       <strong th:text="${msg}"></strong>
     </div>
     <!-- title -->
-    <h3 class="clearfix mb-0">[[${title}]] <a th:if="${addLink} != null" th:href="@{${addLink} + '#main'}"
+    <h3 class="clearfix mb-0">[[${title}]] <a th:if="${addLink} != null" th:href="@{${addLink} + '#navbar'}"
         class="btn btn-primary float-right">Add <i class="fa fa-plus"></i></a></h3>
   </div>
 
-  <div th:fragment="section-footer (entity)">
+  <div th:fragment="section-footer (entity)" class="" id="pagination">
     <nav aria-label="Page navigation">
       <ul class="pagination pagination-sm justify-content-center mb-0 pb-0">
         <li class="page-item" th:each="page, i : ${pages}"
@@ -214,18 +213,18 @@
 
           <!-- previous -->
           <a class="page-link" th:if="(${i.first}) and (${page} != -1) and (${page} != 0)"
-            th:href="@{/admin/manage/{entity}#main(entity=${entity}, p=${page}, psize=(${session.pageSize} != null)? (${session.pageSize}) : 15 )}"
+            th:href="@{/admin/manage/{entity}#navbar(entity=${entity}, p=${page}, psize=(${session.pageSize} != null)? (${session.pageSize}) : 15 )}"
             aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
           <!-- pages -->
           <a class="page-link" th:unless="${i.first} or ${i.last}"
-            th:href="@{/admin/manage/{entity}#main(entity=${entity}, p=${page}, psize=(${session.pageSize} != null)? (${session.pageSize}) : 15 )}"
+            th:href="@{/admin/manage/{entity}#navbar(entity=${entity}, p=${page}, psize=(${session.pageSize} != null)? (${session.pageSize}) : 15 )}"
             th:text="${page}"></a>
           <!-- next -->
           <a class="page-link" th:if="(${i.last}) and (${page} != (${session.lastPage} + 1))"
-            th:href="@{/admin/manage/{entity}#main(entity=${entity}, p=${page}, psize=(${session.pageSize} != null)? (${session.pageSize}) : 15 )}"
+            th:href="@{/admin/manage/{entity}#navbar(entity=${entity}, p=${page}, psize=(${session.pageSize} != null)? (${session.pageSize}) : 15 )}"
             aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
@@ -238,7 +237,7 @@
 
   <!-- footer -->
   <footer th:fragment="footer">
-    <div class="jumbotron jumbotron-fluid mb-0">
+    <div class="jumbotron jumbotron-fluid mb-0 ">
       <div class="container-fluid">
         <h1 class="display-3">Footer</h1>
         <p class="lead">Alice Book Shop</p>

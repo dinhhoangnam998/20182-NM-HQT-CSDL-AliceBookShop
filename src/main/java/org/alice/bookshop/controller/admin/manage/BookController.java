@@ -9,7 +9,7 @@ import org.alice.bookshop.service.admin.manage.AuthorService;
 import org.alice.bookshop.service.admin.manage.BookService;
 import org.alice.bookshop.service.admin.manage.CategoryService;
 import org.alice.bookshop.service.admin.manage.PublisherService;
-import org.alice.bookshop.service.common.ulti.PaginationService;
+import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

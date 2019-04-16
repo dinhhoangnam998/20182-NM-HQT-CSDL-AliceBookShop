@@ -43,5 +43,5 @@ public class User {
 	private String phone;
 	private String imgURL;
 	private int privilege;
-
+	private boolean deleted;
 }

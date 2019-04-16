@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Add Book')}">
+<head>
+  <th:block th:include="~{/base::head('Add Book')}"></th:block>
 </head>
 
 <body>
   <!-- header -->
   <header th:replace="/base::header"></header>
 
+  <!-- navbar -->
+  <nav th:replace="/base::navbar"></nav>
+
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
+  <main class="container-fluid" id="main">
     <div class="row ">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
+      <section class="col-md-9 pt-0">
         <!-- section-header -->
         <div th:replace="/base::section-header('alert-warning', 'Add book', null)"></div>
 
@@ -42,10 +46,10 @@
             <label for="coverPrice">coverPrice</label>
             <input type="number" id="coverPrice" th:field="*{coverPrice}" class="form-control" placeholder="">
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="inputPrice">inputPrice</label>
             <input type="number" id="inputPrice" th:field="*{inputPrice}" class="form-control" placeholder="">
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="imgURL">imgURL</label>
             <input type="text" id="imgURL" th:field="*{imgURL}" class="form-control" placeholder="/img/book/.jpg">
@@ -86,7 +90,6 @@
 
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-
       </section>
     </div>
   </main>
