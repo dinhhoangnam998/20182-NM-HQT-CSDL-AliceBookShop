@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("amAuthorController")
@@ -47,9 +49,9 @@ public class AuthorController {
 		return "/admin/manage/authors/add";
 	}
 
-	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Author author) {
-		String msg = authorService.add(author);
+	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String add(RedirectAttributes redirAttr, Author author,  @RequestParam MultipartFile file) {
+		String msg = authorService.add(author, file);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/authors?p=" + pagi.getLastPage();
@@ -81,4 +83,5 @@ public class AuthorController {
 		authorService.authorJpa.getOne(id).setDeleted(true);
 		return "redirect:/admin/manage/authors";
 	}
+	
 }

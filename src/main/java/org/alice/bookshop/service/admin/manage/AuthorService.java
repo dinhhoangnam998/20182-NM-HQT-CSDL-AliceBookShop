@@ -4,17 +4,22 @@ import java.util.List;
 
 import org.alice.bookshop.model.Author;
 import org.alice.bookshop.repository.AuthorJpa;
+import org.alice.bookshop.service.utility.StorageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service("amAuthorService")
 public class AuthorService {
 
 	@Autowired
 	public AuthorJpa authorJpa;
+	
+	@Autowired
+	private StorageFileService sfSvc;
 
 	public List<Author> getAuthors(int p, int psize) {
 		Pageable pageable = PageRequest.of(p - 1, psize);
@@ -27,10 +32,11 @@ public class AuthorService {
 		return (isExit != null);
 	}
 
-	public String add(Author author) {
+	public String add(Author author, MultipartFile file) {
 		if (isAuthorExit(author)) {
 			return "Author " + author.getName() + " already exit!";
 		} else {
+			author.setImgURL("/images/author/" + sfSvc.storageFile(file, "author", author.getId()) );
 			authorJpa.save(author);
 			return "Add author " + author.getName() + " successed";
 		}
