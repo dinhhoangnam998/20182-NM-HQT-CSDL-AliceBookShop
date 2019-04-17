@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Publisher List')}">
+<head>
+  <th:block th:include="~{/base::head('Publisher List')}"></th:block>
 </head>
 
 <body>
   <!-- header -->
-  <header th:replace="/base::header"></header>
+  <header th:replace="~{/base::header}"></header>
+
+  <!-- navbar -->
+  <nav th:replace="~{/base::navbar}"></nav>
 
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
+  <main class="container-fluid" id="main">
     <div class="row ">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
+      <section class="col-md-9 pt-0">
         <!-- section-header -->
-        <div th:replace="/base::section-header('alert-success', 'Publishers', 'publishers/add')"></div>
+        <div th:replace="~{/base::section-header('alert-success', 'Publishers', 'publishers/add')}"></div>
 
         <!-- section-content -->
-        <table class="table table-bordered table-hover table-sm">
+        <table id="ss-ct-tb" class="table table-hover table-bordered table-sm mt-2 mb-2">
           <thead class="thead-inverse">
             <tr>
               <th>id</th>
@@ -29,6 +33,7 @@
               <th>address</th>
               <th>phone</th>
               <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -37,20 +42,24 @@
               <td th:text="${publisher.name}"></td>
               <td th:text="${publisher.address}"></td>
               <td th:text="${publisher.phone}"></td>
-              <td><a th:href="@{/admin/manage/publishers/{id}/edit(id=${publisher.id})}"><i class="fa fa-edit"></i></a>
+              <td><a th:href="@{/admin/manage/publishers/{id}/edit(id=${category.id})}"><i
+                    class="fas fa-pencil-alt text-dark"></i></a>
+              </td>
+              <td><a th:href="@{/admin/manage/publishers/{id}/delete(id=${category.id})}"><i
+                    class="far fa-trash-alt text-dark"></i></a>
               </td>
             </tr>
           </tbody>
         </table>
 
         <!-- section-footer -->
-        <div th:replace="/base::section-footer ('publishers')"></div>
+        <div th:replace="~{/base::section-footer ('publishers')}"></div>
       </section>
     </div>
   </main>
 
   <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
+  <footer th:replace="~{/base::footer}"></footer>
 </body>
 
 </html>
