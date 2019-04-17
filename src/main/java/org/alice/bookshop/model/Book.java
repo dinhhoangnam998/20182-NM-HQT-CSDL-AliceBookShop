@@ -1,5 +1,6 @@
 package org.alice.bookshop.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,14 +40,17 @@ public class Book {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
+	private String shortDescription;
 	private String description;
 	private int remainQuantity;
 	private String imgURL;
 	@ElementCollection
-	private List<String> imgURLs;
+	private List<String> imgURLs = new ArrayList<>();
 	@ElementCollection
-	private List<String> thumbURLs;
+	private List<String> thumbURLs = new ArrayList<>();
 	private boolean deleted;
+	// this price í derived
+	private int salePrice;
 	@ManyToOne
 	private Author author = new Author();
 

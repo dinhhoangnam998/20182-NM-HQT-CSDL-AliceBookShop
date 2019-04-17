@@ -9,8 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class StorageFileService {
 
-	public String storageFile(MultipartFile mtpf, String dir, int id) {
-		String fileName = id + mtpf.getOriginalFilename().substring(mtpf.getOriginalFilename().lastIndexOf("."));
+	public String storageFile(MultipartFile mtpf, String dir, String name) {
+		String fileName = name + mtpf.getOriginalFilename().substring(mtpf.getOriginalFilename().lastIndexOf("."));
 
 		File dest = new File("H:/upload/" + dir + "/" + fileName);
 

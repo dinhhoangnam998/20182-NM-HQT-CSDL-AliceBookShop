@@ -11,13 +11,15 @@ import org.alice.bookshop.service.admin.manage.CategoryService;
 import org.alice.bookshop.service.admin.manage.PublisherService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller("amBookController")
@@ -43,14 +45,12 @@ public class BookController {
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
 
-		pagi.process(ss, p, psize, bookService.bookJpa.count());
+		pagi.validate(ss, p, psize);
 
-		// get book page
-		List<Book> books = bookService.getBooks(p, pagi.getPageSize());
-		model.addAttribute("books", books);
+		Page<Book> books = bookService.getBooks(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("books", books.getContent());
 
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		List<Integer> pageList = pagi.getPageList(books.getTotalPages());
 		model.addAttribute("pages", pageList);
 
 		return "/admin/manage/books/show";
@@ -65,9 +65,10 @@ public class BookController {
 		return "/admin/manage/books/add";
 	}
 
-	@PostMapping("/add")
-	public String add(RedirectAttributes redirAttr, Book book) {
-		String msg = bookService.add(book);
+	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String add(RedirectAttributes redirAttr, Book book, @RequestParam MultipartFile file,
+			@RequestParam MultipartFile[] files, @RequestParam MultipartFile[] thumbs) {
+		String msg = bookService.add(book, file, files, thumbs);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/books?p=" + pagi.getLastPage();
@@ -86,14 +87,24 @@ public class BookController {
 		return "/admin/manage/books/edit";
 	}
 
-	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Book book) {
-		String msg = bookService.edit(book);
+	@RequestMapping(value = "/{id}/edit", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String edit(RedirectAttributes redirAttr, Book book, @RequestParam MultipartFile file,
+			@RequestParam MultipartFile[] files, @RequestParam MultipartFile[] thumbs) {
+		String msg = bookService.edit(book, file, files, thumbs);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/books?p=" + pagi.getCurPage();
+			return "redirect:/admin/manage/books?p=" + pagi.getRequestPage();
 		} else {
 			return "redirect:edit";
 		}
+	}
+
+	@GetMapping("/{id}/delete")
+	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
+		Book book = bookService.bookJpa.getOne(id);
+		book.setDeleted(true);
+		bookService.bookJpa.save(book);
+		redirAttr.addFlashAttribute("msg", "delete book " + book.getName() + " success!");
+		return "redirect:/admin/manage/books?p=" + pagi.getRequestPage();
 	}
 }

@@ -13,4 +13,8 @@ public interface BookJpa extends JpaRepository<Book, Integer> {
 
 	long countByRemainQuantityLessThanEqual(int limit);
 
+	Page<Book> findByDeleted(boolean b, Pageable pageable);
+
+	Page<Book> findByRemainQuantityLessThanEqualAndDeleted(int limit, boolean b, Pageable pageable);
+
 }

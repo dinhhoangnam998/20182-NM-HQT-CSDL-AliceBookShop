@@ -8,6 +8,7 @@ import org.alice.bookshop.model.Book;
 import org.alice.bookshop.service.admin.statistic.StorageService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,14 +29,11 @@ public class StorageController {
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize,
 			@RequestParam(required = false, defaultValue = "50") int limit) {
-		pagi.process(ss, p, psize, storageService.getNumberOfRecord(limit));
-		
-		List<Book> books = storageService.getBookRemainUnderLimit(limit, p, psize);
-		
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Book> books = storageService.getBookRemainUnderLimit(limit, pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("books", books.getContent());
+		List<Integer> pageList = pagi.getPageList(books.getTotalPages());
 		model.addAttribute("pages", pageList);
-		
-		model.addAttribute("books", books);
 		return "/admin/statistic/storage";
 	}
 }

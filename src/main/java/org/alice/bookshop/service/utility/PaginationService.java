@@ -17,15 +17,16 @@ public class PaginationService {
 
 	final static int DEFAULT_PAGE = 1;
 	final static int DEFAULT_PAGE_SIZE = 15;
-	private int curPage = DEFAULT_PAGE;
+	private int requestPage = DEFAULT_PAGE;
 	private int pageSize = DEFAULT_PAGE_SIZE;
-	private int totalPage, lastPage;
+	private long lastPage;
+	private HttpSession ss;
 
-	public void process(HttpSession ss, int reqPage, int psize, long totalRecord) {
+	public void validate(HttpSession ss, int reqPage, int psize) {
 		if (reqPage < 1) {
-			curPage = DEFAULT_PAGE;
+			requestPage = DEFAULT_PAGE;
 		} else {
-			curPage = reqPage;
+			requestPage = reqPage;
 		}
 
 		if (psize < 0) {
@@ -33,18 +34,17 @@ public class PaginationService {
 		} else if (psize != pageSize) {
 			pageSize = psize;
 		}
-
-		lastPage = totalPage = (int) Math.ceil(totalRecord / (double) pageSize);
-
-		ss.setAttribute("curPage", curPage);
+		this.ss = ss;
+		ss.setAttribute("curPage", requestPage);
 		ss.setAttribute("pageSize", pageSize);
-		ss.setAttribute("lastPage", lastPage);
 	}
 
-	public List<Integer> getPageList() {
+	public List<Integer> getPageList(long totalPage) {
+		this.lastPage = totalPage;
+		this.ss.setAttribute("lastPage", totalPage);
 		List<Integer> pageList = new ArrayList<>();
 		int numberOfBucket = (int) Math.ceil(totalPage / 10.0);
-		int reqBucket = curPage / 10;
+		int reqBucket = requestPage / 10;
 
 		if (reqBucket == (numberOfBucket - 1)) {
 			for (int i = reqBucket * 10 - 1; i <= totalPage + 1; i++) {

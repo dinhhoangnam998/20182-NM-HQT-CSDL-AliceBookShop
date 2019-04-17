@@ -38,8 +38,8 @@ public class Order {
 	private Date orderDate;
 	private String note;
 	private int state;
+	// derived
 	private int total;
-	private boolean deleted;
 
 	@ManyToOne
 	private User user;

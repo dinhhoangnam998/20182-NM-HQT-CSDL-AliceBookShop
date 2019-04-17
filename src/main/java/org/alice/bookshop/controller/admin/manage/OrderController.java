@@ -8,6 +8,7 @@ import org.alice.bookshop.model.Order;
 import org.alice.bookshop.service.admin.manage.OrderService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,17 +30,11 @@ public class OrderController {
 	@GetMapping
 	public String show(HttpSession ss, Model model, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, orderService.orderJpa.count());
-
-		// get order page
-		List<Order> orders = orderService.getOrders(p, pagi.getPageSize());
-		model.addAttribute("orders", orders);
-
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Order> orders = orderService.getOrders(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("orders", orders.getContent());
+		List<Integer> pageList = pagi.getPageList(orders.getTotalPages());
 		model.addAttribute("pages", pageList);
-
 		return "/admin/manage/orders/show";
 	}
 
@@ -48,7 +43,7 @@ public class OrderController {
 		Order order = orderService.orderJpa.getOne(id);
 		order.setState(s);
 		orderService.orderJpa.save(order);
-		return "redirect:/admin/manage/orders?p=" + pagi.getCurPage();
+		return "redirect:/admin/manage/orders?p=" + pagi.getRequestPage();
 	}
 
 }

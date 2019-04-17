@@ -8,11 +8,11 @@ import org.alice.bookshop.model.Author;
 import org.alice.bookshop.service.admin.manage.AuthorService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,14 +32,11 @@ public class AuthorController {
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, authorService.authorJpa.count());
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Author> authors = authorService.getAuthors(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("authors", authors.getContent());
+		List<Integer> pageList = pagi.getPageList(authors.getTotalPages());
 		model.addAttribute("pages", pageList);
-
-		List<Author> authors = authorService.getAuthors(p, pagi.getPageSize());
-		model.addAttribute("authors", authors);
-
 		return "/admin/manage/authors/show";
 	}
 
@@ -50,7 +47,7 @@ public class AuthorController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-	public String add(RedirectAttributes redirAttr, Author author,  @RequestParam MultipartFile file) {
+	public String add(RedirectAttributes redirAttr, Author author, @RequestParam MultipartFile file) {
 		String msg = authorService.add(author, file);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
@@ -67,12 +64,12 @@ public class AuthorController {
 		return "/admin/manage/authors/edit";
 	}
 
-	@PostMapping("/{id}/edit")
-	public String edit(RedirectAttributes redirAttr, Author author) {
-		String msg = authorService.edit(author);
+	@RequestMapping(value = "/{id}/edit", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+	public String edit(RedirectAttributes redirAttr, Author author, @RequestParam MultipartFile file) {
+		String msg = authorService.edit(author, file);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/authors?p=" + pagi.getCurPage();
+			return "redirect:/admin/manage/authors?p=" + pagi.getRequestPage();
 		} else {
 			return "redirect:edit";
 		}
@@ -80,8 +77,11 @@ public class AuthorController {
 
 	@GetMapping("/{id}/delete")
 	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
-		authorService.authorJpa.getOne(id).setDeleted(true);
-		return "redirect:/admin/manage/authors";
+		Author author = authorService.authorJpa.getOne(id);
+		author.setDeleted(true);
+		authorService.authorJpa.save(author);
+		redirAttr.addFlashAttribute("msg", "delete author " + author.getName() + " success!");
+		return "redirect:/admin/manage/authors?p=" + pagi.getRequestPage();
 	}
-	
+
 }

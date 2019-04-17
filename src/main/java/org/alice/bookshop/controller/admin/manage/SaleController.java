@@ -11,6 +11,7 @@ import org.alice.bookshop.service.admin.manage.BookService;
 import org.alice.bookshop.service.admin.manage.SaleService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,17 +38,11 @@ public class SaleController {
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, saleService.saleJpa.count());
-
-		// get sale page
-		List<Sale> sales = saleService.getSales(p, pagi.getPageSize());
-		model.addAttribute("sales", sales);
-
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Sale> sales = saleService.getSales(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("sales", sales.getContent());
+		List<Integer> pageList = pagi.getPageList(sales.getTotalPages());
 		model.addAttribute("pages", pageList);
-
 		return "/admin/manage/sales/show";
 	}
 
@@ -77,7 +72,6 @@ public class SaleController {
 	@PostMapping("/add")
 	public String add(RedirectAttributes redirAttr, Sale sale) {
 		String msg = saleService.add(sale);
-
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/sales?p=" + pagi.getLastPage();
@@ -117,10 +111,19 @@ public class SaleController {
 		String msg = saleService.edit(sale);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/sales?p=" + pagi.getCurPage();
+			return "redirect:/admin/manage/sales?p=" + pagi.getRequestPage();
 		} else {
 			return "redirect:edit";
 		}
+	}
+
+	@GetMapping("/{id}/delete")
+	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
+		Sale sale = saleService.saleJpa.getOne(id);
+		sale.setDeleted(true);
+		saleService.saleJpa.save(sale);
+		redirAttr.addFlashAttribute("msg", "delete salse " + sale.getName() + " success!");
+		return "redirect:/admin/manage/sales?p=" + pagi.getRequestPage();
 	}
 
 }

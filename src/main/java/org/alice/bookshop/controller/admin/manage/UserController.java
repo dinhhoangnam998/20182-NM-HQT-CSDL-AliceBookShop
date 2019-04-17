@@ -8,6 +8,7 @@ import org.alice.bookshop.model.User;
 import org.alice.bookshop.service.admin.manage.UserService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,17 +30,11 @@ public class UserController {
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, userService.userJpa.count());
-
-		// get user page
-		List<User> users = userService.getUsers(p, pagi.getPageSize());
-		model.addAttribute("users", users);
-
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<User> users = userService.getUsers(p, pagi.getPageSize());
+		model.addAttribute("users", users.getContent());
+		List<Integer> pageList = pagi.getPageList(users.getTotalPages());
 		model.addAttribute("pages", pageList);
-
 		return "/admin/manage/users/show";
 	}
 
@@ -48,7 +43,7 @@ public class UserController {
 		User user = userService.block(id);
 		String msg = "Block user id = " + user.getId() + " success!";
 		redirAttr.addFlashAttribute("msg", msg);
-		return "redirect:/admin/manage/users?p=" + pagi.getCurPage();
+		return "redirect:/admin/manage/users?p=" + pagi.getRequestPage();
 	}
 
 	@GetMapping("/{id}/unblock")
@@ -56,6 +51,6 @@ public class UserController {
 		User user = userService.unblock(id);
 		String msg = "Unblock user id = " + user.getId() + " success!";
 		redirAttr.addFlashAttribute("msg", msg);
-		return "redirect:/admin/manage/users?p=" + pagi.getCurPage();
+		return "redirect:/admin/manage/users?p=" + pagi.getRequestPage();
 	}
 }

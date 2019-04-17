@@ -1,13 +1,10 @@
 package org.alice.bookshop.service.admin.manage;
 
-import java.util.List;
-
 import org.alice.bookshop.model.Category;
 import org.alice.bookshop.repository.CategoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service("amCategoryService")
@@ -16,13 +13,9 @@ public class CategoryService {
 	@Autowired
 	public CategoryJpa categoryJpa;
 
-	public List<Category> getCategories(int p, int psize) {
-		Pageable pageable = PageRequest.of(p - 1, psize);
-		Page<Category> categories = categoryJpa.findAll(pageable);
-		return categories.getContent();
+	public Page<Category> getCategories(int p, int psize) {
+		return categoryJpa.findByDeleted(false, PageRequest.of(p - 1, psize));
 	}
-
-
 
 	private boolean isCategoryExit(Category category) {
 		Category isExit = categoryJpa.findByName(category.getName());

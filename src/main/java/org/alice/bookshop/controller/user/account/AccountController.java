@@ -44,11 +44,7 @@ public class AccountController {
 	public String loginSuccess(HttpSession session) {
 		User user = accountService.getUser();
 		session.setAttribute("user", user);
-		if (user.getPrivilege() == PRIVILEGE_ADMIN) {
-			return "redirect:/admin/manage/authors";
-		} else {
-			return "redirect:/home";
-		}
+		return "redirect:/home";
 	}
 
 	@GetMapping("/signup")
@@ -112,7 +108,7 @@ public class AccountController {
 	@RequestMapping(value = "/profiles/{id}/avatar", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public String changeAvatar(@PathVariable int id, @RequestParam MultipartFile file) {
 		User user = accountService.userJpa.getOne(id);
-		user.setImgURL("/images/user/" + sfSvc.storageFile(file, "user", id));
+		user.setImgURL("/images/user/" + sfSvc.storageFile(file, "user", user.getUsername()));
 		accountService.userJpa.save(user);
 		return "redirect:/profiles/" + id;
 	}

@@ -11,6 +11,7 @@ import org.alice.bookshop.service.admin.manage.BookService;
 import org.alice.bookshop.service.admin.manage.InputService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,17 +38,11 @@ public class InputController {
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, inputService.inputJpa.count());
-
-		// get input page
-		List<Input> inputs = inputService.getInputs(p, pagi.getPageSize());
-		model.addAttribute("inputs", inputs);
-
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Input> inputs = inputService.getInputs(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("inputs", inputs.getContent());
+		List<Integer> pageList = pagi.getPageList(inputs.getTotalPages());
 		model.addAttribute("pages", pageList);
-
 		return "/admin/manage/inputs/show";
 	}
 
@@ -117,10 +112,19 @@ public class InputController {
 		String msg = inputService.edit(input);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/inputs?p=" + pagi.getCurPage();
+			return "redirect:/admin/manage/inputs?p=" + pagi.getRequestPage();
 		} else {
 			return "redirect:edit";
 		}
+	}
+
+	@GetMapping("/{id}/delete")
+	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
+		Input input = inputService.inputJpa.getOne(id);
+		input.setDeleted(true);
+		inputService.inputJpa.save(input);
+		redirAttr.addFlashAttribute("msg", "delete input id: " + input.getId() + " success!");
+		return "redirect:/admin/manage/inputs?p=" + pagi.getRequestPage();
 	}
 
 }

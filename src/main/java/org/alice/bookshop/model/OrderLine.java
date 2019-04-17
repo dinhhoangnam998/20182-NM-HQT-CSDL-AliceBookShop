@@ -26,8 +26,9 @@ public class OrderLine {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int quantity;
+	
+	// derived
 	private int totalLine;
-	private boolean deleted;
 	@ManyToOne
 	private Order order;
 

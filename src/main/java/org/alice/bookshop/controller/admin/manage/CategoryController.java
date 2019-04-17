@@ -8,6 +8,7 @@ import org.alice.bookshop.model.Category;
 import org.alice.bookshop.service.admin.manage.CategoryService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,17 +31,11 @@ public class CategoryController {
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, categoryService.categoryJpa.count());
-
-		// get category page
-		List<Category> categories = categoryService.getCategories(p, pagi.getPageSize());
-		model.addAttribute("categories", categories);
-
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Category> categories = categoryService.getCategories(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("categories", categories.getContent());
+		List<Integer> pageList = pagi.getPageList(categories.getTotalPages());
 		model.addAttribute("pages", pageList);
-
 		return "/admin/manage/categories/show";
 	}
 
@@ -73,9 +68,18 @@ public class CategoryController {
 		String msg = categoryService.edit(category);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/categories?p=" + pagi.getCurPage();
+			return "redirect:/admin/manage/categories?p=" + pagi.getRequestPage();
 		} else {
 			return "redirect:edit";
 		}
+	}
+
+	@GetMapping("/{id}/delete")
+	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
+		Category category = categoryService.categoryJpa.getOne(id);
+		category.setDeleted(true);
+		categoryService.categoryJpa.save(category);
+		redirAttr.addFlashAttribute("msg", "delete category " + category.getName() + " success!");
+		return "redirect:/admin/manage/categories?p=" + pagi.getRequestPage();
 	}
 }

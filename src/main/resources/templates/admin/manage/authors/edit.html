@@ -23,7 +23,7 @@
       <section class="col-md-9 pt-0">
         <!-- section-header -->
         <div th:replace="/base::section-header('alert-warning', 'Edit author', null)"></div>
-        <form th:action="@{edit#navbar}" method="POST" th:object="${author}">
+        <form th:action="@{edit#navbar}" method="POST" th:object="${author}" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Author name</label>
             <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="">
@@ -33,10 +33,10 @@
             <label for="birthday">Author birthday</label>
             <input type="date" id="birthday" th:field="*{birthday}" class="form-control" placeholder="">
           </div>
-
+          <input type="hidden" th:field="*{imgURL}" th:value="${author.imgURL}">
           <div class="form-group">
-            <label for="imgURL">Author imgURL</label>
-            <input type="text" id="imgURL" th:field="*{imgURL}" class="form-control" placeholder="/img/author/...">
+            <label for="img">Change image</label>
+            <input type="file" name="file" class="btn" id="img" />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

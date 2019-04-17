@@ -8,6 +8,7 @@ import org.alice.bookshop.model.Publisher;
 import org.alice.bookshop.service.admin.manage.PublisherService;
 import org.alice.bookshop.service.utility.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,17 +31,11 @@ public class PublisherController {
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int psize) {
-
-		pagi.process(ss, p, psize, publisherService.publisherJpa.count());
-
-		// get publisher page
-		List<Publisher> publishers = publisherService.getPublishers(p, pagi.getPageSize());
-		model.addAttribute("publishers", publishers);
-
-		// pagination
-		List<Integer> pageList = pagi.getPageList();
+		pagi.validate(ss, p, psize);
+		Page<Publisher> publishers = publisherService.getPublishers(pagi.getRequestPage(), pagi.getPageSize());
+		model.addAttribute("publishers", publishers.getContent());
+		List<Integer> pageList = pagi.getPageList(publishers.getTotalPages());
 		model.addAttribute("pages", pageList);
-
 		return "/admin/manage/publishers/show";
 	}
 
@@ -73,9 +68,19 @@ public class PublisherController {
 		String msg = publisherService.edit(publisher);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
-			return "redirect:/admin/manage/publishers?p=" + pagi.getCurPage();
+			return "redirect:/admin/manage/publishers?p=" + pagi.getRequestPage();
 		} else {
 			return "redirect:edit";
 		}
 	}
+
+	@GetMapping("/{id}/delete")
+	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
+		Publisher publisher = publisherService.publisherJpa.getOne(id);
+		publisher.setDeleted(true);
+		publisherService.publisherJpa.save(publisher);
+		redirAttr.addFlashAttribute("msg", "delete publisher " + publisher.getName() + " success!");
+		return "redirect:/admin/manage/publishers?p=" + pagi.getRequestPage();
+	}
+
 }
