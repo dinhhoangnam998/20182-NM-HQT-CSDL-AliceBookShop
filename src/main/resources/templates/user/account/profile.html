@@ -2,8 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- head -->
 
-<head th:include="~{/base::head('Title')}">
+<head>
+	<th:block th:include="~{/base::head ('Profile')}"></th:block>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
+
+	<style>
+		#main .container {
+			background-color: antiquewhite;
+			margin-bottom: 10px;
+		}
+	</style>
 </head>
+
 
 <body>
 	<!-- header -->
@@ -13,64 +24,73 @@
 	<nav th:replace="/base::navbar"></nav>
 
 	<!-- section -->
-	<section th:replace="~{/base::category}">
-	</section>
+	<section th:replace="~{/base::category}"></section>
 
 	<!-- main -->
 	<main id="main">
 		<div class="container-fluid">
 			<h2>Profile</h2>
+			<div class="row">
 
-			<div>
-				<img th:src="@{${session.user.imgURL}}"></img>
-			</div>
-			<div class="container">
-				<h3>Account info</h3>
-				<div class="row">
-					<div class="col-md-6">Username</div>
-					<div class="col-md-6">[[${user.username}]]</div>
+				<div class="col-md-3">
+					<div>
+						<img th:src="@{${user.imgURL}}" style="height: 438px; width: 100%; object-fit: cover">
+					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6">Email</div>
-					<div class="col-md-6">[[${user.email}]]</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">Password</div>
-					<div class="col-md-6"></div>
+
+				<div class="col-md-9">
+					<div class="container">
+						<h3>Account info</h3>
+						<div class="row">
+							<div class="col-md-6">Username</div>
+							<div class="col-md-6">[[${user.username}]]</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">Email</div>
+							<div class="col-md-6">[[${user.email}]]</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">Password</div>
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+
+					<div class="container">
+						<h3>Personal info</h3>
+						<div class="row">
+							<div class="col-md-6">Full name</div>
+							<div class="col-md-6">[[${user.name}]]</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">Birthday</div>
+							<div class="col-md-6">[[${user.birthday}]]</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">Gender</div>
+							<div class="col-md-6">[[${user.gender}]]</div>
+						</div>
+					</div>
+
+					<div class="container">
+						<h3>Delivering info</h3>
+						<div class="row">
+							<div class="col-md-6">Address</div>
+							<div class="col-md-6">[[${user.address}]]</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">Phone</div>
+							<div class="col-md-6">[[${user.phone}]]</div>
+						</div>
+					</div>
+
+					<div>
+						<a th:href="@{/profiles/{id}/edit#main(id=${user.id})}" class="btn btn-primary">Edit Profile</a>
+					</div>
 				</div>
 			</div>
 
-			<div class="container">
-				<h3>Personal info</h3>
-				<div class="row">
-					<div class="col-md-6">Full name</div>
-					<div class="col-md-6">[[${user.name}]]</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">Birthday</div>
-					<div class="col-md-6">[[${user.birthday}]]</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">Gender</div>
-					<div class="col-md-6">[[${user.gender}]]</div>
-				</div>
-			</div>
 
-			<div class="container">
-				<h3>Delivering info</h3>
-				<div class="row">
-					<div class="col-md-6">Address</div>
-					<div class="col-md-6">[[${user.address}]]</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">Phone</div>
-					<div class="col-md-6">[[${user.phone}]]</div>
-				</div>
-			</div>
 
-			<div>
-				<a th:href="@{/profiles/{id}/edit#main(id=${session.user.id})}" class="btn btn-primary btn-block">Edit Info</a>
-			</div>
 
 		</div>
 	</main>

@@ -100,6 +100,7 @@ public class AccountController {
 	public String profile(RedirectAttributes redirAttr, User user) {
 		List<String> msgs = accountService.validateModifyProfile(user);
 		if (msgs.size() == 0) {
+			accountService.saveChangeProfile(user);
 			redirAttr.addFlashAttribute("msg", "Change profile success");
 			return "redirect:/profiles/" + user.getId();
 		} else {

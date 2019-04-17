@@ -2,8 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- head -->
 
-<head th:include="~{/base::head('Title')}">
+<head>
+	<th:block th:include="~{/base::head ('Edit Profile')}"></th:block>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
 </head>
+
 
 <body>
 	<!-- header -->
@@ -13,70 +17,96 @@
 	<nav th:replace="/base::navbar"></nav>
 
 	<!-- section -->
-	<section th:replace="~{/base::category}">
-	</section>
+	<section th:replace="~{/base::category}"></section>
 
 	<!-- main -->
 	<main id="main">
 		<div th:if="not(${#lists.isEmpty(msgs)})">
-		  <div th:each="msg : ${msgs}" th:text="${msg}">
+		<div th:each="msg : ${msgs}">
+			<div class="alert alert-warning alert-dismissible fade show"  role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong th:text="${msg}"></strong>
 			</div>
 		</div>
+	</div>
 
-		<div class="container-fluid">
-			<h2>Upload Image</h2>
-			<form th:action="@{/profiles/{userId}/avatar(userId = ${session.user.id})}" method="POST" enctype="multipart/form-data"> 
-				<input type="file" name="file" /><br /><br />
-				<input type="submit" value="Submit" />
-			</form>
-			<h2>Edit Your Profile</h2>
-			<form th:action="@{/profiles/{userId}(userId = ${user.id})}" method="POST" th:object="${user}">
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" class="form-control" th:field="*{username}" disabled>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<div>
+					<img alt="" th:src="@{${user.imgURL}}" style="height: 438px; width: 100%; object-fit: cover">
 				</div>
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" class="form-control" th:field="*{password}">
-				</div>
-				<div class="form-group">
-					<label for="confirmPassword">Confirm Password</label>
-					<input type="password" id="confirmPassword" class="form-control" th:field="*{confirmPassword}">
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" class="form-control" th:field="*{email}">
-				</div>
-				<div class="form-group">
-					<label for="name">Full Name</label>
-					<input type="text" id="name" class="form-control" th:field="*{name}">
-				</div>
-				<div class="form-group">
-					<label for="birthday">Birthday</label>
-					<input type="date" id="birthday" class="form-control" th:field="*{birthday}">
-				</div>
-				<div>Gender</div>
-				<div class="form-check-inline">
-					<label class="form-check-label" for="male">
-						<input type="radio" class="form-check-input" id="male" th:field="*{gender}" th:value="0">Male
-					</label>
-				</div>
-				<div class="form-check-inline">
-					<label class="form-check-label" for="female">
-						<input type="radio" class="form-check-input" id="female" th:field="*{gender}" th:value="1">Female
-					</label>
-				</div>
-				<div class="form-group">
-					<label for="address">Address</label>
-					<input type="text" id="address" class="form-control" th:field="*{address}">
-				</div>
-				<div class="form-group">
-					<label for="phone">Phone</label>
-					<input type="text" id="phone" class="form-control" th:field="*{phone}">
-				</div>
-				<input type="submit" value="Submit" class="btn btn-primary btn-block">
-			</form>
+				<form
+					th:action="@{/profiles/{userId}/avatar#main(userId = ${user.id})}"
+					method="POST" enctype="multipart/form-data">
+					<input type="file" name="file" class="btn"/><br /> <br /> 
+					<input
+						type="submit" value="Change Photo" class="btn btn-primary" />
+				</form>
+			</div>
+
+			<div class="col-md-9">
+				<h2>Edit Your Profile</h2>
+				<form th:action="@{/profiles/{userId}#main(userId = ${user.id})}"
+					method="POST" th:object="${user}">
+					<div class="form-group">
+						<label for="username">Username</label> <input type="text"
+							id="username" class="form-control" th:field="*{username}" readonly
+							>
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label> <input type="password"
+							id="password" class="form-control" th:field="*{password}">
+					</div>
+					<div class="form-group">
+						<label for="confirmPassword">Confirm Password</label> <input
+							type="password" id="confirmPassword" class="form-control"
+							th:field="*{confirmPassword}">
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label> <input type="email" id="email"
+							class="form-control" th:field="*{email}">
+					</div>
+					<div class="form-group">
+						<label for="name">Full Name</label> <input type="text" id="name"
+							class="form-control" th:field="*{name}">
+					</div>
+					<div class="form-group">
+						<label for="birthday">Birthday</label> <input type="date"
+							id="birthday" class="form-control" th:field="*{birthday}">
+					</div>
+					<div>Gender</div>
+					<div class="form-check-inline">
+						<label class="form-check-label" for="male"> <input
+							type="radio" class="form-check-input" id="male"
+							th:field="*{gender}" th:value="0">Male
+						</label>
+					</div>
+					<div class="form-check-inline">
+						<label class="form-check-label" for="female"> <input
+							type="radio" class="form-check-input" id="female"
+							th:field="*{gender}" th:value="1">Female
+						</label>
+					</div>
+					<div class="form-group">
+						<label for="address">Address</label> <input type="text"
+							id="address" class="form-control" th:field="*{address}">
+					</div>
+					<div class="form-group">
+						<label for="phone">Phone</label> <input type="text" id="phone"
+							class="form-control" th:field="*{phone}">
+					</div>
+					<div>
+						<input type="hidden" th:field="*{imgURL}" th:value="user.imgURL">
+					</div>
+					<input type="submit" value="Submit"
+						class="btn btn-primary btn-block">
+				</form>
+			</div>
 		</div>
+	</div>
 	</main>
 
 	<!-- footer -->

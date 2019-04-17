@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alice.bookshop.model.User;
+import org.alice.bookshop.repository.UserJpa;
 import org.alice.bookshop.service.utility.UserUtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,9 @@ public class AccountService extends UserUtilityService {
 
 	@Autowired
 	private AccountChecker accChecker;
+
+	@Autowired
+	public UserJpa userJpa;
 
 	public List<String> validateSignUpAccount(User user) {
 		List<String> errMsgs = validateModifyProfile(user);
@@ -54,6 +58,12 @@ public class AccountService extends UserUtilityService {
 		}
 
 		return msgs;
+	}
+
+	public void saveChangeProfile(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userJpa.save(user);
+
 	}
 
 }

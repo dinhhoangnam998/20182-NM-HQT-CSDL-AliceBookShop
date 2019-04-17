@@ -2,8 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- head -->
 
-<head th:include="~{/base::head('Title')}">
+<head>
+	<th:block th:include="~{/base::head ('Sign up success')}"></th:block>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
 </head>
+
 
 <body>
 	<!-- header -->
@@ -17,11 +21,11 @@
 	</section>
 
 	<!-- main -->
-	<main>
-		<div th:if="${session.user} != null" class="container-fluid">
-			<h2>Hello [[${session.user.name}]]</h2>
+	<main id="main">
+	
+			<h2>Hello [[${user.name}]]</h2>
 			<a class="btn btn-primary" th:href="@{/login}">Login</a>
-		</div>
+
 	</main>
 
 	<!-- footer -->
