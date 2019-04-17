@@ -38,7 +38,7 @@ public class Order {
 	private Date orderDate;
 	private String note;
 	private int state;
-	private int totalSalePrice;
+	private int total;
 	private boolean deleted;
 
 	@ManyToOne

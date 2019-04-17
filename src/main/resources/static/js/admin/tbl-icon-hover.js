@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
   $('.fa-pencil-alt').hover(function () {
-    $(this).toggleClass("text-primary").toggleClass("text-dark");
+    $(this).toggleClass("text-warning").toggleClass("text-dark");
   }
   )
 

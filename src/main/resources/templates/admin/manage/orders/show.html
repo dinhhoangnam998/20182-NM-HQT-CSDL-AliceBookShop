@@ -33,10 +33,10 @@
 							<th>user</th>
 							<th>note</th>
 							<th>Total</th>
-							<th>DELIVERING</th>
-							<th>CANCELED</th>
-							<th>SUCCESSED</th>
-							<th>detail</th>
+							<th width="5%">DELIVERING</th>
+							<th width="5%">CANCELED</th>
+							<th width="5%">SUCCESSED</th>
+							<th width="5%">detail</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,19 +46,19 @@
 								<td th:text="${order.orderDate}"></td>
 								<td th:text="${order.user.name}"></td>
 								<td th:text="${order.note}"></td>
-								<td th:text="${order.totalSalePrice}"></td>
-								<td><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"
-										th:href="@{/admin/manage/orders/{id}/change-state#main(id=${order.id}, s=2)}">delivering</a></td>
-								<td><a class="" th:attrappend="class= (${order.state} == -1) ? (' text-danger') : (' text-muted')"
-										th:href="@{/admin/manage/orders/{id}/change-state#main(id=${order.id}, s=-1)}">cancled</a></td>
-								<td><a class="" th:attrappend="class= (${order.state} == 3 ) ? (' text-success') : (' text-muted')"
-										th:href="@{/admin/manage/orders/{id}/change-state#main(id=${order.id}, s=3)}">successed</a></td>
-								<td><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"> show detail </a></td>
+								<td th:text="${order.total}"></td>
+								<td class="text-center"><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"
+										th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=2)}"><i class="fas fa-truck"></i></a></td>
+								<td class="text-center"><a class="" th:attrappend="class= (${order.state} == -1) ? (' text-danger') : (' text-muted')"
+										th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=-1)}"><i class="fas fa-window-close"></i></a></td>
+								<td class="text-center"><a class="" th:attrappend="class= (${order.state} == 3 ) ? (' text-success') : (' text-muted')"
+										th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=3)}"><i class="fas fa-check-circle"></i></a></td>
+								<td class="text-center"><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"><i class="fas fa-info-circle text-info"></i> </a></td>
           						</tr>
           
           						<tr>
-          							<td colspan="9">
-          								<div class="collapse" id="content" th:id="${#ids.seq('order')}">
+          							<td colspan="9" class="p-0">
+          								<div class="collapse mt-3" id="content" th:id="${#ids.seq('order')}">
           									<div class="container">
                               <table class="table table-info">
                                 <thead>

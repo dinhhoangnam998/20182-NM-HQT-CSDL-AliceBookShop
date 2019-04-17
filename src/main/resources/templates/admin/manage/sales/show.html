@@ -32,9 +32,9 @@
               <th>event name</th>
               <th>begin date</th>
               <th>end date</th>
-              <th>detail</th>
-              <th>edit</th>
-              <th>delete</th>
+              <th width="5%">detail</th>
+              <th width="5%">edit</th>
+              <th width="5%">delete</th>
             </tr>
           </thead>
           <tbody>
@@ -44,23 +44,24 @@
                 <td th:text="${sale.name}"></td>
                 <td th:text="${sale.beginDate}"></td>
                 <td th:text="${sale.endDate}"></td>
-                <td>
+                <td class="text-center">
                   <a data-toggle="collapse" th:href="'#' + ${#ids.next('sale')}">
-                              show detail
+                              <i class="fas fa-info-circle text-info"></i>
                             </a>
                           </td>
-                          <td><a th:href="@{/admin/manage/sales/{id}/edit(id=${sale.id})}"><i
+                          <td class="text-center"><a th:href="@{/admin/manage/sales/{id}/edit#navbar(id=${sale.id})}"><i
                                 class="fas fa-pencil-alt text-dark"></i></a>
                           </td>
-                          <td><a th:href="@{/admin/manage/sales/{id}/delete(id=${sale.id})}"><i
+                          <td class="text-center"><a th:href="@{/admin/manage/sales/{id}/delete#navbar(id=${sale.id})}"><i
                                 class="far fa-trash-alt text-dark"></i></a>
                           </td>
                       </tr>
           
                         <tr>
-                          <td colspan="6" style="padding: 0;">
+                          <td colspan="7" style="padding: 0;">
                             <div class="collapse" id="content" th:id="${#ids.seq('sale')}">
-                              <!-- table -->
+                              <div class="container my-3">
+                                <!-- table -->
                                 <table class="table table-borderless table-info my-auto px-3">
                                   <thead>
                                     <tr>
@@ -75,6 +76,7 @@
                                     </tr>
                                   </tbody>
                                 </table>
+                              </div>
                               </div>
                           </td>
                         </tr>

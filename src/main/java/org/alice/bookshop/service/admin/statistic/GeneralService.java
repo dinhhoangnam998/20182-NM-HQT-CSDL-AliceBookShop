@@ -88,4 +88,9 @@ public class GeneralService {
 		return saleJpa.count();
 	}
 
+	public Object getNumberOfCategory() {
+
+		return categoryJpa.count();
+	}
+
 }

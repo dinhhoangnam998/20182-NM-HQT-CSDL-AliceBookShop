@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Add sale')}">
+<head>
+  <th:block th:include="~{/base::head('Add Sale')}"></th:block>
 </head>
+
 
 <body>
   <!-- header -->
   <header th:replace="/base::header"></header>
 
+  <!-- navbar -->
+  <nav th:replace="/base::navbar"></nav>
+
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
+  <main class="container-fluid" id="main">
     <div class="row ">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
+      <section class="col-md-9 pt-0">
         <!-- section-header -->
         <div th:replace="/base::section-header('alert-warning', 'Add sale', null)"></div>
 
         <!-- section-content -->
-        <form th:action="@{add#main}" method="POST" th:object="${sale}">
+        <form th:action="@{add#navbar}" method="POST" th:object="${sale}">
 
           <div class="form-group">
             <label for="name">sale event name</label>
@@ -46,7 +51,7 @@
                 <th>book</th>
                 <th>percent</th>
                 <th>
-                  <button type="submit" name="addRow">Add Row
+                  <button type="submit" name="addRow" class="btn btn-primary btn-sm">Add Row
                     <i class="fa fa-plus">
                     </i>
                   </button>
@@ -65,7 +70,7 @@
                   <input type="number" th:field="*{book_sales[__${iterStat.index}__].percent}">
                 </td>
                 <td>
-                  <button type="submit" name="removeRow" th:value="${iterStat.index}">Remove Row
+                  <button type="submit" name="removeRow" class="btn btn-warning btn-sm" th:value="${iterStat.index}">Remove Row
                     <i class="fa fa-minus">
                     </i>
                   </button>

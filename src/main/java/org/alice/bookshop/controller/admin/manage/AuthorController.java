@@ -79,6 +79,6 @@ public class AuthorController {
 	@GetMapping("/{id}/delete")
 	public String delete(RedirectAttributes redirAttr, @PathVariable int id) {
 		authorService.authorJpa.getOne(id).setDeleted(true);
-		return "redirect:/admin/manage/authors?p=" + pagi.getLastPage();
+		return "redirect:/admin/manage/authors";
 	}
 }

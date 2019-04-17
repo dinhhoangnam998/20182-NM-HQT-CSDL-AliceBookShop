@@ -26,7 +26,7 @@ public class OrderLine {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int quantity;
-	private int salePercent;
+	private int totalLine;
 	private boolean deleted;
 	@ManyToOne
 	private Order order;

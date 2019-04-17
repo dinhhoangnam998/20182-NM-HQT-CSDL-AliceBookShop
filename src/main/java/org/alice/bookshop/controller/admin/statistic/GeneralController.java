@@ -27,6 +27,7 @@ public class GeneralController {
 
 		model.addAttribute("author", generalService.getNumberOfAuthor());
 		model.addAttribute("publisher", generalService.getNumberOfPublisher());
+		model.addAttribute("categories", generalService.getNumberOfCategory());
 		model.addAttribute("input", generalService.getNumberOfInput());
 		model.addAttribute("sale", generalService.getNumberOfSale());
 		return "/admin/statistic/general";

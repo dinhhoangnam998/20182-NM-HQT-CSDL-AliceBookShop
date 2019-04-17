@@ -37,8 +37,8 @@
               <th>author</th>
               <th>category</th>
               <th>publisher</th>
-              <th>edit</th>
-              <th>delete</th>
+              <th width="5%">edit</th>
+              <th width="5%">delete</th>
             </tr>
           </thead>
           <tbody>
@@ -52,10 +52,10 @@
               <td th:text="${book.author.name}"></td>
               <td th:text="${book.category.name}"></td>
               <td th:text="${book.publisher.name}"></td>
-              <td><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i
+              <td class="text-center"><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i
                     class="fas fa-pencil-alt text-dark"></i></a>
               </td>
-              <td><a th:href="@{/admin/manage/books/{id}/delete(id=${book.id})}"><i
+              <td class="text-center"><a th:href="@{/admin/manage/books/{id}/delete(id=${book.id})}"><i
                     class="far fa-trash-alt text-dark"></i></a>
               </td>
             </tr>

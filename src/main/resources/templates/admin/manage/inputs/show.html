@@ -31,9 +31,9 @@
               <th>id</th>
               <th>date</th>
               <th>note</th>
-              <th>detail</th>
-              <th>edit</th>
-              <th>delete</th>
+              <th width="5%">detail</th>
+              <th width="5%">edit</th>
+              <th width="5%">delete</th>
             </tr>
           </thead>
           <tbody>
@@ -42,22 +42,22 @@
                 <td scope="row" th:text="${input.id}"></td>
                 <td th:text="${input.inputDate}"></td>
                 <td th:text="${input.note}"></td>
-                <td>
+                <td class="text-center">
                   <a data-toggle="collapse" th:href="'#' + ${#ids.next('input')}">
-                    show detail
+                  <i class="fas fa-info-circle text-info"></i>
                   </a>
                 </td>
+                <td class="text-center"><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i
+                      class="fas fa-pencil-alt text-dark"></i></a>
+                </td>
+                <td class="text-center"><a th:href="@{/admin/manage/inputs/{id}/delete(id=${input.id})}"><i
+                      class="far fa-trash-alt text-dark"></i></a>
+                </td>
               </tr>
-              <td><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i
-                    class="fas fa-pencil-alt text-dark"></i></a>
-              </td>
-              <td><a th:href="@{/admin/manage/inputs/{id}/delete(id=${input.id})}"><i
-                    class="far fa-trash-alt text-dark"></i></a>
-              </td>
           
                 <tr>
-                  <td colspan="5" style="padding: 0;">
-                    <div class="collapse" id="content" th:id="${#ids.seq('input')}">
+                  <td colspan="6" class="p-0 ">
+                    <div class="collapse mt-3" id="content" th:id="${#ids.seq('input')}">
                       <div class="container">
                       <!-- table -->
                         <table class="table table table-info">

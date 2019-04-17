@@ -48,7 +48,7 @@ public class UserController {
 		User user = userService.block(id);
 		String msg = "Block user id = " + user.getId() + " success!";
 		redirAttr.addFlashAttribute("msg", msg);
-		return "redirect:/admin/manage/users";
+		return "redirect:/admin/manage/users?p=" + pagi.getCurPage();
 	}
 
 	@GetMapping("/{id}/unblock")
@@ -56,6 +56,6 @@ public class UserController {
 		User user = userService.unblock(id);
 		String msg = "Unblock user id = " + user.getId() + " success!";
 		redirAttr.addFlashAttribute("msg", msg);
-		return "redirect:/admin/manage/users";
+		return "redirect:/admin/manage/users?p=" + pagi.getCurPage();
 	}
 }

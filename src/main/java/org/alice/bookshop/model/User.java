@@ -43,5 +43,8 @@ public class User {
 	private String phone;
 	private String imgURL;
 	private int privilege;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date signupDate;
 	private boolean deleted;
 }

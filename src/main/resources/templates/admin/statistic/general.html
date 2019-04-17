@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('General Info')}">
+<head>
+  <th:block th:include="~{/base::head('General Info')}"></th:block>
+  <style>
+    div.container-fluid {
+      background-color: #ecf0f1;
+      margin-top: 20px;
+    }
+  </style>
 </head>
+
 
 <body>
   <!-- header -->
-  <header th:replace="/base::header"></header>
+  <header th:replace="~{/base::header}"></header>
+
+  <!-- navbar -->
+  <nav th:replace="~{/base::navbar}"></nav>
 
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
+  <main class="container-fluid" id="main">
     <div class="row">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
+      <section class="col-md-9 pt-0">
         <!-- section header -->
-        <div th:replace="/base::section-header('alert-success', 'Authors:', 'authors/add')">
+        <div th:replace="/base::section-header('alert-success', 'General info:', null)">
         </div>
         <div class="container-fluid">
           <h3>User</h3>
@@ -47,7 +58,7 @@
           <h3>Other</h3>
           <div>
             <div>Number of Author: [[${author}]]</div>
-            <div>Number of Category: [[${category}]]</div>
+            <div>Number of Category: [[${categories}]]</div>
             <div>Number of Publisher: [[${publisher}]]</div>
             <div>Number of Input Event: [[${input}]]</div>
             <div>Number of Sale Event: [[${sale}]]</div>
