@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="~{/base::head('Input List')}">
+<head>
+  <th:block th:include="~{/base::head('Input List')}"></th:block>
 </head>
 
 <body>
   <!-- header -->
-  <header th:replace="/base::header"></header>
+  <header th:replace="~{/base::header}"></header>
+
+  <!-- navbar -->
+  <nav th:replace="~{/base::navbar}"></nav>
 
   <!-- main -->
-  <main class="container-fluid my-2" id="main">
-    <div class="row">
+  <main class="container-fluid" id="main">
+    <div class="row ">
       <!-- navside -->
-      <nav class="col-3" th:insert="/base::navside">
+      <nav class="col-md-3" th:replace="~{/base::navside}">
       </nav>
 
       <!-- section -->
-      <section class="col-9">
-        <!-- section header -->
-        <div th:replace="/base::section-header('alert-success', 'Inputs:', 'inputs/add')"></div>
+      <section class="col-md-9 pt-0">
+        <!-- section-header -->
+        <div th:replace="~{/base::section-header('alert-success', 'Inputs:', 'inputs/add')}"></div>
+
         <!-- section-content -->
-        <table class="table table-bordered table-sm">
+        <table id="ss-ct-tb" class="table table-hover table-bordered table-sm mt-2 mb-2">
           <thead class="thead-inverse">
             <tr>
               <th>id</th>
@@ -28,6 +33,7 @@
               <th>note</th>
               <th>detail</th>
               <th>edit</th>
+              <th>delete</th>
             </tr>
           </thead>
           <tbody>
@@ -41,49 +47,55 @@
                     show detail
                   </a>
                 </td>
-                <td><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-
-              <tr>
-                <td colspan="5" style="padding: 0;">
-                  <div class="collapse" id="content" th:id="${#ids.seq('input')}">
-                    <!-- table -->
-                      <table class="table table-borderless table-info my-auto px-3">
-                        <thead>
-                          <tr>
-                            <th>book</th>
-                            <th>quantity</th>
-                            <th>cover price</th>
-                            <th>input price</th>
-                            <th>totalInputLine</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr th:each="book_input: ${input.book_inputs}">
-                            <td scope="row" th:text="${book_input.book.name}"></td>
-                            <td th:text="${book_input.quantity}"></td>
-                            <td th:text="${book_input.book.coverPrice}"></td>
-                            <td th:text="${book_input.book.inputPrice}"></td>
-                            <td th:text="${book_input.book.inputPrice} * ${book_input.quantity} "></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                </td>
               </tr>
+              <td><a th:href="@{/admin/manage/inputs/{id}/edit(id=${input.id})}"><i
+                    class="fas fa-pencil-alt text-dark"></i></a>
+              </td>
+              <td><a th:href="@{/admin/manage/inputs/{id}/delete(id=${input.id})}"><i
+                    class="far fa-trash-alt text-dark"></i></a>
+              </td>
+          
+                <tr>
+                  <td colspan="5" style="padding: 0;">
+                    <div class="collapse" id="content" th:id="${#ids.seq('input')}">
+                      <div class="container">
+                      <!-- table -->
+                        <table class="table table table-info">
+                          <thead>
+                            <tr>
+                              <th>book</th>
+                              <th>quantity</th>
+                              <th>cover price</th>
+                              <th>input price</th>
+                              <th>totalInputLine</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr th:each="book_input: ${input.book_inputs}">
+                              <td scope="row" th:text="${book_input.book.name}"></td>
+                              <td th:text="${book_input.quantity}"></td>
+                              <td th:text="${book_input.book.coverPrice}"></td>
+                              <td th:text="${book_input.inputPrice}"></td>
+                              <td th:text="${book_input.inputPrice} * ${book_input.quantity} "></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
             </th:block>
           </tbody>
         </table>
-        <!-- section-footer -->
-        <div th:replace="/base::section-footer ('inputs')"></div>
-      </section>
 
+        <!-- section-footer -->
+        <div th:replace="~{/base::section-footer ('inputs')}"></div>
+      </section>
     </div>
   </main>
 
   <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
+  <footer th:replace="~{/base::footer}"></footer>
 </body>
 
 </html>

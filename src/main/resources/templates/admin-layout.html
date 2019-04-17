@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <th:block th:include="~{/base::head('Item List')}"></th:block>
+  <th:block th:include="~{/base::head('Sale List')}"></th:block>
 </head>
 
 <body>
@@ -22,15 +22,68 @@
       <!-- section -->
       <section class="col-md-9 pt-0">
         <!-- section-header -->
-        <div th:replace="~{/base::section-header('alert-type', 'title', 'addLink')}"></div>
+        <div th:replace="~{/base::section-header('alert-success', 'Sales:', 'sales/add')}"></div>
 
         <!-- section-content -->
         <table id="ss-ct-tb" class="table table-hover table-bordered table-sm mt-2 mb-2">
+          <thead class="thead-inverse">
+            <tr>
+              <th>id</th>
+              <th>event name</th>
+              <th>begin date</th>
+              <th>end date</th>
+              <th>detail</th>
+              <th>edit</th>
+              <th>delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <th:block th:each="sale : ${sales}">
+              <tr>
+                <td scope="row" th:text="${sale.id}"></td>
+                <td th:text="${sale.name}"></td>
+                <td th:text="${sale.beginDate}"></td>
+                <td th:text="${sale.endDate}"></td>
+                <td>
+                  <a data-toggle="collapse" th:href="'#' + ${#ids.next('sale')}">
+                              show detail
+                            </a>
+                          </td>
+                          <td><a th:href="@{/admin/manage/sales/{id}/edit(id=${sale.id})}"><i
+                                class="fas fa-pencil-alt text-dark"></i></a>
+                          </td>
+                          <td><a th:href="@{/admin/manage/sales/{id}/delete(id=${sale.id})}"><i
+                                class="far fa-trash-alt text-dark"></i></a>
+                          </td>
+                      </tr>
           
+                        <tr>
+                          <td colspan="6" style="padding: 0;">
+                            <div class="collapse" id="content" th:id="${#ids.seq('sale')}">
+                              <!-- table -->
+                                <table class="table table-borderless table-info my-auto px-3">
+                                  <thead>
+                                    <tr>
+                                      <th>book</th>
+                                      <th>percent</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr th:each="book_sale: ${sale.book_sales}">
+                                      <td scope="row" th:text="${book_sale.book.name}"></td>
+                                      <td th:text="${book_sale.percent}"></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                          </td>
+                        </tr>
+                      </th:block>
+                    </tbody>
         </table>
 
         <!-- section-footer -->
-        <div th:replace="~{/base::section-footer ('items')}"></div>
+        <div th:replace="~{/base::section-footer ('sales')}"></div>
       </section>
     </div>
   </main>
@@ -40,10 +93,3 @@
 </body>
 
 </html>
-
-<td><a th:href="@{/admin/manage/publishers/{id}/edit(id=${category.id})}"><i
-      class="fas fa-pencil-alt text-dark"></i></a>
-</td>
-<td><a th:href="@{/admin/manage/publishers/{id}/delete(id=${category.id})}"><i
-      class="far fa-trash-alt text-dark"></i></a>
-</td>

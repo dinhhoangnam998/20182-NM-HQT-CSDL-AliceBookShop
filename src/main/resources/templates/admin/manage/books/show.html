@@ -34,11 +34,11 @@
               <th>height</th>
               <th>totalPage</th>
               <th>coverPrice</th>
-              <!-- <th>inputPrice</th> -->
               <th>author</th>
               <th>category</th>
               <th>publisher</th>
-              <th>Edit</th>
+              <th>edit</th>
+              <th>delete</th>
             </tr>
           </thead>
           <tbody>
@@ -49,18 +49,21 @@
               <td th:text="${book.height}"></td>
               <td th:text="${book.totalPage}"></td>
               <td th:text="${book.coverPrice}"></td>
-              <!-- <td th:text="${book.inputPrice}"></td> -->
               <td th:text="${book.author.name}"></td>
               <td th:text="${book.category.name}"></td>
               <td th:text="${book.publisher.name}"></td>
-              <td><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i class="fa fa-edit"></i></a>
+              <td><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i
+                    class="fas fa-pencil-alt text-dark"></i></a>
+              </td>
+              <td><a th:href="@{/admin/manage/books/{id}/delete(id=${book.id})}"><i
+                    class="far fa-trash-alt text-dark"></i></a>
               </td>
             </tr>
           </tbody>
         </table>
 
         <!-- section-footer -->
-        <div th:replace="/base::section-footer ('books')"></div>
+        <div th:replace="~{/base::section-footer ('books')}"></div>
       </section>
     </div>
   </main>
