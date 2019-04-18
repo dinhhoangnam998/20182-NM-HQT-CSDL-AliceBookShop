@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:include="~{/base::head ('Manage Cart')}"></th:block>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="/base::header"></header>
+
+  <!-- navbar -->
+  <nav th:replace="/base::navbar"></nav>
+
+  <main>
+    <div class="container">
+      <h3>Quản lý giỏ hàng</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Stt</th>
+            <th>Tên sách</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+            <th>-</th>
+            <th>x</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ol, iStat : ${cart.orderLines}">
+            <td scope="row" th:text="${iStat.count}"></td>
+            <td th:text="${ol.book.name}"></td>
+            <td th:text="${ol.quantity}"></td>
+            <td th:text="${ol.book.salePrice}"></td>
+            <td th:text="${ol.totalLine}"></td>
+            <td><a th:href="@{/carts/{id}/remove#navbar(id=${session.cart.id}, olid=${ol.id}, q = 1)}">-</a></td>
+            <td><a th:href="@{/carts/{id}/remove#navbar(id=${session.cart.id}, olid=${ol.id}, q = ${ol.quantity})}">x</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>Total Charge: [[${cart.Total}]] </div>
+      <a class="btn btn-primary" th:href="@{/carts/{id}/check-out(id=${session.cart.id})}">Thanh toán</a>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="/base::footer"></footer>
+</body>

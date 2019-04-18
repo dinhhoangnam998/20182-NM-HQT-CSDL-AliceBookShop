@@ -37,10 +37,10 @@
             <tr th:each="category : ${categories}">
               <td scope="row" th:text="${category.id}"></td>
               <td th:text="${category.name}"></td>
-              <td class="text-center"><a th:href="@{/admin/manage/categories/{id}/edit(id=${category.id})}"><i
+              <td class="text-center"><a th:href="@{/admin/manage/categories/{id}/edit#navbar(id=${category.id})}"><i
                     class="fas fa-pencil-alt text-dark"></i></a>
               </td>
-              <td class="text-center"><a th:href="@{/admin/manage/categories/{id}/delete(id=${category.id})}"><i
+              <td class="text-center"><a th:href="@{/admin/manage/categories/{id}/delete#navbar(id=${category.id})}"><i
                     class="far fa-trash-alt text-dark"></i></a>
               </td>
             </tr>

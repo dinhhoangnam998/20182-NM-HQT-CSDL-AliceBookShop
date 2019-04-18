@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,6 +46,6 @@ public class Order {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 }

@@ -20,9 +20,9 @@ public class HomeController {
 	@GetMapping
 	public String home(Model model) {
 
-		List<Book> books1 = homeService.getBooks();
-		List<Book> books2 = books1;
-		List<Book> books3 = books2;
+		List<Book> books1 = homeService.getBooks(1, 5);
+		List<Book> books2 = homeService.getBooks(2, 5);;
+		List<Book> books3 = homeService.getBooks(3, 5);
 
 		model.addAttribute("category1", "Văn học");
 		model.addAttribute("category2", "Sách thiếu nhi");

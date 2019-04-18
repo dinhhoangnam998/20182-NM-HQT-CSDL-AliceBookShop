@@ -80,11 +80,11 @@ public class SeedDataController {
 
 	@GetMapping("/seed-data")
 	public String seedData() {
-		for (int i = 1; i <= 200; i++) {
+		for (int i = 1; i <= 100; i++) {
 			Author author = new Author();
 			author.setName("author " + i);
 			author.setBirthday(rdD(50, 20));
-			author.setImgURL("/img/author/...");
+			author.setImgURL("/images/author/...");
 			aJpa.save(author);
 
 			Category category = new Category();
@@ -94,24 +94,25 @@ public class SeedDataController {
 			Publisher publisher = new Publisher();
 			publisher.setName("publisher " + i);
 			publisher.setAddress("city " + i);
-			publisher.setPhone("0123456789");
+			publisher.setPhone("0" + rd(0, 9) + "23" + rd(0, 9) + rd(0, 9) + rd(0, 9) + rd(0, 9) + rd(0, 9) + rd(0, 9));
 			pJpa.save(publisher);
 
 			Book book = new Book();
-			book.setAuthor(author);
-			book.setCategory(category);
-			book.setPublisher(publisher);
+			book.setAuthor(aJpa.getOne(rd(1, i)));
+			book.setCategory(cJpa.getOne(rd(1, i)));
+			book.setPublisher(pJpa.getOne(rd(1, i)));
 			book.setName("book " + i);
-			book.setHeight(30);
-			book.setWidth(25);
+			book.setHeight(rd(1, 5) * 10);
+			book.setWidth(rd(1, 7) * 10);
 			book.setDescription("description " + i);
 			book.setTotalPage(rd(30, 200));
-			book.setCoverPrice(rd(50, 250));
-//			book.setInputPrice(book.getCoverPrice() * rd(10, 35) / 100);
+			book.setCoverPrice(rd(5, 25) * 10);
+			book.setReleaseDate(rdD(5, 5));
+			book.setSalePrice(book.getCoverPrice() * 85 / 100);
 			bJpa.save(book);
 
 			Input input = new Input();
-			input.setInputDate(rdD(5, 4));
+			input.setInputDate(rdD(5, 5));
 			input.setNote("input event " + i);
 			iJpa.save(input);
 
@@ -125,6 +126,7 @@ public class SeedDataController {
 			user.setUsername("username" + i);
 			user.setPassword(pwE.encode("password"));
 			user.setEmail("email" + i + "@gmail.com");
+			user.setBirthday(rdD(30, 10));
 			user.setName("name " + i);
 			user.setAddress("city " + i);
 			uJpa.save(user);
@@ -133,6 +135,7 @@ public class SeedDataController {
 		User admin = new User();
 		admin.setUsername("admin");
 		admin.setPassword(pwE.encode("password"));
+		admin.setName("adminstrator");
 		admin.setPrivilege(1);
 		uJpa.save(admin);
 
@@ -141,42 +144,60 @@ public class SeedDataController {
 
 	@GetMapping("/seed-data-2")
 	public String seedData2() {
-		for (int i = 1; i <= 200; i++) {
-			Order order = new Order();
-			order.setOrderDate(rdD(3, 3));
-			order.setUser(uJpa.getOne(rd(2, 150)));
-			order.setNote("user note");
-			order.setState(rd(-1, 3));
-			orderJpa.save(order);
+		for (int i = 1; i <= 100; i++) {
 
-			int quantity = rd(2, 7);
-			for (int j = 1; j <= quantity; j++) {
-				OrderLine orderDetail = new OrderLine();
-				orderDetail.setOrder(order);
-				orderDetail.setBook(bJpa.getOne(rd(2, 190)));
-				orderDetail.setQuantity(rd(1, 10));
-				orderDetailJpa.save(orderDetail);
-			}
-
-			quantity = rd(3, 6);
-			for (int j = 1; j <= quantity; j++) {
+			int quantity1 = rd(3, 6);
+			for (int j = 1; j <= quantity1; j++) {
 				Book_Input b_i = new Book_Input();
 				b_i.setInput(iJpa.getOne(i));
-				b_i.setBook(bJpa.getOne(rd(2, 190)));
-				b_i.setQuantity(i);
+				Book b = bJpa.getOne(rd(2, 90));
+				b_i.setBook(b);
+				b_i.setQuantity(rd(1, 6) * 10);
+				b.setRemainQuantity(b.getRemainQuantity() + b_i.getQuantity());
+				bJpa.save(b);
+				b_i.setInputPrice(b.getCoverPrice() * 20);
 				b_iJpa.save(b_i);
 
 			}
 
-			quantity = rd(3, 10);
-			for (int j = 1; j <= quantity; j++) {
+			int quantity2 = rd(3, 6);
+			for (int j = 1; j <= quantity2; j++) {
 				Book_Sale b_s = new Book_Sale();
 				b_s.setSale(sJpa.getOne(i));
-				b_s.setBook(bJpa.getOne(rd(2, 190)));
+				Book book = bJpa.getOne(rd(2, 90));
+				b_s.setBook(book);
 				b_s.setPercent(rd(10, 40));
+				book.setSalePrice(book.getSalePrice() * (100 - b_s.getPercent()) / 100);
+				bJpa.save(book);
 				b_sJpa.save(b_s);
 
 			}
+
+			Order order = new Order();
+			order.setOrderDate(rdD(3, 3));
+			order.setUser(uJpa.getOne(rd(2, 50)));
+			order.setNote("user note");
+			order.setState(rd(0, 4));
+			orderJpa.save(order);
+
+			int totalOrderCharge = 0;
+			int quantity = rd(2, 5);
+			for (int j = 1; j <= quantity; j++) {
+				OrderLine orderDetail = new OrderLine();
+				orderDetail.setOrder(order);
+				Book b = bJpa.getOne(rd(2, 90));
+
+				orderDetail.setBook(b);
+				orderDetail.setQuantity(rd(1, 10));
+				int totalLine = b.getSalePrice() * orderDetail.getQuantity();
+				orderDetail.setTotalLine(totalLine);
+				totalOrderCharge += totalLine;
+				orderDetailJpa.save(orderDetail);
+			}
+
+			order.setTotal(totalOrderCharge);
+			orderJpa.save(order);
+
 		}
 
 		return "redirect:/admin/manage/authors";

@@ -21,15 +21,39 @@
         <!-- gallery -->
         <div class="col-md-3">
           <ul id="bookGallery" class="">
-
             <li th:each="imgURL : ${book.imgURLs}" th:data-thumb="@{${imgURL}}">
               <img style="height: 450px; width: 100%; object-fit: cover" th:src="@{${imgURL}}" alt="">
             </li>
           </ul>
         </div>
 
-        <!-- add to cart  -->
+        <!-- middle column -->
         <div class="col-md-6 bg-warning h-100">
+          <!-- msg -->
+          <div th:if="(${result} != null) and (${result} == false) "
+            class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <div>
+              <strong>Số sách bạn yêu cầu đã vượt quá số lượng có thể cung cấp!</strong>
+              <p>Vui lòng chọn số sách ít hơn nhé!</p>
+            </div>
+          </div>
+
+          <div th:if="(${result} != null) and (${result} == true) "
+            class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <div>
+              <strong>Thêm thành công [[${q}]] cuốn [[${bookName}]] vào giỏ!</strong>
+              <!-- <p></p> -->
+            </div>
+          </div>
+
           <!-- book name -->
           <div th:text="${book.name}" style="font-size: 40px; height: 100px;">
           </div>
@@ -62,29 +86,36 @@
                   giỏ</button>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- addtion info -->
-        <div class="col-md-3 bg-secondary h-100" style="display: table">
-          <ul class="list-group bg-warning" style=" display: table-cell; vertical-align: middle">
-            <li class="list-group-item">
-              <div>Info 1</div>
-              <div>Info 2</div>
-            </li>
-            <li class="list-group-item">Info</li>
-            <li class="list-group-item">
-              <div>Info 1</div>
-              <div>Info 2</div>
-              <div>Info 3</div>
-              <div>Info 4</div>
-            </li>
-            <li class="list-group-item">Info</li>
-            <li class="list-group-item">Info</li>
-            <li class="list-group-item disabled">Disabled item</li>
-          </ul>
+          </div>
+
+          <form th:action="@{/carts/{id}/add#navbar(id = ${session.cart.id}, bid=${book.id})}" method="GET">
+            Số lượng: <input type="number" name="q">
+            <input type="hidden" name="bid" th:value="${book.id}">
+            <input type="submit" value="Them vao gio">
+          </form>
         </div>
+     
+      <!-- addtion info -->
+      <div class="col-md-3 bg-secondary h-100" style="display: table">
+        <ul class="list-group bg-warning" style=" display: table-cell; vertical-align: middle">
+          <li class="list-group-item">
+            <div>Info 1</div>
+            <div>Info 2</div>
+          </li>
+          <li class="list-group-item">Info</li>
+          <li class="list-group-item">
+            <div>Info 1</div>
+            <div>Info 2</div>
+            <div>Info 3</div>
+            <div>Info 4</div>
+          </li>
+          <li class="list-group-item">Info</li>
+          <li class="list-group-item">Info</li>
+          <li class="list-group-item disabled">Disabled item</li>
+        </ul>
       </div>
+    </div>
     </div>
 
     <!-- detail description -->
@@ -102,10 +133,10 @@
           <td style=" width: 30%;">Mã hàng</td>
           <td>[[${book.id}]]</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>Tên Nhà Cung Cấp</td>
           <td>Minh Long</td>
-        </tr>
+        </tr> -->
         <tr>
           <td>Tác giả</td>
           <td>[[${book.author.name}]]</td>

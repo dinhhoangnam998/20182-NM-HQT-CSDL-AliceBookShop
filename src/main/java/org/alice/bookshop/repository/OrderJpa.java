@@ -25,4 +25,10 @@ public interface OrderJpa extends JpaRepository<Order, Integer> {
 
 	List<Order> findByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(Date begin2, Date end2, int i);
 
+	long countByStateNot(int i);
+
+	Order findByUser_IdAndState(int id, int i);
+
+	List<Order> findByUser_Id(int uid);
+
 }

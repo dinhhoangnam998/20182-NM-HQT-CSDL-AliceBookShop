@@ -1,5 +1,7 @@
 package org.alice.bookshop.repository;
 
+import java.util.List;
+
 import org.alice.bookshop.model.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,5 +18,9 @@ public interface BookJpa extends JpaRepository<Book, Integer> {
 	Page<Book> findByDeleted(boolean b, Pageable pageable);
 
 	Page<Book> findByRemainQuantityLessThanEqualAndDeleted(int limit, boolean b, Pageable pageable);
+
+	Object countByDeleted(boolean b);
+
+	List<Book> findByDeleted(boolean b);
 
 }

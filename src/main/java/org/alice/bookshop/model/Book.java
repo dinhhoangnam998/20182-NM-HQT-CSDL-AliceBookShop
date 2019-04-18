@@ -42,6 +42,7 @@ public class Book {
 	private Date releaseDate;
 	private String shortDescription;
 	private String description;
+	// derived
 	private int remainQuantity;
 	private String imgURL;
 	@ElementCollection
@@ -49,7 +50,7 @@ public class Book {
 	@ElementCollection
 	private List<String> thumbURLs = new ArrayList<>();
 	private boolean deleted;
-	// this price í derived
+	// this price is half-derived
 	private int salePrice;
 	@ManyToOne
 	private Author author = new Author();

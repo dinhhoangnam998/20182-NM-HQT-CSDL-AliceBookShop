@@ -3,7 +3,9 @@ package org.alice.bookshop.service.user.account;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.alice.bookshop.model.Order;
 import org.alice.bookshop.model.User;
+import org.alice.bookshop.repository.OrderJpa;
 import org.alice.bookshop.repository.UserJpa;
 import org.alice.bookshop.service.utility.UserUtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class AccountService extends UserUtilityService {
 
 	@Autowired
 	private AccountChecker accChecker;
+
+	@Autowired
+	public OrderJpa orderJpa;
 
 	@Autowired
 	public UserJpa userJpa;
@@ -64,6 +69,18 @@ public class AccountService extends UserUtilityService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userJpa.save(user);
 
+	}
+
+	public Order getCart(User user) {
+		Order cart = orderJpa.findByUser_IdAndState(user.getId(), 0);
+		if (cart != null) {
+			return cart;
+		} else {
+			Order newCart = new Order();
+			newCart.setUser(user);
+			orderJpa.save(newCart);
+			return newCart;
+		}
 	}
 
 }

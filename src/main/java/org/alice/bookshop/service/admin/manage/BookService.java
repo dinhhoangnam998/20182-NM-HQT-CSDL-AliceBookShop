@@ -61,14 +61,17 @@ public class BookService {
 			return "Book's name should not be same with another!";
 		} else {
 			if (file.getSize() != 0) {
-				sfSvc.storageFile(file, "book", book.getName());
+				book.setImgURL("/images/book/" + sfSvc.storageFile(file, "book", book.getName()));
 			}
-			int index = origin.getImgURLs().size();
-			for (int i = 0; i <= files.length - 1; i++) {
-				MultipartFile iFile = files[i];
-				if (iFile.getSize() != 0) {
-					book.getImgURLs().add(
-							"/images/book/" + sfSvc.storageFile(iFile, "book", book.getName() + "-" + (i + index)));
+
+			if (files.length >= 1 && files[0].getSize() > 0) {
+				book.getImgURLs().clear();
+				for (int i = 0; i <= files.length - 1; i++) {
+					MultipartFile iFile = files[i];
+					if (iFile.getSize() != 0) {
+						book.getImgURLs()
+								.add("/images/book/" + sfSvc.storageFile(iFile, "book", book.getName() + "-" + i));
+					}
 				}
 			}
 

@@ -30,7 +30,7 @@ public class SaleService {
 		for (Book_Sale bs : sale.getBook_sales()) {
 			bs.setSale(sale);
 			Book book = bs.getBook();
-			book.setSalePrice(book.getCoverPrice() * bs.getPercent());
+			book.setSalePrice(book.getSalePrice() - book.getSalePrice() * bs.getPercent() / 100);
 			bookJpa.save(book);
 			bsService.book_saleJpa.save(bs);
 		}
@@ -42,7 +42,7 @@ public class SaleService {
 		for (Book_Sale bs : sale.getBook_sales()) {
 			bs.setSale(sale);
 			Book book = bs.getBook();
-			book.setSalePrice(book.getCoverPrice() * bs.getPercent());
+			book.setSalePrice(book.getSalePrice() - book.getSalePrice() * bs.getPercent() / 100);
 			bookJpa.save(book);
 			bsService.book_saleJpa.save(bs);
 		}

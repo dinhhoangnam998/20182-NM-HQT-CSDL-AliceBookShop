@@ -32,9 +32,9 @@
               <th>bookname</th>
               <th>width</th>
               <th>height</th>
-              <th>totalPage</th>
               <th>coverPrice</th>
               <th>salePrice</th>
+              <th>remain</th>
               <th>author</th>
               <th>category</th>
               <th>publisher</th>
@@ -48,16 +48,16 @@
               <td th:text="${book.name}"></td>
               <td th:text="${book.width}"></td>
               <td th:text="${book.height}"></td>
-              <td th:text="${book.totalPage}"></td>
               <td th:text="${book.coverPrice}"></td>
               <td th:text="${book.salePrice}"></td>
+              <td th:text="${book.remainQuantity}"></td>
               <td th:text="${book.author.name}"></td>
               <td th:text="${book.category.name}"></td>
               <td th:text="${book.publisher.name}"></td>
-              <td class="text-center"><a th:href="@{/admin/manage/books/{id}/edit(id=${book.id})}"><i
+              <td class="text-center"><a th:href="@{/admin/manage/books/{id}/edit#navbar(id=${book.id})}"><i
                     class="fas fa-pencil-alt text-dark"></i></a>
               </td>
-              <td class="text-center"><a th:href="@{/admin/manage/books/{id}/delete(id=${book.id})}"><i
+              <td class="text-center"><a th:href="@{/admin/manage/books/{id}/delete#navbar(id=${book.id})}"><i
                     class="far fa-trash-alt text-dark"></i></a>
               </td>
             </tr>

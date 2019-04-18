@@ -1,5 +1,8 @@
 package org.alice.bookshop.service.admin.statistic;
 
+import java.util.List;
+
+import org.alice.bookshop.model.Book;
 import org.alice.bookshop.repository.AuthorJpa;
 import org.alice.bookshop.repository.BookJpa;
 import org.alice.bookshop.repository.Book_InputJpa;
@@ -43,33 +46,31 @@ public class GeneralService {
 	public Book_InputJpa book_inputJpa;
 
 	public long getNumberOfUser() {
-
 		return userJpa.count();
 	}
 
 	public long getNumberOfBlockedUser() {
-
 		return userJpa.countByPrivilege(-1);
 	}
 
-	public long getNumberOfBook() {
-		return bookJpa.count();
-	}
-
-	public long getTotalOfBook() {
-		return 0;
-	}
-
-	public long getNumberOfSuccessedOrder() {
-		return orderJpa.countByState(3);
-	}
-
 	public long getNumberOfOrder() {
-		return orderJpa.count();
+		return orderJpa.countByStateNot(0);
+	}
+
+	public Object getNumberOfNewOrder() {
+		return orderJpa.countByState(1);
+	}
+
+	public Object getNumberOfDelevering() {
+		return orderJpa.countByState(2);
 	}
 
 	public long getNumberOfCanceledOrder() {
-		return orderJpa.countByState(-1);
+		return orderJpa.countByState(3);
+	}
+
+	public long getNumberOfSuccessedOrder() {
+		return orderJpa.countByState(4);
 	}
 
 	public long getNumberOfAuthor() {
@@ -91,6 +92,27 @@ public class GeneralService {
 	public Object getNumberOfCategory() {
 
 		return categoryJpa.count();
+	}
+
+	public Object getTotalBook() {
+		return bookJpa.count();
+	}
+
+	public Object getDeleteBook() {
+		return bookJpa.countByDeleted(true);
+	}
+
+	public Object getRemainBook() {
+		return bookJpa.countByDeleted(false);
+	}
+
+	public Object getTotalRemainBook() {
+		List<Book> books = bookJpa.findByDeleted(false);
+		int totalRemain = 0;
+		for (Book b : books) {
+			totalRemain += b.getRemainQuantity();
+		}
+		return totalRemain;
 	}
 
 }

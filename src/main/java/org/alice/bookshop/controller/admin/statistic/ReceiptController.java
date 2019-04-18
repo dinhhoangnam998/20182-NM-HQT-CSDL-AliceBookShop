@@ -59,6 +59,8 @@ public class ReceiptController {
 		model.addAttribute("canceled", numberOfCanceledOrder);
 		long numberOfDeleveringOrder = receiptService.getNumberOfDelevering(this.begin, this.end);
 		model.addAttribute("delevering", numberOfDeleveringOrder);
+		long numberOfNewOrder = receiptService.getNumberOfNewOrder(this.begin, this.end);
+		model.addAttribute("newOrder", numberOfNewOrder);
 		long receipt = receiptService.getReceipt(this.begin, this.end);
 		model.addAttribute("receipt", receipt);
 		return "/admin/statistic/receipt";

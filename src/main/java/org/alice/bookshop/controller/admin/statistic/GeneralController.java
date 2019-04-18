@@ -18,10 +18,14 @@ public class GeneralController {
 		model.addAttribute("account", generalService.getNumberOfUser());
 		model.addAttribute("blockedAccount", generalService.getNumberOfBlockedUser());
 
-		model.addAttribute("book", generalService.getNumberOfBook());
-		model.addAttribute("totalBook", generalService.getTotalOfBook());
+		model.addAttribute("totalBook", generalService.getTotalBook());
+		model.addAttribute("deleteBook", generalService.getDeleteBook());
+		model.addAttribute("remainBook", generalService.getRemainBook());
+		model.addAttribute("totalRemainBook", generalService.getTotalRemainBook());
 
 		model.addAttribute("order", generalService.getNumberOfOrder());
+		model.addAttribute("newOrder", generalService.getNumberOfNewOrder());
+		model.addAttribute("delevering", generalService.getNumberOfDelevering());
 		model.addAttribute("successed", generalService.getNumberOfSuccessedOrder());
 		model.addAttribute("canceled", generalService.getNumberOfCanceledOrder());
 

@@ -35,14 +35,19 @@
           </form>
         </div>
 
-        <div class="bg-info mt-3" style="height: 250px;">
+        <div th:if="${totalNumber} != 0" class="mt-3" style="height: 250px; background-color: #ecf0f1">
           <span class="">Begin date: [[${begin}]]</span> <span class="">End date: [[${end}]]</span>
           <div>Total number of order: [[${totalNumber}]]</div>
-          <div>Number of successed order: [[${successed}]]</div>
+          <div>Number of new order: [[${newOrder}]]</div>
           <div>Number of delevering order: [[${delevering}]]</div>
           <div>Number of canceled order: [[${canceled}]]</div>
-          <div>Reciept:[[${receipt}]] </div>
+          <div>Number of successed order: [[${successed}]]</div>
+          <div>Reciept: [[${receipt}]] </div>
 
+        </div>
+
+        <div th:if="${totalNumber} == 0" class="mt-3" style="height: 250px; background-color: #ecf0f1;">
+          <h3>Choose begin, end to start statistic.</h3>   
         </div>
 
         <div class="mt-3">
@@ -54,6 +59,7 @@
                 <th>user</th>
                 <th>note</th>
                 <th>Total</th>
+                <th width="5%">NEW</th>
                 <th width="5%">DELIVERING</th>
                 <th width="5%">CANCELED</th>
                 <th width="5%">SUCCESSED</th>
@@ -68,20 +74,23 @@
                   <td th:text="${order.user.name}"></td>
                   <td th:text="${order.note}"></td>
                   <td th:text="${order.total}"></td>
-                  <td class="text-center"><span
-                      th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"><i
-                        class="fas fa-truck"></i></span></td>
-                  <td class="text-center"><span
-                      th:attrappend="class= (${order.state} == -1) ? (' text-danger') : (' text-muted')"><i
-                        class="fas fa-window-close"></i></span></td>
-                  <td class="text-center"><span
-                      th:attrappend="class= (${order.state} == 3 ) ? (' text-success') : (' text-muted')"><i
-                        class="fas fa-check-circle"></i></span></td>
-                  <td class="text-center"><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"><i class="fas fa-info-circle text-info"></i> </a></td>
+                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 1 ) ? (' text-warning') : (' text-muted')"
+                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=1)}"><i class="fas fa-star"></i></a></td>
+                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"
+                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=2)}"><i class="fas fa-truck"></i></a>
+                    </td>
+                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 3) ? (' text-danger') : (' text-muted')"
+                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=3)}"><i
+                          class="fas fa-window-close"></i></a></td>
+                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 4 ) ? (' text-success') : (' text-muted')"
+                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=4)}"><i
+                          class="fas fa-check-circle"></i></a></td>
+                    <td class="text-center"><a data-toggle="collapse"
+                        th:href="'#' + ${#ids.next('order')}"><i class="fas fa-info-circle text-info"></i> </a></td>
                 </tr>
                   
                 <tr class="p-0 m-0">
-                  <td colspan="9" class=" p-0">
+                  <td colspan="10" class=" p-0">
                     <div class="collapse mt-3" id="content" th:id="${#ids.seq('order')}">
                       <div class="container">
                         <table class="table table-info">

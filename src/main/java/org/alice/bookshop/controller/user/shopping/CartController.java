@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.Order;
 import org.alice.bookshop.model.User;
+import org.alice.bookshop.repository.BookJpa;
+import org.alice.bookshop.repository.OrderJpa;
 import org.alice.bookshop.service.user.shopping.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,12 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 
+	@Autowired
+	private BookJpa bookJpa;
+
+	@Autowired
+	private OrderJpa orderJpa;
+
 	@GetMapping
 	@ResponseBody
 	public Order getCart(Model model, @PathVariable int id) {
@@ -32,34 +40,40 @@ public class CartController {
 	}
 
 	@GetMapping("/add")
-	@ResponseBody
-	public boolean addToCart(@PathVariable int id, @RequestParam int bid, @RequestParam(defaultValue = "1") int q) {
-		return cartService.add(id, bid, q);
+	public String addToCart(HttpSession ss, RedirectAttributes redirAttr, @PathVariable int id, @RequestParam int bid,
+			@RequestParam(defaultValue = "1") int q) {
+		redirAttr.addFlashAttribute("result", cartService.add(id, bid, q));
+		redirAttr.addFlashAttribute("q", q);
+		redirAttr.addFlashAttribute("bookName", bookJpa.getOne(bid).getName());
+		ss.setAttribute("cart", orderJpa.getOne(id));
+		return "redirect:/books/" + bid;
 	}
 
 	@GetMapping("/remove")
-	@ResponseBody
-	public boolean removeFromCart(@RequestParam int olid, @RequestParam int bid,
+	public String removeFromCart(RedirectAttributes redirAttr, @PathVariable int id, @RequestParam int olid,
 			@RequestParam(defaultValue = "1") int q) {
-		return cartService.remove(olid, bid, q);
+		cartService.remove(olid, q);
+		return "redirect:/carts/" + id + "/manage";
 	}
 
-	@GetMapping("/go-checkout")
+	@GetMapping("/manage")
 	public String checkout(Model model, @PathVariable int id) {
-		model.addAttribute("cart", cartService.orderJpa.getOne(id));
-		return "/user/shopping/cart/go-check-out";
+		Order cart = cartService.orderJpa.getOne(id);
+		cartService.updateCharge(cart);
+		model.addAttribute("cart", cart);
+		return "/user/shopping/cart/manage";
 	}
 
-	@GetMapping("/checkout")
+	@GetMapping("/check-out")
 	public String checkout(HttpSession ss, RedirectAttributes redirAttr, @PathVariable int id) {
 		List<Integer> invalidBIds = cartService.tryCheckout(id);
 		redirAttr.addFlashAttribute("msgs", invalidBIds);
 		if (invalidBIds.size() == 0) {
-			cartService.makeOrder(id);
 			User user = (User) ss.getAttribute("user");
+			cartService.makeOrder(id, user);
 			return "redirect:/" + user.getId() + "/shopping-history";
 		} else {
-			return "redirect:/checkout";
+			return "redirect:/check-out";
 		}
 
 	}

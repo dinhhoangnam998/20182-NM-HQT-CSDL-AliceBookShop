@@ -51,6 +51,7 @@
 				<h2>Edit Your Profile</h2>
 				<form th:action="@{/profiles/{userId}#main(userId = ${user.id})}"
 					method="POST" th:object="${user}">
+					<input type="hidden" th:field="*{privilege}" th:value="${user.privilege}">
 					<div class="form-group">
 						<label for="username">Username</label> <input type="text"
 							id="username" class="form-control" th:field="*{username}" readonly

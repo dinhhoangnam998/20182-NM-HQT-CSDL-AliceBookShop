@@ -23,21 +23,19 @@ public class ReceiptService {
 	}
 
 	public long getTotalNumberOfOrder(Date begin2, Date end2) {
-
 		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndStateNot(begin2, end2, 0);
 	}
 
 	public long getNumberOfSuccessed(Date begin2, Date end2) {
-
-		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin2, end2, 2);
+		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin2, end2, 4);
 	}
 
 	public long getNumberOfCanceled(Date begin2, Date end2) {
-		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin2, end2, -1);
+		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin2, end2, 3);
 	}
 
 	public long getNumberOfDelevering(Date begin2, Date end2) {
-		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin2, end2, 1);
+		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin2, end2, 2);
 	}
 
 	public long getReceipt(Date begin2, Date end2) {
@@ -48,6 +46,10 @@ public class ReceiptService {
 			receipt += order.getTotal();
 		}
 		return receipt;
+	}
+
+	public long getNumberOfNewOrder(Date begin, Date end) {
+		return orderJpa.countByOrderDateGreaterThanEqualAndOrderDateLessThanEqualAndState(begin, end, 1);
 	}
 
 }
