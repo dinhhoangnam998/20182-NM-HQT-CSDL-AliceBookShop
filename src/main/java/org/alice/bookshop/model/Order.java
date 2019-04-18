@@ -1,5 +1,6 @@
 package org.alice.bookshop.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,5 +46,5 @@ public class Order {
 	private User user;
 
 	@OneToMany(mappedBy = "order")
-	private List<OrderLine> orderLines;
+	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 }
