@@ -27,7 +27,7 @@ public class StorageController {
 
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "15") int psize,
+			@RequestParam(required = false, defaultValue = "10") int psize,
 			@RequestParam(required = false, defaultValue = "50") int limit) {
 		pagi.validate(ss, p, psize);
 		Page<Book> books = storageService.getBookRemainUnderLimit(limit, pagi.getRequestPage(), pagi.getPageSize());

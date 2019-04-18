@@ -56,7 +56,7 @@
 								<td class="text-center"><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"><i class="fas fa-info-circle text-info"></i> </a></td>
           						</tr>
           
-          						<tr>
+          						<tr class="p-0 m-0">
           							<td colspan="9" class="p-0">
           								<div class="collapse mt-3" id="content" th:id="${#ids.seq('order')}">
           									<div class="container">
@@ -85,7 +85,7 @@
         </table>
 
         <!-- section-footer -->
-        <div th:replace="~{/base::section-footer ('orders')}"></div>
+        <div th:replace="~{/base::section-footer ('/admin/manage/orders')}"></div>
       </section>
     </div>
   </main>
