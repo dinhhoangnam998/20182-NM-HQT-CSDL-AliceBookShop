@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Not found</title>
+<th:block th:include="~{/base::head ('Home')}"></th:block>
+<link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
 </head>
-<body>
-Not found resource
+
+<body>404
 </body>
 </html>

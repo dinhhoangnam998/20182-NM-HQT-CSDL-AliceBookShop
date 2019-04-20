@@ -26,17 +26,17 @@
 
         <!-- section content -->
         <div class="mt-2">
-          <form class="form-inline" th:action="@{/admin/statistic/receipt}" method="GET">
+          <form class="form-inline" th:action="@{/admin/statistic/receipt#navbar}" method="GET">
             <label for="begin">Begin: </label>
-            <input type="date" class="form-control mx-2" name="begin" id="begin" placeholder="begin date">
+            <input type="date" class="form-control mx-2" name="begin" id="begin" th:value="${#calendars.format(begin,'yyyy-MM-dd')}" >
             <label for="end">End: </label>
-            <input type="date" class="form-control mx-2" name="end" id="end" placeholder="end date">
+            <input type="date" class="form-control mx-2" name="end" id="end" th:value="${#calendars.format(end,'yyyy-MM-dd')}">
             <button type="submit" class="btn btn-primary mx-2">Get result</button>
           </form>
         </div>
 
         <div th:if="${totalNumber} != 0" class="mt-3" style="height: 250px; background-color: #ecf0f1">
-          <span class="">Begin date: [[${begin}]]</span> <span class="">End date: [[${end}]]</span>
+          <!-- <span class="">Begin date: [[${#calendars.format(begin,'MM/dd/yyyy')}]]</span> <span class="">End date: [[${#calendars.format(end,'MM/dd/yyyy')}]]</span> -->
           <div>Total number of order: [[${totalNumber}]]</div>
           <div>Number of new order: [[${newOrder}]]</div>
           <div>Number of delevering order: [[${delevering}]]</div>
@@ -47,7 +47,7 @@
         </div>
 
         <div th:if="${totalNumber} == 0" class="mt-3" style="height: 250px; background-color: #ecf0f1;">
-          <h3>Choose begin, end to start statistic.</h3>   
+          <h3>Choose valid begin, end date to start statistic.</h3>
         </div>
 
         <div class="mt-3">
@@ -74,19 +74,24 @@
                   <td th:text="${order.user.name}"></td>
                   <td th:text="${order.note}"></td>
                   <td th:text="${order.total}"></td>
-                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 1 ) ? (' text-warning') : (' text-muted')"
-                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=1)}"><i class="fas fa-star"></i></a></td>
-                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"
-                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=2)}"><i class="fas fa-truck"></i></a>
-                    </td>
-                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 3) ? (' text-danger') : (' text-muted')"
-                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=3)}"><i
-                          class="fas fa-window-close"></i></a></td>
-                    <td class="text-center"><a class="" th:attrappend="class= (${order.state} == 4 ) ? (' text-success') : (' text-muted')"
-                        th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=4)}"><i
-                          class="fas fa-check-circle"></i></a></td>
-                    <td class="text-center"><a data-toggle="collapse"
-                        th:href="'#' + ${#ids.next('order')}"><i class="fas fa-info-circle text-info"></i> </a></td>
+                  <td class="text-center"><a class=""
+                      th:attrappend="class= (${order.state} == 1 ) ? (' text-warning') : (' text-muted')"
+                      th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=1)}"><i
+                        class="fas fa-star"></i></a></td>
+                  <td class="text-center"><a class=""
+                      th:attrappend="class= (${order.state} == 2 ) ? (' text-primary') : (' text-muted')"
+                      th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=2)}"><i
+                        class="fas fa-truck"></i></a>
+                  </td>
+                  <td class="text-center"><a class=""
+                      th:attrappend="class= (${order.state} == 3) ? (' text-danger') : (' text-muted')"
+                      th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=3)}"><i
+                        class="fas fa-window-close"></i></a></td>
+                  <td class="text-center"><a class=""
+                      th:attrappend="class= (${order.state} == 4 ) ? (' text-success') : (' text-muted')"
+                      th:href="@{/admin/manage/orders/{id}/change-state#navbar(id=${order.id}, s=4)}"><i
+                        class="fas fa-check-circle"></i></a></td>
+                  <td class="text-center"><a data-toggle="collapse" th:href="'#' + ${#ids.next('order')}"><i class="fas fa-info-circle text-info"></i> </a></td>
                 </tr>
                   
                 <tr class="p-0 m-0">

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
 
 	<style>
-		#main .container {
+		#navbar .container {
 			background-color: antiquewhite;
 			margin-bottom: 10px;
 		}
@@ -29,6 +29,14 @@
 	<!-- main -->
 	<main id="main">
 		<div class="container-fluid">
+			<div th:if="${msg} != null">
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong th:text="${msg}"></strong>
+				</div>
+			</div>
 			<h2>Profile</h2>
 			<div class="row">
 
@@ -36,6 +44,11 @@
 					<div>
 						<img th:src="@{${user.imgURL}}" style="height: 438px; width: 100%; object-fit: cover">
 					</div>
+					<!-- <form th:action="@{/profiles/{userId}/avatar#navbar(userId = ${user.id})}" method="POST"
+						enctype="multipart/form-data">
+						<input type="file" name="file" class="btn form-control-file" /><br /> <br />
+						<input type="submit" value="Change Photo" class="btn btn-primary" />
+					</form> -->
 				</div>
 
 				<div class="col-md-9">
@@ -49,10 +62,10 @@
 							<div class="col-md-6">Email</div>
 							<div class="col-md-6">[[${user.email}]]</div>
 						</div>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-md-6">Password</div>
 							<div class="col-md-6"></div>
-						</div>
+						</div> -->
 					</div>
 
 					<div class="container">
@@ -67,7 +80,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6">Gender</div>
-							<div class="col-md-6">[[${user.gender}]]</div>
+							<div class="col-md-6" th:text="(${user.gender} == 0)?('Nam'):('Nữ')"></div>
 						</div>
 					</div>
 
@@ -83,8 +96,8 @@
 						</div>
 					</div>
 
-					<div>
-						<a th:href="@{/profiles/{id}/edit#main(id=${user.id})}" class="btn btn-primary">Edit Profile</a>
+					<div class="container mt-4">
+						<a th:href="@{/profiles/{id}/edit#navbar(id=${user.id})}" class="btn btn-primary">Edit Profile</a>
 					</div>
 				</div>
 			</div>

@@ -51,6 +51,9 @@ public class AccountChecker {
 	}
 
 	public String checkPhone(String phone) {
+		if (phone.equals("")) {
+			return "ok";
+		}
 		pattern = Pattern.compile("\\d{3}\\d{7}");
 		matcher = pattern.matcher(phone);
 		if (!matcher.matches()) {

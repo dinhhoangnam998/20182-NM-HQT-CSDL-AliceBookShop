@@ -24,9 +24,9 @@ public class ReceiptController {
 
 	@Autowired
 	private PaginationService pagi;
-
-	private Date begin = new Date();
-	private Date end = new Date();
+	private Date today = new Date();
+	private Date begin = today;
+	private Date end = today;
 
 	@GetMapping("/admin/statistic/receipt")
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,

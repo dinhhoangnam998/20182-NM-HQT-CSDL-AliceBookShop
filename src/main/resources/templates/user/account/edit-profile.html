@@ -30,6 +30,7 @@
 				<strong th:text="${msg}"></strong>
 			</div>
 		</div>
+		
 	</div>
 
 	<div class="container-fluid">
@@ -39,9 +40,9 @@
 					<img alt="" th:src="@{${user.imgURL}}" style="height: 438px; width: 100%; object-fit: cover">
 				</div>
 				<form
-					th:action="@{/profiles/{userId}/avatar#main(userId = ${user.id})}"
+					th:action="@{/profiles/{userId}/avatar#navbar(userId = ${user.id})}"
 					method="POST" enctype="multipart/form-data">
-					<input type="file" name="file" class="btn"/><br /> <br /> 
+					<input type="file" name="file" class="btn form-control-file"/><br /> <br /> 
 					<input
 						type="submit" value="Change Photo" class="btn btn-primary" />
 				</form>
@@ -49,7 +50,7 @@
 
 			<div class="col-md-9">
 				<h2>Edit Your Profile</h2>
-				<form th:action="@{/profiles/{userId}#main(userId = ${user.id})}"
+				<form th:action="@{/profiles/{userId}#navbar(userId = ${user.id})}"
 					method="POST" th:object="${user}">
 					<input type="hidden" th:field="*{privilege}" th:value="${user.privilege}">
 					<div class="form-group">

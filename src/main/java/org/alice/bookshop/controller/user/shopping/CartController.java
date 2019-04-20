@@ -8,6 +8,7 @@ import org.alice.bookshop.model.Order;
 import org.alice.bookshop.model.User;
 import org.alice.bookshop.repository.BookJpa;
 import org.alice.bookshop.repository.OrderJpa;
+import org.alice.bookshop.service.user.account.AccountService;
 import org.alice.bookshop.service.user.shopping.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	@Autowired
 	private BookJpa bookJpa;
@@ -34,7 +38,7 @@ public class CartController {
 
 	@GetMapping
 	@ResponseBody
-	public Order getCart(Model model, @PathVariable int id) {
+	public Order getCart(HttpSession session, Model model, @PathVariable int id) {
 		Order order = cartService.orderJpa.getOne(id);
 		return order;
 	}
@@ -42,10 +46,13 @@ public class CartController {
 	@GetMapping("/add")
 	public String addToCart(HttpSession ss, RedirectAttributes redirAttr, @PathVariable int id, @RequestParam int bid,
 			@RequestParam(defaultValue = "1") int q) {
+		if (id == -1) {
+			redirAttr.addFlashAttribute("warning", "Bạn vui lòng đăng nhập để thêm sách vào giỏ hàng.");
+			return "redirect:/books/" + bid;
+		}
 		redirAttr.addFlashAttribute("result", cartService.add(id, bid, q));
 		redirAttr.addFlashAttribute("q", q);
 		redirAttr.addFlashAttribute("bookName", bookJpa.getOne(bid).getName());
-		ss.setAttribute("cart", orderJpa.getOne(id));
 		return "redirect:/books/" + bid;
 	}
 
@@ -71,6 +78,8 @@ public class CartController {
 		if (invalidBIds.size() == 0) {
 			User user = (User) ss.getAttribute("user");
 			cartService.makeOrder(id, user);
+			Order cart = accountService.getCart(user);
+			ss.setAttribute("cart", cart);
 			return "redirect:/" + user.getId() + "/shopping-history";
 		} else {
 			return "redirect:/check-out";

@@ -50,10 +50,10 @@
               <td th:text="${user.address}"></td>
               <td th:text="${user.phone}"></td>
               <td class="text-center">
-                <a th:if="${user.privilege} == 0" th:href="@{/admin/manage/users/{id}/block#main(id=${user.id})}"
+                <a th:if="${user.privilege} == 0" th:href="@{/admin/manage/users/{id}/block#navbar(id=${user.id})}"
                   class="text-danger">block</a>
 
-                <a th:if="${user.privilege} == -1" th:href="@{/admin/manage/users/{id}/unblock#main(id=${user.id})}"
+                <a th:if="${user.privilege} == -1" th:href="@{/admin/manage/users/{id}/unblock#navbar(id=${user.id})}"
                   class="text-success">unblock</a>
               </td>
             </tr>

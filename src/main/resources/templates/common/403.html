@@ -1,32 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" />
+  <th:block th:include="~{/base::head ('Home')}"></th:block>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
 </head>
+
 <body>
-  403
-  <form th:action="@{/profiles/{userId}(userId = ${user.id})}" method="POST" th:object="${user}">
-    <!-- <input type="hidden" th:field="*{id}" value="${user.id}"> -->
-    <input th:placeholder="${user.username}" disabled>
-    <input type="password" th:field="*{password}" placeholder="new password">
-    <input type="password" th:field="*{confirmPassword}" placeholder="confirm new password">
-    <input type="email" th:field="*{email}" placeholder="new email">
-    <input type="text" th:field="*{name}" placeholder="name">
-    <!-- <input type="date" th:field="*{birthday}" placeholder="birthday"> -->
-    Male <input type="radio" th:field="*{gender}" value="0">
-    Female<input type="radio" th:field="*{gender}" value="1">
-    <input type="text" th:field="*{address}" placeholder="address">
-    <input type="tel" th:field="*{phone}" placeholder="phone">
-    <input type="submit" value="Submit">
-   
+  403 
   </form>
 </body>
 </html>

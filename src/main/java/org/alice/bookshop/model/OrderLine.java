@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Proxy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,8 @@ public class OrderLine {
 	
 	// derived
 	private int totalLine;
+	
+	@JsonBackReference
 	@ManyToOne
 	private Order order;
 

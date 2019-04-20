@@ -44,15 +44,7 @@ public class AccountController {
 	@GetMapping("/login-success")
 	public String loginSuccess(HttpSession session) {
 		User user = accountService.getUser();
-		// test
-		System.out.println(
-				"------------------------> login success: before save to ss " + user.getId() + " " + user.getName());
 		session.setAttribute("user", user);
-		// test
-		User myuser = (User) session.getAttribute("user");
-		System.out.println("------------------------> login success: before save to ss " + myuser.getId() + " "
-				+ myuser.getName());
-
 		Order cart = accountService.getCart(user);
 		session.setAttribute("cart", cart);
 		return "redirect:/home";
@@ -78,7 +70,7 @@ public class AccountController {
 	}
 
 	@GetMapping("signup-success")
-	public String signupSuccess() {
+	public String signupSuccess(RedirectAttributes redirAttr) {
 		return "user/account/signup-success";
 	}
 

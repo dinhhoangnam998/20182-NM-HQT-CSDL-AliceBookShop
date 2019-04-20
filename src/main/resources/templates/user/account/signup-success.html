@@ -17,14 +17,20 @@
 	<nav th:replace="/base::navbar"></nav>
 
 	<!-- section -->
-	<section th:replace="~{/base::category}">
-	</section>
+	<!-- <section th:replace="~{/base::category}">
+	</section> -->
 
 	<!-- main -->
-	<main id="main">
-	
-			<h2>Hello [[${user.name}]]</h2>
+	<main id="main" style="padding: 100px 100px;">
+
+		<div th:if="${user} != null" class="container" style="font-size: 2.5rem;">
+			<div class="alert alert-success" role="alert">
+				<strong th:text="'Welcome ' + ${user.name} + '!'"></strong>
+				<p>Your account: <i>[[${user.username}]]</i> is ready now!</p>
+				<p>Let's login and start shopping with us!</p>
+			</div>
 			<a class="btn btn-primary" th:href="@{/login}">Login</a>
+		</div>
 
 	</main>
 

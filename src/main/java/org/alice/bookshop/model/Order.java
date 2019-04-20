@@ -18,6 +18,9 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,9 +46,11 @@ public class Order {
 	// derived
 	private int total;
 
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<OrderLine> orderLines = new ArrayList<OrderLine>();
 }

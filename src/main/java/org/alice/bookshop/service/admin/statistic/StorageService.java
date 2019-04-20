@@ -14,6 +14,7 @@ public class StorageService {
 	public BookJpa bookJpa;
 
 	public Page<Book> getBookRemainUnderLimit(int limit, int p, int psize) {
+
 		return bookJpa.findByRemainQuantityLessThanEqualAndDeleted(limit, false, PageRequest.of(p - 1, psize));
 	}
 
