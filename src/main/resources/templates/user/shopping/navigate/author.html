@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- head -->
+<head th:include="~{/base::head('Author')}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="~{/base::header}"></header>
+
+  <!-- navbar -->
+  <nav th:replace="~{/base::navbar}"></nav>
+
+  <!-- section -->
+  <section th:replace="~{/base::category}">
+  </section>
+
+  <!-- main -->
+  <main>
+    <div class="container">
+      <div class="row" th:each="row : ${rows}">
+        <div class="col-md" th:each="au : ${row}">
+          <div class="card">
+            <img class="card-img-top" th:src="@{${au.imgURL}}" alt="">
+            <div class="card-header" th:text="${au.name}">
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <!-- <a th:href="@"></a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="~{/base::footer}"></footer>
+</body>
+
+</html>

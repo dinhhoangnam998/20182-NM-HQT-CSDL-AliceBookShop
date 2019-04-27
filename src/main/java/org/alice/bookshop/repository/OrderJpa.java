@@ -31,4 +31,6 @@ public interface OrderJpa extends JpaRepository<Order, Integer> {
 
 	List<Order> findByUser_Id(int uid);
 
+	List<Order> findByUser_IdAndStateNot(int uid, int state);
+
 }

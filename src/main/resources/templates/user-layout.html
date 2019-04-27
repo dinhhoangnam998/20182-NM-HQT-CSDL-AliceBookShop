@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!-- head -->
 
+<!-- head -->
 <head th:include="~{/base::head('Title')}">
 </head>
 
 <body>
   <!-- header -->
-  <header th:replace="/base::header"></header>
+  <header th:replace="~{/base::header}"></header>
 
   <!-- navbar -->
-  <nav th:replace="/base::navbar"></nav>
+  <nav th:replace="~{/base::navbar}"></nav>
 
   <!-- section -->
   <section th:replace="~{/base::category}">
@@ -22,7 +22,7 @@
   </main>
 
   <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
+  <footer th:replace="~{/base::footer}"></footer>
 </body>
 
 </html>

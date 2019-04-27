@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.alice.bookshop.model.Order;
 import org.alice.bookshop.model.User;
 import org.alice.bookshop.repository.BookJpa;
-import org.alice.bookshop.repository.OrderJpa;
 import org.alice.bookshop.service.user.account.AccountService;
 import org.alice.bookshop.service.user.shopping.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,8 @@ public class CartController {
 	@Autowired
 	private BookJpa bookJpa;
 
-	@Autowired
-	private OrderJpa orderJpa;
+//	@Autowired
+//	private OrderJpa orderJpa;
 
 	@GetMapping
 	@ResponseBody

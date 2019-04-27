@@ -18,7 +18,6 @@
   <script th:src="@{/vender/slider/js/lightslider.js}"></script>
   <link rel="stylesheet" th:href="@{/css/admin/general-layout.css}">
   <script th:src="@{/js/admin/tbl-icon-hover.js}"></script>
-  <!-- <script th:inline="javascript" th:if="${session.user} != null" th:src="@{/js/user/getCart.js}"></script> -->
   <script th:inline="javascript" th:if="${session.user} != null">
     $(document).ready(function () {
       $('#navbar-cart-icon').click(function () {
@@ -39,9 +38,10 @@
         }
       }
     );
-      })
+      });
     });
   </script>
+  <script th:src="@{/js/search-box.js}"></script>
 </head>
 
 <body>
@@ -131,18 +131,34 @@
       <div class="col-md-3">
         <div class="list-groups">
           <h3 class="list-group-item">Danh mục</h3>
-          <a href="#" class="list-group-item list-group-item-action">Tác giả</a>
-          <a href="#" class="list-group-item list-group-item-action">Nhà xuất bản</a>
-          <a href="#" class="list-group-item list-group-item-action">Thể loại</a>
-          <a href="#" class="list-group-item list-group-item-action">Sách hot</a>
-          <a href="#" class="list-group-item list-group-item-action">Sách kinh điển</a>
-          <a href="#" class="list-group-item list-group-item-action">Sách khuyên đọc</a>
+          <a th:href="@{/authors}" class="list-group-item list-group-item-action" id="item-author">
+            Tác giả
+            <!-- <div id="toggle-data-author">
+              <th:block th:if="${session.authors} != null">
+                <p th:each="au : ${session.authors}" th:text="${au.name}">
+                </p>
+              </th:block>
+            </div> -->
+          </a>
+          <a th:href="@{/publishers}" class="list-group-item list-group-item-action">Nhà xuất bản</a>
+          <a th:href="@{/categories}" class="list-group-item list-group-item-action" id="category">Thể loại</a>
+          <a th:href="@{/best-seller}" class="list-group-item list-group-item-action">Sách hot</a>
+          <a th:href="@{/kinh-dien}" class="list-group-item list-group-item-action">Sách kinh điển</a>
+          <a th:href="@{/recomment}" class="list-group-item list-group-item-action">Sách khuyên đọc</a>
           <!-- <a href="#" class="list-group-item list-group-item-action">Sách khuyến mại</a> -->
         </div>
+
       </div>
 
       <div id="ss-top-col-2" class="col-md-9">
-        <input type="search" name="" id="" class="form-control mb-1" placeholder="...Search">
+        <div style="position: relative;">
+          <input type="search" name="" id="search-box" class="form-control mb-1" placeholder="...Search">
+          <div
+            style="position: absolute; overflow: auto; max-height: 250px; width: 100%; background-color:white; z-index: 9;"
+            id="search-result">
+
+          </div>
+        </div>
 
         <div id="ss-top-carousel" class="carousel slide rounded-lg mt-2" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -283,7 +299,6 @@
     </div>
   </footer>
 
-  
   
 </body>
 

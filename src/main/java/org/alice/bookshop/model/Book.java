@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Proxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Proxy(lazy = false)
+@JsonIgnoreProperties({ "width", "height", "totalPage", "coverPrice", "releaseDate", "description", "shortDescription",
+		"remainQuantity", "imgURLs", "thumbURLs", "author", "category", "publisher", "salePrice", "deleted" })
 public class Book {
 
 	@Id
@@ -54,10 +58,8 @@ public class Book {
 	private int salePrice;
 	@ManyToOne
 	private Author author = new Author();
-
 	@ManyToOne
 	private Category category = new Category();
-
 	@ManyToOne
 	private Publisher publisher = new Publisher();
 

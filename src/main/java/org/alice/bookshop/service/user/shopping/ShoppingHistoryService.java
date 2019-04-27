@@ -14,7 +14,7 @@ public class ShoppingHistoryService {
 	public OrderJpa orderJpa;
 
 	public List<Order> getHistoryShopping(int uid) {
-		return orderJpa.findByUser_Id(uid);
+		return orderJpa.findByUser_IdAndStateNot(uid, 0);
 	}
 
 }

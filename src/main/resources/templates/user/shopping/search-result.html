@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- head -->
+
+<head th:include="~{/base::head('Search Result')}">
+</head>
+
+<body>
+  <!-- header -->
+  <header th:replace="~{/base::header}"></header>
+
+  <!-- navbar -->
+  <nav th:replace="~{/base::navbar}"></nav>
+
+  <!-- section -->
+  <section th:replace="~{/base::category}">
+  </section>
+
+  <!-- main -->
+  <main>
+
+    <div>
+      <h3>Có [[${#lists.size(books)}]] kết quả tìm kiếm cho "[[${key}]]":</h3>
+    </div>
+    <div class="list-group">
+      <a th:each="book : ${books}" th:href="@{/books/{id}#navbar(id=${book.id})}"
+        class="list-group-item list-group-item-action">
+        <div class="media">
+
+          <img th:src="@{${book.imgURL}}" alt="" class="align-self-center mr-3" style="width: 60px; height: 100px; object-fit: scale-down">
+
+          <div class="media-body">
+            <h5 th:text="${book.name}"></h5>
+            <p th:text="${book.author.name}"></p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </main>
+
+  <!-- footer -->
+  <footer th:replace="~{/base::footer}"></footer>
+</body>
+
+</html>

@@ -23,4 +23,10 @@ public interface BookJpa extends JpaRepository<Book, Integer> {
 
 	List<Book> findByDeleted(boolean b);
 
+	List<Book> findByNameContainingAndDeleted(String key, boolean b);
+
+	List<Book> findByNameLikeAndDeleted(String key, boolean b);
+
+	List<Book> findByNameStartingWithAndDeleted(String key, boolean b);
+
 }
