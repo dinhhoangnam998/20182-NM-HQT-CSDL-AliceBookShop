@@ -29,4 +29,10 @@ public interface BookJpa extends JpaRepository<Book, Integer> {
 
 	List<Book> findByNameStartingWithAndDeleted(String key, boolean b);
 
+	Page<Book> findByAuthor_IdAndDeleted(int auid, boolean b, Pageable pageable);
+
+	Page<Book> findByPublisher_IdAndDeleted(int puid, boolean b, Pageable pageable);
+
+	Page<Book> findByCategory_IdAndDeleted(int caid, boolean b, Pageable pageable);
+
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <!-- head -->
-  <head th:include="~{/base::head('Author')}"> </head>
+  <head th:include="~{/base::head('Books by Publisher')}"> </head>
 
   <body>
     <!-- header -->
@@ -17,20 +17,20 @@
     <main>
       <div class="container-fluid">
         <div class="row mb-3" th:each="row : ${rows}">
-          <div class="col-md-3" th:each="au : ${row}">
+          <div class="col-md-3" th:each="book : ${row}">
             <div class="card">
               <img
                 class="card-img-top rounded-circle mx-auto d-block my-1"
-                th:src="@{${au.imgURL}}"
-                alt="the author does not have an image yet."
+                th:src="@{${book.imgURL}}"
+                alt="the book does not have an image yet."
                 style="height: 250px; width: 80%; background-color: gray; object-fit: cover;"
               />
 
               <div class="card-body">
-                <h5 class="card-title" th:text="${au.name}"></h5>
+                <h5 class="card-title" th:text="${book.name}"></h5>
                 <!-- <p class="card-text"></p> -->
                 <a
-                  th:href="@{/books/au/{auid}(auid = ${au.id})}"
+                  th:href="@{/books/{id}(id = ${book.id})}"
                   class="card-link stretched-link"
                 ></a>
               </div>
@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div th:replace="~{/base::section-footer ('/authors')}"></div>
+      <div th:replace="~{/base::section-footer ('/books/pu/' + ${auid})}"></div>
     </main>
 
     <!-- footer -->

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alice.bookshop.model.Author;
+import org.alice.bookshop.model.Book;
+import org.alice.bookshop.model.Category;
+import org.alice.bookshop.model.Publisher;
 import org.alice.bookshop.repository.AuthorJpa;
+import org.alice.bookshop.repository.BookJpa;
 import org.alice.bookshop.repository.CategoryJpa;
 import org.alice.bookshop.repository.PublisherJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +31,44 @@ public class NavigateService {
 	@Autowired
 	public CategoryJpa categoryJpa;
 
+	@Autowired
+	public BookJpa bookJpa;
+
 	public Page<Author> getAuthors(int p, int psize) {
 		return authorJpa.findByDeleted(false, PageRequest.of(p - 1, psize));
 	}
 
-	public List<List<Author>> getAuthorRows(List<Author> authors) {
-		List<List<Author>> authorRows = new ArrayList<List<Author>>();
-		
-		for(int i = 0; i <= NUM_OF_ROW - 1; i++) {
-			List<Author> authorRow = new ArrayList<>();
-			for(int j = i * NUM_OF_COl; j <= i * NUM_OF_COl + 3; j++) {
-				authorRow.add(authors.get(j));
+	public Page<Book> getBooksByAuthor(int auid, int requestPage, int pageSize) {
+		return bookJpa.findByAuthor_IdAndDeleted(auid, false, PageRequest.of(requestPage - 1, pageSize));
+	}
+
+	public Page<Publisher> getPublisher(int requestPage, int pageSize) {
+		return publisherJpa.findByDeleted(false, PageRequest.of(requestPage - 1, pageSize));
+	}
+
+	public Page<Book> getBooksByPublisher(int puid, int requestPage, int pageSize) {
+		return bookJpa.findByPublisher_IdAndDeleted(puid, false, PageRequest.of(requestPage - 1, pageSize));
+	}
+
+	public Page<Book> getBooksByCategory(int caid, int requestPage, int pageSize) {
+		return bookJpa.findByCategory_IdAndDeleted(caid, false, PageRequest.of(requestPage - 1, pageSize));
+	}
+
+	public Page<Category> getCategory(int requestPage, int pageSize) {
+		return categoryJpa.findByDeleted(false, PageRequest.of(requestPage - 1, pageSize));
+	}
+
+	public <T> List<List<T>> getRows(List<T> tList) {
+		List<List<T>> rows = new ArrayList<List<T>>();
+
+		for (int i = 0; i <= NUM_OF_ROW - 1; i++) {
+			List<T> row = new ArrayList<>();
+			for (int j = i * NUM_OF_COl; j <= i * NUM_OF_COl + 3 && j <= tList.size() - 1; j++) {
+				row.add(tList.get(j));
 			}
-			authorRows.add(authorRow);
+			rows.add(row);
 		}
-		return authorRows;
+		return rows;
 	}
 
 }
