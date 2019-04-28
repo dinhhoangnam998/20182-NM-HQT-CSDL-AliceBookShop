@@ -59,16 +59,18 @@ public class BookController {
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("book", new Book());
-		model.addAttribute("authors", authorService.authorJpa.findAll());
-		model.addAttribute("categories", categoryService.categoryJpa.findAll());
-		model.addAttribute("publishers", publisherService.publisherJpa.findAll());
+		model.addAttribute("authors", authorService.authorJpa.findByDeleted(false));
+		model.addAttribute("categories", categoryService.categoryJpa.findByDeleted(false));
+		model.addAttribute("publishers", publisherService.publisherJpa.findByDeleted(false));
+		model.addAttribute("books", bookService.bookJpa.findByDeleted(false));
 		return "/admin/manage/books/add";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public String add(RedirectAttributes redirAttr, Book book, @RequestParam MultipartFile file,
-			@RequestParam MultipartFile[] files, @RequestParam MultipartFile[] thumbs) {
-		String msg = bookService.add(book, file, files, thumbs);
+			@RequestParam MultipartFile[] files, @RequestParam MultipartFile[] thumbs,
+			@RequestParam(required = false) Integer[] relateBookIds) {
+		String msg = bookService.add(book, file, files, thumbs, relateBookIds);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/books?p=" + pagi.getLastPage();
@@ -81,16 +83,18 @@ public class BookController {
 	public String edit(Model model, @PathVariable int id) {
 		Book book = bookService.bookJpa.getOne(id);
 		model.addAttribute("book", book);
-		model.addAttribute("authors", authorService.authorJpa.findAll());
-		model.addAttribute("categories", categoryService.categoryJpa.findAll());
-		model.addAttribute("publishers", publisherService.publisherJpa.findAll());
+		model.addAttribute("authors", authorService.authorJpa.findByDeleted(false));
+		model.addAttribute("categories", categoryService.categoryJpa.findByDeleted(false));
+		model.addAttribute("publishers", publisherService.publisherJpa.findByDeleted(false));
+		model.addAttribute("books", bookService.bookJpa.findByDeleted(false));
 		return "/admin/manage/books/edit";
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public String edit(RedirectAttributes redirAttr, Book book, @RequestParam MultipartFile file,
-			@RequestParam MultipartFile[] files, @RequestParam MultipartFile[] thumbs) {
-		String msg = bookService.edit(book, file, files, thumbs);
+			@RequestParam MultipartFile[] files, @RequestParam MultipartFile[] thumbs,
+			@RequestParam(required = false) Integer[] relateBookIds) {
+		String msg = bookService.edit(book, file, files, thumbs, relateBookIds);
 		redirAttr.addFlashAttribute("msg", msg);
 		if (msg.contains("successed")) {
 			return "redirect:/admin/manage/books?p=" + pagi.getRequestPage();

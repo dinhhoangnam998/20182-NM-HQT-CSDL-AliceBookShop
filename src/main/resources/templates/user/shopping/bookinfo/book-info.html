@@ -1,178 +1,238 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:include="~{/base::head('Book Info')}"></th:block>
+  </head>
 
-<head>
-  <th:block th:include="~{/base::head('Book Info')}"></th:block>
-</head>
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
 
-<body>
-  <!-- header -->
-  <header th:replace="/base::header"></header>
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
 
-  <!-- navbar -->
-  <nav th:replace="/base::navbar"></nav>
-
-  <!-- main -->
-  <main class="container-fluid" id="main">
-
-    <!-- Book info -->
-    <div class="container-fluid">
-      <div class="row">
-        <!-- gallery -->
-        <div class="col-md-3">
-          <ul id="bookGallery" class="">
-            <li th:each="imgURL : ${book.imgURLs}" th:data-thumb="@{${imgURL}}">
-              <img style="height: 450px; width: 100%; object-fit: cover" th:src="@{${imgURL}}" alt="">
-            </li>
-          </ul>
-        </div>
-
-        <!-- middle column -->
-        <div class="col-md-6 bg-warning h-100">
-          <!-- msg -->
-
-          <div th:if="(${warning} != null)" class="alert alert-warning alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              <span class="sr-only">Close</span>
-            </button>
-            <div>
-              <strong>[[${warning}]]</strong>
-              <!-- <p></p> -->
-            </div>
+    <!-- main -->
+    <main class="container-fluid" id="main">
+      <!-- Book info -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- gallery -->
+          <div class="col-md-3">
+            <ul id="bookGallery" class="">
+              <li
+                th:each="imgURL : ${book.imgURLs}"
+                th:data-thumb="@{${imgURL}}"
+              >
+                <img
+                  style="height: 450px; width: 100%; object-fit: cover"
+                  th:src="@{${imgURL}}"
+                  alt=""
+                />
+              </li>
+            </ul>
           </div>
 
-          <div th:if="(${result} != null) and (${result} == false) "
-            class="alert alert-warning alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              <span class="sr-only">Close</span>
-            </button>
-            <div>
-              <strong>Số sách bạn yêu cầu đã vượt quá số lượng có thể cung cấp!</strong>
-              <p>Vui lòng chọn số sách ít hơn nhé!</p>
-            </div>
-          </div>
+          <!-- middle column -->
+          <div class="col-md-6 bg-warning">
+            <!-- msg -->
 
-          <div th:if="(${result} != null) and (${result} == true) "
-            class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              <span class="sr-only">Close</span>
-            </button>
-            <div>
-              <strong>Thêm thành công [[${q}]] cuốn [[${bookName}]] vào giỏ!</strong>
-              <!-- <p></p> -->
-            </div>
-          </div>
-
-          <!-- book name -->
-          <div th:text="${book.name}" style="font-size: 40px; height: 100px;">
-          </div>
-          <!-- description -->
-          <div th:utext="${book.shortDescription}" style="font-size: 16px; height: 200px;">
-          </div>
-          <!-- price -->
-          <div th:text="${book.salePrice}" style="height: 100px; font-size: 40px; margin-top: 30px;"></div>
-          <!-- button -->
-
-          <div>
-            <form class="form-inline"
-              th:action="@{/carts/{id}/add#navbar(id = (${session.cart} != null)?(${session.cart.id}):(-1), bid=${book.id})}"
-              method="GET">
-              <input type="hidden" name="bid" th:value="${book.id}">
-              <div class="form-group">
-                <label for="q" class="mr-sm-2">Số lượng: </label>
-                <input type="number" name="q" id="q" class="form-control mr-sm-2" value="1" min="1">
+            <div
+              th:if="(${warning} != null)"
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+              <div>
+                <strong>[[${warning}]]</strong>
+                <!-- <p></p> -->
               </div>
-              <button class="btn btn-primary mr-sm-2"><i class="fa fa-shopping-cart" style="color: white"></i>Thêm vào
-                giỏ</button>
-            </form>
-          </div>
-        </div>
+            </div>
 
-        <!-- addtion info -->
-        <div class="col-md-3 bg-secondary h-100" style="display: table">
-          <ul class="list-group bg-warning" style=" display: table-cell; vertical-align: middle">
-            <li class="list-group-item">
-              <div>Info 1</div>
-              <div>Info 2</div>
-            </li>
-            <li class="list-group-item">Info</li>
-            <li class="list-group-item">
-              <div>Info 1</div>
-              <div>Info 2</div>
-              <div>Info 3</div>
-              <div>Info 4</div>
-            </li>
-            <li class="list-group-item">Info</li>
-            <li class="list-group-item">Info</li>
-            <li class="list-group-item disabled">Disabled item</li>
-          </ul>
+            <div
+              th:if="(${result} != null) and (${result} == false) "
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+              <div>
+                <strong
+                  >Số sách bạn yêu cầu đã vượt quá số lượng có thể cung
+                  cấp!</strong
+                >
+                <p>Vui lòng chọn số sách ít hơn nhé!</p>
+              </div>
+            </div>
+
+            <div
+              th:if="(${result} != null) and (${result} == true) "
+              class="alert alert-success alert-dismissible fade show"
+              role="alert"
+            >
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+              <div>
+                <strong
+                  >Thêm thành công [[${q}]] cuốn [[${bookName}]] vào
+                  giỏ!</strong
+                >
+                <!-- <p></p> -->
+              </div>
+            </div>
+
+            <!-- book name -->
+            <div
+              th:text="${book.name}"
+              style="font-size: 40px; height: 100px;"
+            ></div>
+            <!-- description -->
+            <div
+              th:utext="${book.shortDescription}"
+              style="font-size: 16px; height: 200px;"
+            ></div>
+            <!-- price -->
+            <div
+              th:text="${book.salePrice} + đ"
+              style="height: 100px; font-size: 40px; margin-top: 30px;"
+            ></div>
+            <!-- button -->
+
+            <div>
+              <form
+                class="form-inline"
+                th:action="@{/carts/{id}/add#navbar(id = (${session.cart} != null)?(${session.cart.id}):(-1), bid=${book.id})}"
+                method="GET"
+              >
+                <input type="hidden" name="bid" th:value="${book.id}" />
+                <div class="form-group">
+                  <label for="q" class="mr-sm-2">Số lượng: </label>
+                  <input
+                    type="number"
+                    name="q"
+                    id="q"
+                    class="form-control mr-sm-2"
+                    value="1"
+                    min="1"
+                  />
+                </div>
+                <button class="btn btn-primary mr-sm-2">
+                  <i class="fa fa-shopping-cart" style="color: white"></i> Thêm
+                  vào giỏ
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- addtion info -->
+          <div class="col-md-3 bg-secondary pr-0">
+            <div style="height: 500px; overflow: auto" class="px-2">
+              <h4>Truyện liên quan</h4>
+
+              <ul class="list-group bg-warning">
+                <li
+                  th:each="b : ${book.relateBooks}"
+                  class="list-group-item list-group-item-action"
+                >
+                  <a th:href="@{/books/{id}(id=${b.id})}">
+                    <img
+                      th:src="@{${b.imgURL}}"
+                      alt="No image found"
+                      style="height: auto; width: 100%; object-fit: contain;"
+                    />
+                  </a>
+
+                  <h5 th:text="${b.name}"></h5>
+                  <p th:text="${b.author.name}"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- detail description -->
-    <div class="container-fluid">
-      <h3>Chi tiết</h3>
-      <h4 th:text="${book.name}"></h4>
-      <p th:utext="${book.description}"></p>
-    </div>
+      <!-- detail description -->
+      <div class="container-fluid">
+        <h3>Chi tiết</h3>
+        <h4 th:text="${book.name}"></h4>
+        <p th:utext="${book.description}"></p>
+      </div>
 
-    <!-- table book detail -->
-    <div class="container-fluid py-3">
-      <h3>Thông tin khác</h3>
-      <table id="mytable" class="table table-striped">
-        <tr>
-          <td style=" width: 30%;">Mã hàng</td>
-          <td>[[${book.id}]]</td>
-        </tr>
-        <!-- <tr>
+      <!-- table book detail -->
+      <div class="container-fluid py-3">
+        <h3>Thông tin khác</h3>
+        <table id="mytable" class="table table-striped">
+          <tr>
+            <td style="width: 30%;">Mã hàng</td>
+            <td>[[${book.id}]]</td>
+          </tr>
+          <!-- <tr>
           <td>Tên Nhà Cung Cấp</td>
           <td>Minh Long</td>
         </tr> -->
-        <tr>
-          <td>Tác giả</td>
-          <td>[[${book.author.name}]]</td>
-        </tr>
-        <tr>
-          <td>NXB</td>
-          <td>[[${book.publisher.name}]]</td>
-        </tr>
-        <tr>
-          <td>Năm XB</td>
-          <td>[[${book.releaseDate}]]</td>
-        </tr>
-        <tr>
-          <td>Kích thước</td>
-          <td>[[${book.height}]] x [[${book.width}]]</td>
-        </tr>
-        <tr>
-          <td>Số trang</td>
-          <td>[[${book.totalPage}]]</td>
-        </tr>
-        <!-- <tr>
+          <tr>
+            <td>Tác giả</td>
+            <td>[[${book.author.name}]]</td>
+          </tr>
+          <tr>
+            <td>NXB</td>
+            <td>[[${book.publisher.name}]]</td>
+          </tr>
+          <tr>
+            <td>Năm XB</td>
+            <td>[[${book.releaseDate}]]</td>
+          </tr>
+          <tr>
+            <td>Kích thước</td>
+            <td>[[${book.height}]] x [[${book.width}]]</td>
+          </tr>
+          <tr>
+            <td>Số trang</td>
+            <td>[[${book.totalPage}]]</td>
+          </tr>
+          <!-- <tr>
           <td>Ngôn ngữ</td>
           <td>Sách tiếng Việt</td>
         </tr> -->
-      </table>
-    </div>
-  </main>
+        </table>
+      </div>
+    </main>
 
-  <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
 
-  <script>
-    $(document).ready(function () {
-      $('#bookGallery').lightSlider({
-        gallery: true,
-        item: 1,
-        loop: true,
-        thumbItem: 9,
-        keyPress: true,
-        controls: true,
+    <script>
+      $(document).ready(function() {
+        $("#bookGallery").lightSlider({
+          gallery: true,
+          item: 1,
+          loop: true,
+          thumbItem: 9,
+          keyPress: true,
+          controls: true
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
+</html>

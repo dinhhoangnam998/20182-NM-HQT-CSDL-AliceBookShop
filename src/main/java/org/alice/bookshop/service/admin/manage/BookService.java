@@ -27,7 +27,51 @@ public class BookService {
 		return (isExit != null);
 	}
 
-	public String add(Book book, MultipartFile file, MultipartFile[] files, MultipartFile[] thumbs) {
+	public String edit(Book book, MultipartFile file, MultipartFile[] files, MultipartFile[] thumbs,
+			Integer[] relateBookIds) {
+		Book origin = bookJpa.getOne(book.getId());
+		if (!origin.getName().equals(book.getName()) && isBookExit(book)) {
+			return "Book's name should not be same with another!";
+		} else {
+			if (file.getSize() != 0) {
+				book.setImgURL("/images/book/" + sfSvc.storageFile(file, "book", book.getName()));
+			}
+
+			if (files.length >= 1 && files[0].getSize() > 0) {
+				book.getImgURLs().clear();
+				for (int i = 0; i <= files.length - 1; i++) {
+					MultipartFile iFile = files[i];
+					if (iFile.getSize() != 0) {
+						book.getImgURLs()
+								.add("/images/book/" + sfSvc.storageFile(iFile, "book", book.getName() + "-" + i));
+					}
+				}
+			}
+
+			if (relateBookIds != null) {
+				book.getRelateBooks().clear();
+				for (int i = 0; i <= relateBookIds.length - 1; i++) {
+					int id = relateBookIds[i];
+					Book relateBook = bookJpa.getOne(id);
+					book.getRelateBooks().add(relateBook);
+				}
+			}
+
+			int thumbIndex = origin.getThumbURLs().size();
+			for (int i = 0; i <= files.length - 1; i++) {
+				MultipartFile iFile = files[i];
+				if (iFile.getSize() != 0) {
+					book.getThumbURLs().add("/images/thumb/"
+							+ sfSvc.storageFile(iFile, "book", book.getName() + "-" + (i + thumbIndex)));
+				}
+			}
+			bookJpa.save(book);
+			return "Edit book id = " + book.getId() + " successed";
+		}
+	}
+
+	public String add(Book book, MultipartFile file, MultipartFile[] files, MultipartFile[] thumbs,
+			Integer[] relateBookIds) {
 		if (isBookExit(book)) {
 			return "Book " + book.getName() + " already exit";
 		} else {
@@ -50,41 +94,16 @@ public class BookService {
 				}
 			}
 
+			if (relateBookIds != null) {
+				for (int i = 0; i <= relateBookIds.length - 1; i++) {
+					int id = relateBookIds[i];
+					Book relateBook = bookJpa.getOne(id);
+					book.getRelateBooks().add(relateBook);
+				}
+			}
+
 			bookJpa.save(book);
 			return "Add book" + book.getName() + " successed";
-		}
-	}
-
-	public String edit(Book book, MultipartFile file, MultipartFile[] files, MultipartFile[] thumbs) {
-		Book origin = bookJpa.getOne(book.getId());
-		if (!origin.getName().equals(book.getName()) && isBookExit(book)) {
-			return "Book's name should not be same with another!";
-		} else {
-			if (file.getSize() != 0) {
-				book.setImgURL("/images/book/" + sfSvc.storageFile(file, "book", book.getName()));
-			}
-
-			if (files.length >= 1 && files[0].getSize() > 0) {
-				book.getImgURLs().clear();
-				for (int i = 0; i <= files.length - 1; i++) {
-					MultipartFile iFile = files[i];
-					if (iFile.getSize() != 0) {
-						book.getImgURLs()
-								.add("/images/book/" + sfSvc.storageFile(iFile, "book", book.getName() + "-" + i));
-					}
-				}
-			}
-
-			int thumbIndex = origin.getThumbURLs().size();
-			for (int i = 0; i <= files.length - 1; i++) {
-				MultipartFile iFile = files[i];
-				if (iFile.getSize() != 0) {
-					book.getThumbURLs().add("/images/thumb/"
-							+ sfSvc.storageFile(iFile, "book", book.getName() + "-" + (i + thumbIndex)));
-				}
-			}
-			bookJpa.save(book);
-			return "Edit book id = " + book.getId() + " successed";
 		}
 	}
 

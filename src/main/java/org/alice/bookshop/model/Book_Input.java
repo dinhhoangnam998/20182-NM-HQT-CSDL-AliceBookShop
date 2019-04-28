@@ -29,7 +29,7 @@ public class Book_Input {
 	private boolean deleted;
 
 	@OneToOne
-	private Book book = new Book();;
+	private Book book;;
 
 	@OneToOne
 	private Input input;

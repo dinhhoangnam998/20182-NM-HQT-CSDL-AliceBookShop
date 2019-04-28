@@ -41,7 +41,7 @@ public class SupplierController {
 
 	@GetMapping("/add")
 	public String add(Model model) {
-		model.addAttribute("supplier", new Supplier());
+		model.addAttribute("suppliers", new Supplier());
 		return "/admin/manage/suppliers/add";
 	}
 
