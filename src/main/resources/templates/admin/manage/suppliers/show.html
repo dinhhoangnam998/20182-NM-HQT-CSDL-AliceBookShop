@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:include="~{/base::head('Supplier List')}"></th:block>
+  </head>
+
+  <body>
+    <!-- header -->
+    <header th:replace="~{/base::header}"></header>
+
+    <!-- navbar -->
+    <nav th:replace="~{/base::navbar}"></nav>
+
+    <!-- main -->
+    <main class="container-fluid" id="main">
+      <div class="row">
+        <!-- navside -->
+        <nav class="col-md-3" th:replace="~{/base::navside}"></nav>
+
+        <!-- section -->
+        <section class="col-md-9 pt-0">
+          <!-- section header -->
+          <div
+            th:replace="~{/base::section-header('alert-success', 'Supplier:', 'suppliers/add')}"
+          ></div>
+
+          <!-- section-content -->
+          <table
+            id="ss-ct-tb"
+            class="table table-hover table-bordered table-sm mt-2 mb-2"
+          >
+            <thead class="thead-inverse contaier-fluid">
+              <tr>
+                <th width="5%">id</th>
+                <th width="25%">name</th>
+                <th width="20%">address</th>
+                <th width="20%">phone</th>
+                <th width="20%">email</th>
+                <th width="5%">Edit</th>
+                <th width="5%">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="supplier : ${suppliers}">
+                <td scope="row" th:text="${supplier.id}"></td>
+                <td th:text="${supplier.name}"></td>
+                <td th:text="${supplier.address}"></td>
+                <td th:text="${supplier.phone}"></td>
+                <td th:text="${supplier.email}"></td>
+                <td class="text-center">
+                  <a
+                    th:href="@{/admin/manage/suppliers/{id}/edit#navbar(id=${supplier.id})}"
+                    ><i class="fas fa-pencil-alt text-dark"></i
+                  ></a>
+                </td>
+                <td class="text-center">
+                  <a
+                    th:href="@{/admin/manage/suppliers/{id}/delete#navbar(id=${supplier.id})}"
+                    ><i class="far fa-trash-alt text-dark"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- section-footer -->
+          <div
+            th:replace="~{/base::section-footer ('/admin/manage/suppliers')}"
+          ></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- footer -->
+    <footer th:replace="~{/base::footer}"></footer>
+  </body>
+</html>

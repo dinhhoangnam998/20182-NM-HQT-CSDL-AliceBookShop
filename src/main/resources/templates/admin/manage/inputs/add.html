@@ -1,89 +1,133 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:include="~{/base::head('Add input')}"></th:block>
+  </head>
 
-<head>
-  <th:block th:include="~{/base::head('Add input')}"></th:block>
-</head>
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
 
-<body>
-  <!-- header -->
-  <header th:replace="/base::header"></header>
-  <!-- navbar -->
-  <nav th:replace="/base::navbar"></nav>
+    <!-- main -->
+    <main class="container-fluid" id="main">
+      <div class="row ">
+        <!-- navside -->
+        <nav class="col-md-3" th:replace="~{/base::navside}"></nav>
 
-  <!-- main -->
-  <main class="container-fluid" id="main">
-    <div class="row ">
-      <!-- navside -->
-      <nav class="col-md-3" th:replace="~{/base::navside}">
-      </nav>
+        <!-- section -->
+        <section class="col-md-9 pt-0">
+          <!-- section-header -->
+          <div
+            th:replace="/base::section-header('alert-warning', 'Add input', null)"
+          ></div>
 
-      <!-- section -->
-      <section class="col-md-9 pt-0">
-        <!-- section-header -->
-        <div th:replace="/base::section-header('alert-warning', 'Add input', null)"></div>
+          <!-- section-content -->
+          <form th:action="@{add#navbar}" method="POST" th:object="${input}">
+            <div class="form-group">
+              <label for="date">input date</label>
+              <input
+                type="date"
+                id="date"
+                th:field="*{inputDate}"
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="supplier">supplier</label>
+              <select
+                th:field="*{supplier.id}"
+                class="form-control"
+                id="supplier"
+              >
+                <option
+                  th:each="supplier : ${suppliers}"
+                  th:value="${supplier.id}"
+                  th:text="${supplier.name}"
+                >
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="note">input note</label>
+              <input
+                type="text"
+                id="note"
+                th:field="*{note}"
+                class="form-control"
+                placeholder="who, where, how"
+              />
+            </div>
 
-        <!-- section-content -->
-        <form th:action="@{add#navbar}" method="POST" th:object="${input}">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>row</th>
+                  <th>book</th>
+                  <th>quantity</th>
+                  <th>input price</th>
+                  <th>
+                    <button
+                      type="submit"
+                      name="addRow"
+                      class="btn btn-primary btn-sm"
+                    >
+                      Add Row
+                      <i class="fa fa-plus"> </i>
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="b_i, iterStat : *{book_inputs}">
+                  <td scope="row" th:text="${iterStat.count}"></td>
+                  <td>
+                    <select
+                      th:field="*{book_inputs[__${iterStat.index}__].book.id}"
+                    >
+                      <option
+                        th:each="book : ${books}"
+                        th:value="${book.id}"
+                        th:text="${book.name}"
+                      ></option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      th:field="*{book_inputs[__${iterStat.index}__].quantity}"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      th:field="*{book_inputs[__${iterStat.index}__].inputPrice}"
+                    />
+                  </td>
+                  <td>
+                    <button
+                      type="submit"
+                      name="removeRow"
+                      class="btn btn-warning btn-sm"
+                      th:value="${iterStat.index}"
+                    >
+                      Remove Row
+                      <i class="fa fa-minus"> </i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
-          <div class="form-group">
-            <label for="date">input date</label>
-            <input type="date" id="date" th:field="*{inputDate}" class="form-control" placeholder="">
-          </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </section>
+      </div>
+    </main>
 
-          <div class="form-group">
-            <label for="note">input note</label>
-            <input type="text" id="note" th:field="*{note}" class="form-control" placeholder="who, where, how">
-          </div>
-
-          <table class="table">
-            <thead>
-              <tr>
-                <th>row</th>
-                <th>book</th>
-                <th>quantity</th>
-                <th>input price</th>
-                <th>
-                  <button type="submit" name="addRow" class="btn btn-primary btn-sm">Add Row
-                    <i class="fa fa-plus">
-                    </i>
-                  </button>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="b_i, iterStat : *{book_inputs}">
-                <td scope="row" th:text="${iterStat.count}"></td>
-                <td>
-                  <select th:field="*{book_inputs[__${iterStat.index}__].book.id}">
-                    <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}"></option>
-                  </select>
-                </td>
-                <td>
-                  <input type="number" th:field="*{book_inputs[__${iterStat.index}__].quantity}">
-                </td>
-                <td>
-                  <input type="number" th:field="*{book_inputs[__${iterStat.index}__].inputPrice}">
-                </td>
-                <td>
-                  <button type="submit" name="removeRow" class="btn btn-warning btn-sm"
-                    th:value="${iterStat.index}">Remove Row
-                    <i class="fa fa-minus">
-                    </i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </section>
-    </div>
-  </main>
-
-  <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
-</body>
-
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
+  </body>
 </html>

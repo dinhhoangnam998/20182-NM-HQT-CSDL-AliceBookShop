@@ -47,11 +47,6 @@ public class AccountService extends UserUtilityService {
 		List<String> msgs = new ArrayList<>();
 		String temp;
 
-		temp = accChecker.checkPassword(user.getPassword(), user.getConfirmPassword());
-		if (!temp.equals("ok")) {
-			msgs.add(temp);
-		}
-
 		temp = accChecker.checkEmail(user.getEmail());
 		if (!temp.equals("ok")) {
 			msgs.add(temp);
@@ -66,7 +61,6 @@ public class AccountService extends UserUtilityService {
 	}
 
 	public void saveChangeProfile(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userJpa.save(user);
 
 	}
@@ -81,6 +75,17 @@ public class AccountService extends UserUtilityService {
 			orderJpa.save(newCart);
 			return newCart;
 		}
+	}
+
+	public boolean validatePassword(User user) {
+		String temp = accChecker.checkPassword(user.getPassword(), user.getConfirmPassword());
+		return (temp.equals("ok"));
+	}
+
+	public void saveChangePassword(User user) {
+		User origin = userJpa.getOne(user.getId());
+		origin.setPassword(passwordEncoder.encode(user.getPassword()));
+		userJpa.save(origin);
 	}
 
 }

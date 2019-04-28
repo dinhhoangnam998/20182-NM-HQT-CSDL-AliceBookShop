@@ -108,6 +108,25 @@ public class AccountController {
 		}
 	}
 
+	@GetMapping("/profiles/{id}/change-password")
+	public String changePassword(Model model, @PathVariable int id) {
+		model.addAttribute("user", accountService.getUserById(id));
+		return "/user/account/change-password";
+	}
+
+	@PostMapping("/profiles/{id}/change-password")
+	public String changePassword(RedirectAttributes redirAttr, User user) {
+		boolean successd = accountService.validatePassword(user);
+		if (successd) {
+			accountService.saveChangePassword(user);
+			redirAttr.addFlashAttribute("msg", "Change password success!");
+			return "redirect:/profiles/" + user.getId();
+		} else {
+			redirAttr.addFlashAttribute("msg", "Password is not match!");
+			return "redirect:/profiles/" + user.getId() + "/change-password";
+		}
+	}
+
 	@RequestMapping(value = "/profiles/{id}/avatar", method = RequestMethod.POST, consumes = { "multipart/form-data" })
 	public String changeAvatar(@PathVariable int id, @RequestParam MultipartFile file) {
 		User user = accountService.userJpa.getOne(id);

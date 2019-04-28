@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.alice.bookshop.model.Book_Input;
 import org.alice.bookshop.model.Input;
+import org.alice.bookshop.repository.SupplierJpa;
 import org.alice.bookshop.service.admin.manage.BookService;
 import org.alice.bookshop.service.admin.manage.InputService;
 import org.alice.bookshop.service.utility.PaginationService;
@@ -34,6 +35,9 @@ public class InputController {
 
 	@Autowired
 	private PaginationService pagi;
+	
+	@Autowired
+	private SupplierJpa supplierJpa;
 
 	@GetMapping
 	public String show(Model model, HttpSession ss, @RequestParam(required = false, defaultValue = "1") int p,
@@ -51,6 +55,7 @@ public class InputController {
 		Input input = new Input();
 		model.addAttribute("input", input);
 		model.addAttribute("books", bookService.bookJpa.findAll());
+		model.addAttribute("suppliers", supplierJpa.findByDeleted(false));
 		return "/admin/manage/inputs/add";
 	}
 
@@ -86,6 +91,7 @@ public class InputController {
 		Input input = inputService.inputJpa.getOne(id);
 		model.addAttribute("input", input);
 		model.addAttribute("books", bookService.bookJpa.findAll());
+		model.addAttribute("suppliers", supplierJpa.findByDeleted(false));
 		return "/admin/manage/inputs/edit";
 	}
 

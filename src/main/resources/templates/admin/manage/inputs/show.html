@@ -1,65 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:include="~{/base::head('Input List')}"></th:block>
+  </head>
 
-<head>
-  <th:block th:include="~{/base::head('Input List')}"></th:block>
-</head>
+  <body>
+    <!-- header -->
+    <header th:replace="~{/base::header}"></header>
 
-<body>
-  <!-- header -->
-  <header th:replace="~{/base::header}"></header>
+    <!-- navbar -->
+    <nav th:replace="~{/base::navbar}"></nav>
 
-  <!-- navbar -->
-  <nav th:replace="~{/base::navbar}"></nav>
+    <!-- main -->
+    <main class="container-fluid" id="main">
+      <div class="row ">
+        <!-- navside -->
+        <nav class="col-md-3" th:replace="~{/base::navside}"></nav>
 
-  <!-- main -->
-  <main class="container-fluid" id="main">
-    <div class="row ">
-      <!-- navside -->
-      <nav class="col-md-3" th:replace="~{/base::navside}">
-      </nav>
+        <!-- section -->
+        <section class="col-md-9 pt-0">
+          <!-- section-header -->
+          <div
+            th:replace="~{/base::section-header('alert-success', 'Inputs:', 'inputs/add')}"
+          ></div>
 
-      <!-- section -->
-      <section class="col-md-9 pt-0">
-        <!-- section-header -->
-        <div th:replace="~{/base::section-header('alert-success', 'Inputs:', 'inputs/add')}"></div>
-
-        <!-- section-content -->
-        <table id="ss-ct-tb" class="table table-hover table-bordered table-sm mt-2 mb-2">
-          <thead class="thead-inverse">
-            <tr>
-              <th>id</th>
-              <th>date</th>
-              <th>note</th>
-              <th width="5%">detail</th>
-              <th width="5%">edit</th>
-              <th width="5%">delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <th:block th:each="input : ${inputs}">
+          <!-- section-content -->
+          <table
+            id="ss-ct-tb"
+            class="table table-hover table-bordered table-sm mt-2 mb-2"
+          >
+            <thead class="thead-inverse">
               <tr>
-                <td scope="row" th:text="${input.id}"></td>
-                <td th:text="${input.inputDate}"></td>
-                <td th:text="${input.note}"></td>
-                <td class="text-center">
-                  <a data-toggle="collapse" th:href="'#' + ${#ids.next('input')}">
-                  <i class="fas fa-info-circle text-info"></i>
-                  </a>
-                </td>
-                <td class="text-center"><a th:href="@{/admin/manage/inputs/{id}/edit#navbar(id=${input.id})}"><i
-                      class="fas fa-pencil-alt text-dark"></i></a>
-                </td>
-                <td class="text-center"><a th:href="@{/admin/manage/inputs/{id}/delete#navbar(id=${input.id})}"><i
-                      class="far fa-trash-alt text-dark"></i></a>
-                </td>
+                <th>id</th>
+                <th>date</th>
+                <th>supplier</th>
+                <th>note</th>
+                <th width="5%">detail</th>
+                <th width="5%">edit</th>
+                <th width="5%">delete</th>
               </tr>
-          
+            </thead>
+            <tbody>
+              <th:block th:each="input : ${inputs}">
+                <tr>
+                  <td scope="row" th:text="${input.id}"></td>
+                  <td th:text="${input.inputDate}"></td>
+                  <td
+                    th:text="(${input.supplier} == null)?('null'):(${input.supplier.name})"
+                  ></td>
+                  <td th:text="${input.note}"></td>
+                  <td class="text-center">
+                    <a
+                      data-toggle="collapse"
+                      th:href="'#' + ${#ids.next('input')}"
+                    >
+                      <i class="fas fa-info-circle text-info"></i>
+                    </a>
+                  </td>
+                  <td class="text-center"
+                    ><a
+                      th:href="@{/admin/manage/inputs/{id}/edit#navbar(id=${input.id})}"
+                      ><i class="fas fa-pencil-alt text-dark"></i
+                    ></a>
+                  </td>
+                  <td class="text-center"
+                    ><a
+                      th:href="@{/admin/manage/inputs/{id}/delete#navbar(id=${input.id})}"
+                      ><i class="far fa-trash-alt text-dark"></i
+                    ></a>
+                  </td>
+                </tr>
+
                 <tr class="p-0 m-0">
-                  <td colspan="6" class="p-0 ">
-                    <div class="collapse mt-3" id="content" th:id="${#ids.seq('input')}">
+                  <td colspan="7" class="p-0 ">
+                    <div
+                      class="collapse mt-3"
+                      id="content"
+                      th:id="${#ids.seq('input')}"
+                    >
                       <div class="container">
-                      <!-- table -->
+                        <!-- table -->
                         <table class="table table table-info">
                           <thead>
                             <tr>
@@ -72,30 +92,36 @@
                           </thead>
                           <tbody>
                             <tr th:each="book_input: ${input.book_inputs}">
-                              <td scope="row" th:text="${book_input.book.name}"></td>
+                              <td
+                                scope="row"
+                                th:text="${book_input.book.name}"
+                              ></td>
                               <td th:text="${book_input.quantity}"></td>
                               <td th:text="${book_input.book.coverPrice}"></td>
                               <td th:text="${book_input.inputPrice}"></td>
-                              <td th:text="${book_input.inputPrice} * ${book_input.quantity} "></td>
+                              <td
+                                th:text="${book_input.inputPrice} * ${book_input.quantity} "
+                              ></td>
                             </tr>
                           </tbody>
                         </table>
-                        </div>
                       </div>
+                    </div>
                   </td>
                 </tr>
-            </th:block>
-          </tbody>
-        </table>
+              </th:block>
+            </tbody>
+          </table>
 
-        <!-- section-footer -->
-        <div th:replace="~{/base::section-footer ('/admin/manage/inputs')}"></div>
-      </section>
-    </div>
-  </main>
+          <!-- section-footer -->
+          <div
+            th:replace="~{/base::section-footer ('/admin/manage/inputs')}"
+          ></div>
+        </section>
+      </div>
+    </main>
 
-  <!-- footer -->
-  <footer th:replace="~{/base::footer}"></footer>
-</body>
-
+    <!-- footer -->
+    <footer th:replace="~{/base::footer}"></footer>
+  </body>
 </html>

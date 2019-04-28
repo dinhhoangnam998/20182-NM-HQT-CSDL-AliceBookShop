@@ -92,17 +92,24 @@
               >
                 <a
                   class="dropdown-item"
-                  th:href="@{/profiles/{id}#navbar(id=${session.user.id})}"
-                  >My profile</a
+                  th:href="@{/{uid}/shopping-history(uid=${session.user.id})}"
+                  >Lịch sử mua sắm</a
                 >
+                <div class="dropdown-divider"></div>
                 <a
                   class="dropdown-item"
-                  th:href="@{/{uid}/shopping-history(uid=${session.user.id})}"
-                  >Shopping history</a
+                  th:href="@{/profiles/{id}#navbar(id=${session.user.id})}"
+                  >Thông tin tài khoản</a
+                >
+
+                <a
+                  class="dropdown-item"
+                  th:href="@{/profiles/{id}/change-password#navbar(id=${session.user.id})}"
+                  >Đổi mật khẩu</a
                 >
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" th:href="@{/logout}"
-                  >Log out <i class="fas fa-sign-out-alt"></i
+                  >Đăng xuất <i class="fas fa-sign-out-alt"></i
                 ></a>
               </div>
             </span>
@@ -115,7 +122,10 @@
                   style="font-size: 25px; color: white"
                 ></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right">
+              <div
+                class="dropdown-menu dropdown-menu-right px-2"
+                style="width: 300px;"
+              >
                 <table class="table table-sm">
                   <thead>
                     <tr>
@@ -129,7 +139,7 @@
                 <div>
                   <a
                     th:href="@{/carts/{id}/manage(id=${session.cart.id})}"
-                    class="btn btn-sm btn-primary"
+                    class="btn btn-sm btn-primary float-right"
                     >Quản lý giỏ hàng</a
                   >
                 </div>
@@ -320,6 +330,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/manage/sales#navbar}">Sale</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/admin/manage/suppliers#navbar}"
+            >Supplier</a
+          >
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/manage/users#navbar}">User</a>
