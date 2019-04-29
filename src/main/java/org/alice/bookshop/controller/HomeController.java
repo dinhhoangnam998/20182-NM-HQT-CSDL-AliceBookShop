@@ -26,9 +26,9 @@ public class HomeController {
 		List<Book> books2 = homeService.getBooks(2, 5);
 		List<Book> books3 = homeService.getBooks(3, 5);
 
-		model.addAttribute("category1", "Văn học");
-		model.addAttribute("category2", "Sách thiếu nhi");
-		model.addAttribute("category3", "Manga");
+		model.addAttribute("category1", "Truyện hot");
+		model.addAttribute("category2", "Truyện mới");
+		model.addAttribute("category3", "Manga hay");
 		model.addAttribute("books1", books1);
 		model.addAttribute("books2", books2);
 		model.addAttribute("books3", books3);

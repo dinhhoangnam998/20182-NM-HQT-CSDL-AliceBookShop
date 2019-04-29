@@ -30,19 +30,20 @@
                   <div class="card-header">
                     [[${book.name}]]
                   </div>
-                  <div class="card-body">
-                    <div class="card-title">
-                      [[${book.coverPrice}]]
+                  <div class="card-body" style="padding: 10px;">
+                    <div class="card-title" style="background-color:#F7931E ; padding: 5px; display: inline-block;">
+                      [[${book.salePrice}]].000đ
                     </div>
-                    <div class="card-text">
-                      [[${book.author.name}]]
+                    <div class="card-text" style="text-decoration: line-through">
+                      [[${book.coverPrice}]].000đ
                     </div>
                     <a
-                      th:href="@{/books/{id}#navbar(id=${book.id})}"
+                      th:href="@{/books/{id}(id=${book.id})}"
                       class="card-link stretched-link"
                     >
                     </a>
                   </div>
+                
                 </div>
               </div>
             </li>
@@ -63,12 +64,12 @@
                   <div class="card-header">
                     [[${book.name}]]
                   </div>
-                  <div class="card-body">
-                    <div class="card-title">
-                      [[${book.coverPrice}]]
+                 <div class="card-body" style="padding: 10px;">
+                    <div class="card-title" style="background-color:#F7931E ; padding: 5px; display: inline-block;">
+                      [[${book.salePrice}]].000đ
                     </div>
-                    <div class="card-text">
-                      [[${book.author.name}]]
+                    <div class="card-text" style="text-decoration: line-through">
+                      [[${book.coverPrice}]].000đ
                     </div>
                     <a
                       th:href="@{/books/{id}(id=${book.id})}"
@@ -76,6 +77,7 @@
                     >
                     </a>
                   </div>
+                </div>
                 </div>
               </div>
             </li>
@@ -97,12 +99,12 @@
                     [[${book.name}]]
                     <!-- [[${book.imgURL}]] -->
                   </div>
-                  <div class="card-body">
-                    <div class="card-title">
-                      [[${book.coverPrice}]]
+                  <div class="card-body" style="padding: 10px;">
+                    <div class="card-title" style="background-color:#F7931E ; padding: 5px; display: inline-block;">
+                      [[${book.salePrice}]].000đ
                     </div>
-                    <div class="card-text">
-                      [[${book.author.name}]]
+                    <div class="card-text" style="text-decoration: line-through">
+                      [[${book.coverPrice}]].000đ
                     </div>
                     <a
                       th:href="@{/books/{id}(id=${book.id})}"

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <!-- head -->
+
+  <head>
+    <th:block th:include="~{/base::head ('Access Forbidden')}"></th:block>
+  </head>
+
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
+
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
+
+    <section
+      th:replace="~{/base::collapse-intro}"
+      class="container-fluid bg-danger"
+    ></section>
+
+    <main>
+      <div class="container-fluid my-container">
+       <h3>Xin lỗi, bạn vui lòng kiểm tra lại quyền truy cập của tài khoản!</h3>
+        <img th:src="@{/img/error/403.jpg}" alt="">
+      </div>
+    </main>
+
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
+  </body>
+</html>

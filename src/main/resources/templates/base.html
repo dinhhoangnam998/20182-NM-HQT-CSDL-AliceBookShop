@@ -24,6 +24,7 @@
     <script th:src="@{/vender/slider/js/lightslider.js}"></script>
     <link rel="stylesheet" th:href="@{/css/admin/general-layout.css}" />
     <link rel="stylesheet" th:href="@{/css/user/collapse-intro.css}" />
+    <link rel="stylesheet" th:href="@{/css/base/simple-layout.css}">
     <script th:src="@{/js/admin/tbl-icon-hover.js}"></script>
     <script th:src="@{/js/search-box.js}"></script>
     <script th:inline="javascript" th:if="${session.user} != null">
@@ -49,35 +50,6 @@
         });
       });
     </script>
-    <style>
-      body {
-        padding: 0 50px;
-        background-color: #bdc3c7;
-      }
-
-      #navbar {
-        margin-top: 25px;
-      }
-
-      main {
-        background-color: inherit;
-        margin-top: 25px;
-        margin-bottom: 25px;
-      }
-
-      .my-container {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        background-color: white;
-        margin: 25px 0;
-      }
-
-      .my-container h3 {
-        border-bottom: solid 2px gray;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-      }
-    </style>
   </head>
 
   <body>
@@ -95,7 +67,7 @@
     <div th:fragment="navbar" class="container-fluid bg-warning" id="navbar">
       <div class="row">
         <div class="col-md-3 my-auto" style="text-align: center">
-          <a th:href="@{/home}">Brand</a>
+          <a th:href="@{/home}">Alice Book Shop</a>
         </div>
 
         <div class="col-md-7">
