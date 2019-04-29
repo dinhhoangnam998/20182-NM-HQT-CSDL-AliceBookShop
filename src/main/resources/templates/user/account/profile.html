@@ -31,7 +31,7 @@
 
 	<!-- main -->
 	<main id="main">
-		<div class="container-fluid">
+		<div class="container-fluid  my-container">
 			<div th:if="${msg} != null">
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,22 +40,18 @@
 					<strong th:text="${msg}"></strong>
 				</div>
 			</div>
-			<h2>Profile</h2>
-			<div class="row">
 
+			<h3>Profile</h3>
+
+			<div class="row">
 				<div class="col-md-3">
 					<div>
 						<img th:src="@{${user.imgURL}}" style="height: 438px; width: 100%; object-fit: cover">
 					</div>
-					<!-- <form th:action="@{/profiles/{userId}/avatar#navbar(userId = ${user.id})}" method="POST"
-						enctype="multipart/form-data">
-						<input type="file" name="file" class="btn form-control-file" /><br /> <br />
-						<input type="submit" value="Change Photo" class="btn btn-primary" />
-					</form> -->
 				</div>
 
-				<div class="col-md-9">
-					<div class="container">
+				<div class="col-md-9 pl-0">
+					<div class="container mt-0">
 						<h3>Account info</h3>
 						<div class="row">
 							<div class="col-md-6">Username</div>
@@ -65,13 +61,9 @@
 							<div class="col-md-6">Email</div>
 							<div class="col-md-6">[[${user.email}]]</div>
 						</div>
-						<!-- <div class="row">
-							<div class="col-md-6">Password</div>
-							<div class="col-md-6"></div>
-						</div> -->
 					</div>
 
-					<div class="container">
+					<div class="container mt-3">
 						<h3>Personal info</h3>
 						<div class="row">
 							<div class="col-md-6">Full name</div>
@@ -87,7 +79,7 @@
 						</div>
 					</div>
 
-					<div class="container">
+					<div class="container mt-3">
 						<h3>Delivering info</h3>
 						<div class="row">
 							<div class="col-md-6">Address</div>

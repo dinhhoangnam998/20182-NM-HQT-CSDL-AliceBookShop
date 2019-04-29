@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:include="~{/base::head ('Shopping History')}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}" />
+  </head>
 
-<head>
-  <th:block th:include="~{/base::head ('Shopping History')}"></th:block>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
-</head>
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
 
-<body>
-  <!-- header -->
-  <header th:replace="/base::header"></header>
-
-  <!-- navbar -->
-  <nav th:replace="/base::navbar"></nav>
-<section
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
+    <section
       th:replace="~{/base::collapse-intro}"
       class="container-fluid bg-danger"
     ></section>
-  <main>
-    <div class="container">
-      <h3>Lịch sử mua hàng</h3>
-      
-      <div th:each="order: ${orders}">
-        <div>Mã đơn hàng: [[${order.id}]]</div>
-        <div>Trạng thái: [[${order.state}]]</div>
-      </div>
-      
-    </div>
-  </main>
+    <main>
+      <div class="container-fluid my-container">
+        <h3>Lịch sử mua hàng</h3>
 
-  <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
-</body>
+        <div th:each="order: ${orders}" class="bg-success mt-1">
+          <div>Mã đơn hàng: [[${order.id}]]</div>
+          <div>Trạng thái: [[${order.state}]]</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
+  </body>
+</html>

@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!-- head -->
+  <!-- head -->
 
-<head>
-	<th:block th:include="~{/base::head ('Sign up success')}"></th:block>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
-</head>
+  <head>
+    <th:block th:include="~{/base::head ('Sign up success')}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}" />
+  </head>
 
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
 
-<body>
-	<!-- header -->
-	<header th:replace="/base::header"></header>
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
 
-	<!-- navbar -->
-	<nav th:replace="/base::navbar"></nav>
-
-	<!-- section -->
-	<section
+    <!-- section -->
+    <section
       th:replace="~{/base::collapse-intro}"
       class="container-fluid bg-danger"
     ></section>
 
-	<!-- main -->
-	<main id="main" style="padding: 100px 100px;">
+    <!-- main -->
+    <main id="main">
+      <div th:if="${user} != null" class="container-fluid my-container" style="font-size: 2.5rem;">
+        <div class="alert alert-success" role="alert">
+          <strong th:text="'Welcome ' + ${user.name} + '!'"></strong>
+          <p>Your account: <i>[[${user.username}]]</i> is ready now!</p>
+          <p>Let's login and start shopping with us!</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/login}">Login</a>
+      </div>
+    </main>
 
-		<div th:if="${user} != null" class="container" style="font-size: 2.5rem;">
-			<div class="alert alert-success" role="alert">
-				<strong th:text="'Welcome ' + ${user.name} + '!'"></strong>
-				<p>Your account: <i>[[${user.username}]]</i> is ready now!</p>
-				<p>Let's login and start shopping with us!</p>
-			</div>
-			<a class="btn btn-primary" th:href="@{/login}">Login</a>
-		</div>
-
-	</main>
-
-	<!-- footer -->
-	<footer th:replace="/base::footer"></footer>
-</body>
-
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
+  </body>
 </html>

@@ -25,6 +25,7 @@
     <link rel="stylesheet" th:href="@{/css/admin/general-layout.css}" />
     <link rel="stylesheet" th:href="@{/css/user/collapse-intro.css}" />
     <script th:src="@{/js/admin/tbl-icon-hover.js}"></script>
+    <script th:src="@{/js/search-box.js}"></script>
     <script th:inline="javascript" th:if="${session.user} != null">
       $(document).ready(function () {
         $('#navbar-cart-icon').click(function () {
@@ -48,7 +49,35 @@
         });
       });
     </script>
-    <script th:src="@{/js/search-box.js}"></script>
+    <style>
+      body {
+        padding: 0 50px;
+        background-color: #bdc3c7;
+      }
+
+      #navbar {
+        margin-top: 25px;
+      }
+
+      main {
+        background-color: inherit;
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      .my-container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: white;
+        margin: 25px 0;
+      }
+
+      .my-container h3 {
+        border-bottom: solid 2px gray;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+      }
+    </style>
   </head>
 
   <body>
@@ -63,17 +92,12 @@
     </header>
 
     <!-- navbar -->
-    <div
-      th:fragment="navbar"
-      class="container-fluid bg-warning"
-      id="navbar"
-      style=" margin-top: 25px;"
-    >
+    <div th:fragment="navbar" class="container-fluid bg-warning" id="navbar">
       <div class="row">
         <div class="col-md-3 my-auto" style="text-align: center">
           <a th:href="@{/home}">Brand</a>
         </div>
-        
+
         <div class="col-md-7">
           <nav class="nav justify-content-center">
             <a class="nav-link" th:href="@{/home}">Home</a>
@@ -107,7 +131,7 @@
                   >Quản lý trang web</a
                 >
 
-                <div class="dropdown-divider"></div>
+                <div th:if="${session.user.privilege} == 1" class="dropdown-divider"></div>
 
                 <a
                   class="dropdown-item"
@@ -162,7 +186,7 @@
                     >Quản lý giỏ hàng</a
                   >
                 </div>
-              </span>
+              </div>
             </span>
           </div>
 
@@ -186,7 +210,7 @@
           <div class="list-groups">
             <a
               class="list-group-item"
-              style="background-color: #6a6a6a; color: white"
+              style="background-color: #6a6a6a; color: white;"
               >Danh mục</a
             >
             <a
@@ -309,13 +333,13 @@
       id="collapse-intro"
       class="container-fluid bg-danger"
     >
-      <div class="row py-1">
+      <div class="row py-2">
         <div class="col-md-3">
           <div class="my-dropdown">
             <div class="my-dropdown-button">
               <a
                 class="list-group-item"
-                style="background-color: #6a6a6a; color: white"
+                style="background-color: #6a6a6a; color: white; padding-top: 6px; padding-bottom: 6px"
               >
                 Danh mục
               </a>

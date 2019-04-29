@@ -16,33 +16,33 @@
     <nav th:replace="/base::navbar"></nav>
 
     <!-- section -->
-<section
+    <section
       th:replace="~{/base::collapse-intro}"
       class="container-fluid bg-danger"
     ></section>
 
     <!-- main -->
     <main id="main">
-      <div th:if="not(${#lists.isEmpty(msgs)})">
-        <div th:each="msg : ${msgs}">
-          <div
-            class="alert alert-warning alert-dismissible fade show"
-            role="alert"
-          >
-            <button
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
+      <div class="container-fluid my-container">
+        <div th:if="not(${#lists.isEmpty(msgs)})">
+          <div th:each="msg : ${msgs}">
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
             >
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <strong th:text="${msg}"></strong>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong th:text="${msg}"></strong>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
             <div>
@@ -60,7 +60,7 @@
               <input
                 type="file"
                 name="file"
-                class="btn form-control-file"
+                class="btn form-control-file pl-0"
               /><br />
               <br />
               <input

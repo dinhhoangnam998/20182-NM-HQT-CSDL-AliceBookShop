@@ -18,7 +18,7 @@
 
     <!-- main -->
     <main>
-      <div class="container-fluid">
+      <div class="container-fluid  my-container">
         <div class="row mb-3" th:each="row : ${rows}">
           <div class="col-md-3" th:each="pu : ${row}">
             <div class="card">
@@ -30,7 +30,7 @@
               />
 
               <div class="card-body">
-                <h5 class="card-title" th:text="${pu.name}"></h5>
+                <h5 class="card-title" style="text-align: center" th:text="${pu.name}"></h5>
                 <!-- <p class="card-text"></p> -->
                 <a
                   th:href="@{/books/pu/{puid}(puid = ${pu.id})}"
@@ -40,8 +40,8 @@
             </div>
           </div>
         </div>
+        <div th:replace="~{/base::section-footer ('/publishers')}"></div>
       </div>
-      <div th:replace="~{/base::section-footer ('/publishers')}"></div>
     </main>
 
     <!-- footer -->

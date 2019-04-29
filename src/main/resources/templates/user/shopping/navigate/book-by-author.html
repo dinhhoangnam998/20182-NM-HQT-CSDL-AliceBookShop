@@ -18,7 +18,7 @@
 
     <!-- main -->
     <main>
-      <div class="container-fluid">
+      <div class="container-fluid  my-container">
         <div class="row mb-3" th:each="row : ${rows}">
           <div class="col-md-3" th:each="book : ${row}">
             <div class="card">
@@ -40,8 +40,8 @@
             </div>
           </div>
         </div>
+        <div th:replace="~{/base::section-footer ('/books/au/' + ${auid})}"></div>
       </div>
-      <div th:replace="~{/base::section-footer ('/books/au/' + ${auid})}"></div>
     </main>
 
     <!-- footer -->

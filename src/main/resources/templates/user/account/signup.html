@@ -19,11 +19,12 @@
     ></section>
     <!-- main -->
     <main id="main">
-      <div th:if="not(${#lists.isEmpty(msgs)})">
-        <div th:each="msg : ${msgs}" th:text="${msg}"></div>
-      </div>
+      <div class="container-fluid my-container">
 
-      <div class="container-fluid">
+        <div th:if="not(${#lists.isEmpty(msgs)})">
+          <div th:each="msg : ${msgs}" th:text="${msg}"></div>
+        </div>
+
         <h2>Make your account</h2>
         <form th:action="@{/signup#navbar}" method="POST" th:object="${user}">
           <div class="form-group">

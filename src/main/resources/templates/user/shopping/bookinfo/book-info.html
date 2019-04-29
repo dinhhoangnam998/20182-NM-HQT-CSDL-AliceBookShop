@@ -37,7 +37,7 @@
     <!-- main -->
     <main id="main">
       <!-- Book info -->
-      <div class="container-fluid">
+      <div class="container-fluid my-container">
         <div class="row">
           <!-- gallery -->
           <div class="col-md-3">
@@ -56,7 +56,7 @@
           </div>
 
           <!-- middle column -->
-          <div class="col-md-6 bg-warning">
+          <div class="col-md-7 bg-warning">
             <!-- msg -->
 
             <div
@@ -181,25 +181,28 @@
           </div>
 
           <!-- addtion info -->
-          <div class="col-md-3 bg-secondary pr-0">
-            <div style="height: 500px; overflow: auto" class="px-2">
+          <div class="col-md-2 pr-0">
+            <div style="height: 500px; overflow: auto">
               <h4>Truyện liên quan</h4>
 
-              <ul class="list-group bg-warning">
+              <ul class="list-group">
                 <li
                   th:each="b : ${book.relateBooks}"
-                  class="list-group-item list-group-item-action"
+                  class="list-group-item list-group-item-action px-0"
                 >
-                  <a th:href="@{/books/{id}(id=${b.id})}">
-                    <img
-                      th:src="@{${b.imgURL}}"
-                      alt="No image found"
-                      style="height: auto; width: 100%; object-fit: contain;"
-                    />
-                  </a>
-
-                  <h5 th:text="${b.name}"></h5>
-                  <p th:text="${b.author.name}"></p>
+                  <div style="height: 150px;">
+                    <a th:href="@{/books/{id}(id=${b.id})}">
+                      <img
+                        th:src="@{${b.imgURL}}"
+                        alt="No image found"
+                        style="height: 100%; width: 100%; object-fit: contain;"
+                      />
+                    </a>
+                  </div>
+                  <div style="text-align: center;">
+                    <p style="font-size: 1.2em; margin-bottom: 0;" th:text="${b.name}"></p>
+                    <p th:text="${b.author.name}"></p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -208,14 +211,14 @@
       </div>
 
       <!-- detail description -->
-      <div class="container-fluid">
+      <div class="container-fluid my-container">
         <h3>Chi tiết</h3>
         <h4 th:text="${book.name}"></h4>
         <p th:utext="${book.description}"></p>
       </div>
 
       <!-- table book detail -->
-      <div class="container-fluid py-3">
+      <div class="container-fluid my-container">
         <h3>Thông tin khác</h3>
         <table id="mytable" class="table table-striped">
           <tr>

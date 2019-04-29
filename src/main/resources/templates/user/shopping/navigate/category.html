@@ -18,7 +18,7 @@
 
     <!-- main -->
     <main>
-      <div class="container-fluid">
+      <div class="container-fluid  my-container">
         <div class="list-group">
           <a
             th:each="ca : ${categories}"
@@ -27,8 +27,8 @@
             class="list-group-item list-group-item-action "
           ></a>
         </div>
+        <div th:replace="~{/base::section-footer ('/categories')}"></div>
       </div>
-      <div th:replace="~{/base::section-footer ('/categories')}"></div>
     </main>
 
     <!-- footer -->

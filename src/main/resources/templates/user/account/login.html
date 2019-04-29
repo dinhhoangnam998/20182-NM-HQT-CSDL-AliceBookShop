@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!-- head -->
+  <!-- head -->
 
-<head>
-	<th:block th:include="~{/base::head ('Sign up success')}"></th:block>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
-</head>
+  <head>
+    <th:block th:include="~{/base::head ('Sign up success')}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}" />
+  </head>
 
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
 
-<body>
-	<!-- header -->
-	<header th:replace="/base::header"></header>
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
 
-	<!-- navbar -->
-	<nav th:replace="/base::navbar"></nav>
-
-	<section
+    <section
       th:replace="~{/base::collapse-intro}"
       class="container-fluid bg-danger"
     ></section>
 
-	<main class="" style="padding: 100px 100px;">
+    <main>
+      <div class="container-fluid my-container">
+        <h3>Đăng nhập</h3>
+        <form th:action="@{/login}" method="POST">
+          <div class="form-group">
+            <label for="username">Username: </label>
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              id="username"
+              placeholder="username"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="form-control"
+              placeholder="password"
+            />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </main>
 
-		<h3>Đăng nhập</h3>
-		<form th:action="@{/login}" method="POST">
-			<div class="form-group">
-				<label for="username">Username: </label>
-				<input type="text" class="form-control" name="username" id="username" placeholder="username">
-			</div>
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" name="password" id="password" class="form-control" placeholder="password">
-			</div>
-			<div>
-				<button type="submit" class="btn btn-primary">Login</button>
-			</div>
-		</form>
-
-	</main>
-	
-	<!-- footer -->
-	<footer th:replace="/base::footer"></footer>
-</body>
-
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
+  </body>
 </html>
