@@ -2,8 +2,16 @@
   box-sizing: border-box;
 }
 
+body {
+  padding: 0 50px;
+  background-color: #bdc3c7;
+}
+
+main {
+  background-color: inherit;
+}
+
 #intro {
-  border: solid 2px black;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -32,12 +40,14 @@
   object-fit: cover;
 }
 
-main .container-fluid {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+.slider-container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: white;
+  margin: 25px 0;
 }
 
-main .container-fluid h3 {
+.slider-container h3 {
   border-bottom: solid 2px gray;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;

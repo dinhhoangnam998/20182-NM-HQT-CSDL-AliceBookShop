@@ -23,6 +23,7 @@
     <link rel="stylesheet" th:href="@{/vender/slider/css/lightslider.css}" />
     <script th:src="@{/vender/slider/js/lightslider.js}"></script>
     <link rel="stylesheet" th:href="@{/css/admin/general-layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/collapse-intro.css}" />
     <script th:src="@{/js/admin/tbl-icon-hover.js}"></script>
     <script th:inline="javascript" th:if="${session.user} != null">
       $(document).ready(function () {
@@ -48,30 +49,11 @@
       });
     </script>
     <script th:src="@{/js/search-box.js}"></script>
-    <style>
-      .my-dropdown {
-        display: block;
-        position: relative;
-      }
-
-      .my-dropdown-content {
-        display: none;
-        position: absolute;
-        width: 100%;
-        background-color: #f9f9f9;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
-
-      .my-dropdown:hover .my-dropdown-content {
-        display: block;
-      }
-    </style>
   </head>
 
   <body>
     <!-- header -->
-    <header th:fragment="header">
+    <header th:fragment="header" id="header">
       <div class="jumbotron jumbotron-fluid mb-0 ">
         <div class="container-fluid">
           <h1 class="display-3">Header</h1>
@@ -81,11 +63,17 @@
     </header>
 
     <!-- navbar -->
-    <div th:fragment="navbar" class="container-fluid bg-warning" id="navbar">
+    <div
+      th:fragment="navbar"
+      class="container-fluid bg-warning"
+      id="navbar"
+      style=" margin-top: 25px;"
+    >
       <div class="row">
         <div class="col-md-3 my-auto" style="text-align: center">
           <a th:href="@{/home}">Brand</a>
         </div>
+        
         <div class="col-md-7">
           <nav class="nav justify-content-center">
             <a class="nav-link" th:href="@{/home}">Home</a>
@@ -94,21 +82,33 @@
             <a class="nav-link" th:href="@{/about}">About</a>
           </nav>
         </div>
-        <div class="col-md-2 my-auto" style="text-align: center">
+
+        <div class="col-md-2 my-auto" style="text-align: center;">
           <!-- login already -->
-          <div th:if="${session.user} != null" class="">
+          <div th:if="${session.user} != null" style="vertical-align: middle">
             <!-- user icon -->
             <span class="dropdown">
               <a id="navbar-dropdown-usericon" data-toggle="dropdown">
-                <i
-                  class="fa fa-user-circle"
-                  style="font-size: 25px; color: white"
-                ></i>
+                <img
+                  th:src="@{${session.user.imgURL}}"
+                  alt=""
+                  class="rounded-circle"
+                  style="width: 30px; height: 30px; object-fit: cover"
+                />
               </a>
               <div
                 class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="navbar-dropdown-usericon"
               >
+                <a
+                  th:if="${session.user.privilege} == 1"
+                  th:href="@{/admin/manage/authors}"
+                  class="dropdown-item btn btn-primary "
+                  >Quản lý trang web</a
+                >
+
+                <div class="dropdown-divider"></div>
+
                 <a
                   class="dropdown-item"
                   th:href="@{/{uid}/shopping-history(uid=${session.user.id})}"
@@ -132,13 +132,13 @@
                 ></a>
               </div>
             </span>
-            <span></span>
+
             <!-- cart icon -->
-            <span class="dropdown ml-3">
+            <span class="dropdown ml-4">
               <a id="navbar-cart-icon" data-toggle="dropdown">
                 <i
-                  class="fas fa-shopping-cart"
-                  style="font-size: 25px; color: white"
+                  class="fas fa-shopping-bag"
+                  style="font-size: 30px; color: white"
                 ></i>
               </a>
               <div
@@ -162,15 +162,8 @@
                     >Quản lý giỏ hàng</a
                   >
                 </div>
-              </div>
+              </span>
             </span>
-
-            <a
-              th:if="${session.user.privilege} == 1"
-              th:href="@{/admin/manage/authors}"
-              class="btn btn-primary btn-sm float-right"
-              >Manage</a
-            >
           </div>
 
           <div th:if="${session.user} == null">
@@ -178,7 +171,7 @@
               >Login <i class="fas fa-sign-in-alt"></i
             ></a>
             <span></span>
-            <a class="ml-3" th:href="@{/signup#navbar}"
+            <a class="float-right" th:href="@{/signup#navbar}"
               >Sign Up <i class="fas fa-user-plus"></i
             ></a>
           </div>
@@ -310,12 +303,13 @@
       </div>
     </section>
 
+    <!-- collapse-intro -->
     <section
       th:fragment="collapse-intro"
       id="collapse-intro"
       class="container-fluid bg-danger"
     >
-      <div class="row py-2">
+      <div class="row py-1">
         <div class="col-md-3">
           <div class="my-dropdown">
             <div class="my-dropdown-button">
@@ -369,7 +363,7 @@
           </div>
         </div>
 
-        <div class="col-md-9" style="margin: auto">
+        <div class="col-md-9" id="intro-collapse-col2">
           <div style="position: relative; ">
             <input
               type="search"
@@ -527,7 +521,7 @@
     </div>
 
     <!-- footer -->
-    <footer th:fragment="footer">
+    <footer th:fragment="footer" id="footer">
       <div class="jumbotron jumbotron-fluid mb-0 ">
         <div class="container-fluid">
           <h1 class="display-3">Footer</h1>
