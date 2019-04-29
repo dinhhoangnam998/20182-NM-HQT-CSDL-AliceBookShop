@@ -63,6 +63,7 @@ public class InputController {
 	public String addRow(final Input input, final BindingResult bindingResult, Model model) {
 		input.getBook_inputs().add(new Book_Input());
 		model.addAttribute("books", bookService.bookJpa.findAll());
+		model.addAttribute("suppliers", supplierJpa.findByDeleted(false));
 		return "/admin/manage/inputs/add";
 	}
 
@@ -72,6 +73,7 @@ public class InputController {
 		final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
 		input.getBook_inputs().remove(rowId.intValue());
 		model.addAttribute("books", bookService.bookJpa.findAll());
+		model.addAttribute("suppliers", supplierJpa.findByDeleted(false));
 		return "/admin/manage/inputs/add";
 	}
 
@@ -99,6 +101,7 @@ public class InputController {
 	public String addRowEdit(final Input input, final BindingResult bindingResult, Model model) {
 		input.getBook_inputs().add(new Book_Input());
 		model.addAttribute("books", bookService.bookJpa.findAll());
+		model.addAttribute("suppliers", supplierJpa.findByDeleted(false));
 		return "/admin/manage/inputs/edit";
 	}
 
@@ -110,6 +113,7 @@ public class InputController {
 		inputService.biService.book_inputJpa.delete(bi);
 		input.getBook_inputs().remove(rowId.intValue());
 		model.addAttribute("books", bookService.bookJpa.findAll());
+		model.addAttribute("suppliers", supplierJpa.findByDeleted(false));
 		return "/admin/manage/inputs/edit";
 	}
 

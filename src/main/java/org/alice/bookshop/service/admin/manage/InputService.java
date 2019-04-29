@@ -34,10 +34,11 @@ public class InputService {
 		inputJpa.save(input);
 		for (Book_Input bi : input.getBook_inputs()) {
 			bi.setInput(input);
-			int bookId = bi.getBook().getId();
-			Book book = bookJpa.getOne(bookId);
-			book.setRemainQuantity(book.getRemainQuantity() + bi.getQuantity());
-			bookJpa.save(book);
+//			does not use any more because use trigger instead
+//			int bookId = bi.getBook().getId();
+//			Book book = bookJpa.getOne(bookId);
+//			book.setRemainQuantity(book.getRemainQuantity() + bi.getQuantity());
+//			bookJpa.save(book);
 			biService.book_inputJpa.save(bi);
 		}
 		return "Add input " + input.getId() + " successed";

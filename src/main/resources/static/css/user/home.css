@@ -2,6 +2,30 @@
   box-sizing: border-box;
 }
 
+#intro {
+  border: solid 2px black;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+#intro .col-md-9 {
+  padding-left: 0;
+}
+
+#search-box {
+  margin-top: 2px;
+}
+
+#carousel {
+  margin-top: 9px;
+}
+
+#carousel img {
+  height: 393px;
+  width: 100%;
+  object-fit: cover;
+}
+
 .myslider img {
   height: 350px;
   width: 100%;
@@ -16,5 +40,5 @@ main .container-fluid {
 main .container-fluid h3 {
   border-bottom: solid 2px gray;
   margin-bottom: 1rem;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
 }

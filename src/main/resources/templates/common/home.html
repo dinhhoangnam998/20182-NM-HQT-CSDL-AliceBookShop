@@ -1,251 +1,262 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:include="~{/base::head ('Home')}"></th:block>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}" />
+  </head>
 
-<head>
-  <th:block th:include="~{/base::head ('Home')}"></th:block>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/user/home.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{/css/user/ss-top.css}">
-</head>
+  <body>
+    <!-- header -->
+    <header th:replace="/base::header"></header>
 
-<body>
-  <!-- header -->
-  <header th:replace="/base::header"></header>
+    <!-- navbar -->
+    <nav th:replace="/base::navbar"></nav>
 
-  <!-- navbar -->
-  <nav th:replace="/base::navbar"></nav>
+    <!-- section -->
+    <section th:replace="~{/base::intro}"></section>
 
-  <!-- section -->
-  <section th:replace="~{/base::category}">
-  </section>
-
-  <!-- main -->
-  <main>
-    <div class="container-fluid bg-success">
-      <!-- content-title -->
-      <h3 th:text="${category1}"></h3>
-      <!-- content-body -->
-      <div>
-        <ul id="slider1" class="myslider">
-          <li th:each="book : ${books1}">
-            <div>
-              <div class="card">
-                <img th:src="@{${book.imgURL}}" alt="" class="card-img-top">
-                <div class="card-header">
-                  [[${book.name}]]
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    [[${book.coverPrice}]]
+    <!-- main -->
+    <main>
+      <div class="container-fluid bg-success">
+        <!-- content-title -->
+        <h3 th:text="${category1}"></h3>
+        <!-- content-body -->
+        <div>
+          <ul id="slider1" class="myslider">
+            <li th:each="book : ${books1}">
+              <div>
+                <div class="card">
+                  <img th:src="@{${book.imgURL}}" alt="" class="card-img-top" />
+                  <div class="card-header">
+                    [[${book.name}]]
                   </div>
-                  <div class="card-text">
-                    [[${book.author.name}]]
+                  <div class="card-body">
+                    <div class="card-title">
+                      [[${book.coverPrice}]]
+                    </div>
+                    <div class="card-text">
+                      [[${book.author.name}]]
+                    </div>
+                    <a
+                      th:href="@{/books/{id}#navbar(id=${book.id})}"
+                      class="card-link stretched-link"
+                    >
+                    </a>
                   </div>
-                  <a th:href="@{/books/{id}#navbar(id=${book.id})}" class="card-link stretched-link">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="container-fluid bg-primary">
-      <!-- content-title -->
-      <h3 th:text="${category2}"></h3>
-      <!-- content-body -->
-      <div>
-        <ul id="slider2" class="myslider">
-          <li th:each="book : ${books2}">
-            <div>
-              <div class="card">
-                <img th:src="@{${book.imgURL}}" alt="" class="card-img-top">
-                <div class="card-header">
-                  [[${book.name}]]
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    [[${book.coverPrice}]]
-                  </div>
-                  <div class="card-text">
-                    [[${book.author.name}]]
-                  </div>
-                  <a th:href="@{/books/{id}(id=${book.id})}" class="card-link stretched-link">
-                  </a>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="container-fluid bg-dark">
-      <!-- content-title -->
-      <h3 th:text="${category3}"></h3>
-      <!-- content-body -->
-      <div>
-        <ul id="slider3" class="myslider">
-          <li th:each="book : ${books3}">
-            <div>
-              <div class="card">
-                <img th:src="@{${book.imgURL}}" alt="" class="card-img-top">
-                <div class="card-header">
-                  [[${book.name}]]
-                  <!-- [[${book.imgURL}]] -->
-                </div>
-                <div class="card-body">
-                  <div class="card-title">
-                    [[${book.coverPrice}]]
+      <div class="container-fluid bg-primary">
+        <!-- content-title -->
+        <h3 th:text="${category2}"></h3>
+        <!-- content-body -->
+        <div>
+          <ul id="slider2" class="myslider">
+            <li th:each="book : ${books2}">
+              <div>
+                <div class="card">
+                  <img th:src="@{${book.imgURL}}" alt="" class="card-img-top" />
+                  <div class="card-header">
+                    [[${book.name}]]
                   </div>
-                  <div class="card-text">
-                    [[${book.author.name}]]
+                  <div class="card-body">
+                    <div class="card-title">
+                      [[${book.coverPrice}]]
+                    </div>
+                    <div class="card-text">
+                      [[${book.author.name}]]
+                    </div>
+                    <a
+                      th:href="@{/books/{id}(id=${book.id})}"
+                      class="card-link stretched-link"
+                    >
+                    </a>
                   </div>
-                  <a th:href="@{/books/{id}(id=${book.id})}" class="card-link stretched-link">
-                  </a>
                 </div>
               </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </main>
-  <!-- footer -->
-  <footer th:replace="/base::footer"></footer>
 
-  <script>
-    $(document).ready(function () {
-      $('#slider1').lightSlider({
-        item: 4,
-        autoWidth: false,
-        slideMove: 1, // slidemove will be 1 if loop is true
-        slideMargin: 10,
+      <div class="container-fluid bg-dark">
+        <!-- content-title -->
+        <h3 th:text="${category3}"></h3>
+        <!-- content-body -->
+        <div>
+          <ul id="slider3" class="myslider">
+            <li th:each="book : ${books3}">
+              <div>
+                <div class="card">
+                  <img th:src="@{${book.imgURL}}" alt="" class="card-img-top" />
+                  <div class="card-header">
+                    [[${book.name}]]
+                    <!-- [[${book.imgURL}]] -->
+                  </div>
+                  <div class="card-body">
+                    <div class="card-title">
+                      [[${book.coverPrice}]]
+                    </div>
+                    <div class="card-text">
+                      [[${book.author.name}]]
+                    </div>
+                    <a
+                      th:href="@{/books/{id}(id=${book.id})}"
+                      class="card-link stretched-link"
+                    >
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <!-- footer -->
+    <footer th:replace="/base::footer"></footer>
 
-        addClass: '',
-        mode: "slide",
-        useCSS: true,
-        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-        easing: 'ease', //'for jquery animation',////
+    <script>
+      $(document).ready(function() {
+        $("#slider1").lightSlider({
+          item: 4,
+          autoWidth: false,
+          slideMove: 1, // slidemove will be 1 if loop is true
+          slideMargin: 10,
 
-        speed: 1000, //ms'
-        auto: true,
-        loop: true,
-        slideEndAnimation: false,
-        pause: 4000,
+          addClass: "",
+          mode: "slide",
+          useCSS: true,
+          cssEasing: "ease", //'cubic-bezier(0.25, 0, 0.25, 1)',//
+          easing: "ease", //'for jquery animation',////
 
-        keyPress: false,
-        controls: true,
-        prevHtml: '<i class="fas fa-angle-left" style="font-size: 40px;"></i>',
-        nextHtml: '<i class="fas fa-angle-right" style="font-size: 40px;"></i>',
+          speed: 1000, //ms'
+          auto: true,
+          loop: true,
+          slideEndAnimation: false,
+          pause: 4000,
 
-        rtl: false,
-        responsive: [
-          {
-            breakpoint: 770,
-            settings: {
-              item: 2,
-              slideMargin: 6
+          keyPress: false,
+          controls: true,
+          prevHtml:
+            '<i class="fas fa-angle-left" style="font-size: 40px;"></i>',
+          nextHtml:
+            '<i class="fas fa-angle-right" style="font-size: 40px;"></i>',
+
+          rtl: false,
+          responsive: [
+            {
+              breakpoint: 770,
+              settings: {
+                item: 2,
+                slideMargin: 6
+              }
+            },
+            {
+              breakpoint: 570,
+              settings: {
+                item: 1,
+                slideMargin: 3
+              }
             }
-          },
-          {
-            breakpoint: 570,
-            settings: {
-              item: 1,
-              slideMargin: 3
+          ]
+        });
+
+        $("#slider2").lightSlider({
+          item: 4,
+          autoWidth: false,
+          slideMove: 1, // slidemove will be 1 if loop is true
+          slideMargin: 10,
+
+          addClass: "",
+          mode: "slide",
+          useCSS: true,
+          cssEasing: "ease", //'cubic-bezier(0.25, 0, 0.25, 1)',//
+          easing: "ease", //'for jquery animation',////
+
+          speed: 1000, //ms'
+          auto: false,
+          loop: false,
+          slideEndAnimation: true,
+          pause: 4000,
+
+          keyPress: false,
+          controls: true,
+          prevHtml:
+            '<i class="fas fa-angle-left" style="font-size: 40px; color: black"></i>',
+          nextHtml:
+            '<i class="fas fa-angle-right" style="font-size: 40px;"></i>',
+
+          rtl: false,
+          adaptiveHeight: false,
+          responsive: [
+            {
+              breakpoint: 770,
+              settings: {
+                item: 2,
+                slideMargin: 6
+              }
+            },
+            {
+              breakpoint: 570,
+              settings: {
+                item: 1,
+                slideMargin: 3
+              }
             }
-          }
-        ]
+          ]
+        });
+
+        $("#slider3").lightSlider({
+          item: 4,
+          autoWidth: false,
+          slideMove: 1, // slidemove will be 1 if loop is true
+          slideMargin: 10,
+
+          addClass: "",
+          mode: "slide",
+          useCSS: true,
+          cssEasing: "ease", //'cubic-bezier(0.25, 0, 0.25, 1)',//
+          easing: "ease", //'for jquery animation',////
+
+          speed: 1000, //ms'
+          auto: true,
+          loop: true,
+          slideEndAnimation: false,
+          pause: 4000,
+
+          keyPress: false,
+          controls: true,
+          prevHtml:
+            '<i class="fas fa-angle-left" style="font-size: 40px;"></i>',
+          nextHtml:
+            '<i class="fas fa-angle-right" style="font-size: 40px;"></i>',
+
+          rtl: false,
+          adaptiveHeight: false,
+
+          responsive: [
+            {
+              breakpoint: 770,
+              settings: {
+                item: 2,
+                slideMargin: 6
+              }
+            },
+            {
+              breakpoint: 570,
+              settings: {
+                item: 1,
+                slideMargin: 3
+              }
+            }
+          ]
+        });
       });
-
-      $('#slider2').lightSlider({
-        item: 4,
-        autoWidth: false,
-        slideMove: 1, // slidemove will be 1 if loop is true
-        slideMargin: 10,
-
-        addClass: '',
-        mode: "slide",
-        useCSS: true,
-        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-        easing: 'ease', //'for jquery animation',////
-
-        speed: 1000, //ms'
-        auto: false,
-        loop: false,
-        slideEndAnimation: true,
-        pause: 4000,
-
-        keyPress: false,
-        controls: true,
-        prevHtml: '<i class="fas fa-angle-left" style="font-size: 40px; color: black"></i>',
-        nextHtml: '<i class="fas fa-angle-right" style="font-size: 40px;"></i>',
-
-        rtl: false,
-        adaptiveHeight: false,
-        responsive: [
-          {
-            breakpoint: 770,
-            settings: {
-              item: 2,
-              slideMargin: 6
-            }
-          },
-          {
-            breakpoint: 570,
-            settings: {
-              item: 1,
-              slideMargin: 3
-            }
-          }
-        ]
-      });
-
-      $('#slider3').lightSlider({
-        item: 4,
-        autoWidth: false,
-        slideMove: 1, // slidemove will be 1 if loop is true
-        slideMargin: 10,
-
-        addClass: '',
-        mode: "slide",
-        useCSS: true,
-        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-        easing: 'ease', //'for jquery animation',////
-
-        speed: 1000, //ms'
-        auto: true,
-        loop: true,
-        slideEndAnimation: false,
-        pause: 4000,
-
-        keyPress: false,
-        controls: true,
-        prevHtml: '<i class="fas fa-angle-left" style="font-size: 40px;"></i>',
-        nextHtml: '<i class="fas fa-angle-right" style="font-size: 40px;"></i>',
-
-        rtl: false,
-        adaptiveHeight: false,
-
-        responsive: [
-          {
-            breakpoint: 770,
-            settings: {
-              item: 2,
-              slideMargin: 6
-            }
-          },
-          {
-            breakpoint: 570,
-            settings: {
-              item: 1,
-              slideMargin: 3
-            }
-          }
-        ]
-      });
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
