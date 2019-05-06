@@ -24,7 +24,7 @@
     <script th:src="@{/vender/slider/js/lightslider.js}"></script>
     <link rel="stylesheet" th:href="@{/css/admin/general-layout.css}" />
     <link rel="stylesheet" th:href="@{/css/user/collapse-intro.css}" />
-    <link rel="stylesheet" th:href="@{/css/base/simple-layout.css}">
+    <link rel="stylesheet" th:href="@{/css/base/simple-layout.css}" />
     <script th:src="@{/js/admin/tbl-icon-hover.js}"></script>
     <script th:src="@{/js/search-box.js}"></script>
     <script th:inline="javascript" th:if="${session.user} != null">
@@ -79,87 +79,96 @@
           </nav>
         </div>
 
-        <div class="col-md-2 my-auto" style="text-align: center;">
+        <div class="col-md-2 my-auto ">
           <!-- login already -->
-          <div th:if="${session.user} != null" style="vertical-align: middle">
-            <!-- user icon -->
-            <span class="dropdown">
-              <a id="navbar-dropdown-usericon" data-toggle="dropdown">
-                <img
-                  th:src="@{${session.user.imgURL}}"
-                  alt=""
-                  class="rounded-circle"
-                  style="width: 30px; height: 30px; object-fit: cover"
-                />
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-right"
-                aria-labelledby="navbar-dropdown-usericon"
-              >
-                <a
-                  th:if="${session.user.privilege} == 1"
-                  th:href="@{/admin/manage/authors}"
-                  class="dropdown-item btn btn-primary "
-                  >Quản lý trang web</a
-                >
-
-                <div th:if="${session.user.privilege} == 1" class="dropdown-divider"></div>
-
-                <a
-                  class="dropdown-item"
-                  th:href="@{/{uid}/shopping-history(uid=${session.user.id})}"
-                  >Lịch sử mua sắm</a
-                >
-                <div class="dropdown-divider"></div>
-                <a
-                  class="dropdown-item"
-                  th:href="@{/profiles/{id}#navbar(id=${session.user.id})}"
-                  >Thông tin tài khoản</a
-                >
-
-                <a
-                  class="dropdown-item"
-                  th:href="@{/profiles/{id}/change-password#navbar(id=${session.user.id})}"
-                  >Đổi mật khẩu</a
-                >
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" th:href="@{/logout}"
-                  >Đăng xuất <i class="fas fa-sign-out-alt"></i
-                ></a>
-              </div>
-            </span>
-
-            <!-- cart icon -->
-            <span class="dropdown ml-4">
-              <a id="navbar-cart-icon" data-toggle="dropdown">
-                <i
-                  class="fas fa-shopping-bag"
-                  style="font-size: 30px; color: white"
-                ></i>
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-right px-2"
-                style="width: 300px;"
-              >
-                <table class="table table-sm">
-                  <thead>
-                    <tr>
-                      <th>STT</th>
-                      <th>Tên sách</th>
-                      <th>Số lượng</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-body"></tbody>
-                </table>
-                <div>
-                  <a
-                    th:href="@{/carts/{id}/manage(id=${session.cart.id})}"
-                    class="btn btn-sm btn-primary float-right"
-                    >Quản lý giỏ hàng</a
+          <div th:if="${session.user} != null" class="container-fulid">
+            <div class="row">
+              <!-- user icon -->
+              <div class="col-md-4"></div>
+              <div class="col-md-4 ">
+                <div class="dropdown">
+                  <a id="navbar-dropdown-usericon" data-toggle="dropdown">
+                    <img
+                      th:src="@{${session.user.imgURL}}"
+                      alt=""
+                      class="rounded-circle"
+                      style="width: 30px; height: 30px; object-fit: cover"
+                    />
+                  </a>
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    aria-labelledby="navbar-dropdown-usericon"
                   >
+                    <a
+                      th:if="${session.user.privilege} == 1"
+                      th:href="@{/admin/manage/authors}"
+                      class="dropdown-item btn btn-primary "
+                      >Quản lý trang web</a
+                    >
+
+                    <div
+                      th:if="${session.user.privilege} == 1"
+                      class="dropdown-divider"
+                    ></div>
+
+                    <a
+                      class="dropdown-item"
+                      th:href="@{/{uid}/shopping-history(uid=${session.user.id})}"
+                      >Lịch sử mua sắm</a
+                    >
+                    <div class="dropdown-divider"></div>
+                    <a
+                      class="dropdown-item"
+                      th:href="@{/profiles/{id}#navbar(id=${session.user.id})}"
+                      >Thông tin tài khoản</a
+                    >
+
+                    <a
+                      class="dropdown-item"
+                      th:href="@{/profiles/{id}/change-password#navbar(id=${session.user.id})}"
+                      >Đổi mật khẩu</a
+                    >
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:href="@{/logout}"
+                      >Đăng xuất <i class="fas fa-sign-out-alt"></i
+                    ></a>
+                  </div>
                 </div>
               </div>
-            </span>
+              <div class="col-md-4 ">
+                <!-- cart icon -->
+                <div class="dropdown">
+                  <a id="navbar-cart-icon" data-toggle="dropdown">
+                    <i
+                      class="fas fa-shopping-bag"
+                      style="font-size: 30px; color: white"
+                    ></i>
+                  </a>
+                  <div
+                    class="dropdown-menu dropdown-menu-right px-2"
+                    style="width: 300px;"
+                  >
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>STT</th>
+                          <th>Tên sách</th>
+                          <th>Số lượng</th>
+                        </tr>
+                      </thead>
+                      <tbody id="table-body"></tbody>
+                    </table>
+                    <div>
+                      <a
+                        th:href="@{/carts/{id}/manage(id=${session.cart.id})}"
+                        class="btn btn-sm btn-primary float-right"
+                        >Quản lý giỏ hàng</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div th:if="${session.user} == null">

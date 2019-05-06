@@ -67,10 +67,10 @@
                   <tr th:each="orderLine: ${order.orderLines}">
                     <td scope="row" th:text="${orderLine.book.name}"></td>
                     <td
-                      th:text="${orderLine.totalLine / orderLine.quantity}"
-                    ></td>
+                     
+                    >[[${orderLine.totalLine / orderLine.quantity}]].000đ</td>
                     <td th:text="${orderLine.quantity}"></td>
-                    <td th:text="${orderLine.totalLine}"></td>
+                    <td>[[${orderLine.totalLine}]].000đ</td>
                   </tr>
                 </tbody>
               </table>
