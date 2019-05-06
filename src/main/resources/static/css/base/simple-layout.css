@@ -1,0 +1,27 @@
+     body {
+        padding: 0 50px;
+        background-color: #bdc3c7;
+      }
+
+      #navbar {
+        margin-top: 25px;
+      }
+
+      main {
+        /* background-color: inherit; */
+        margin-top: 25px;
+        margin-bottom: 25px;
+      }
+
+      .my-container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: white;
+        margin: 25px 0;
+      }
+
+      .my-container h3 {
+        border-bottom: solid 2px gray;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+      }
